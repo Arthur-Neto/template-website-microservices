@@ -1,0 +1,6 @@
+import { FeatureExample } from './feature-example.enum';
+
+export interface IFeatureExample {
+    id: number;
+    enum: FeatureExample;
+}

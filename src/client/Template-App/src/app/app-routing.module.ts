@@ -4,7 +4,11 @@ import {
     Routes,
 } from '@angular/router';
 
-const routes: Routes = [];
+import { FeatureExampleComponent } from './features/feature-example/feature-example.component';
+
+const routes: Routes = [
+    { path: 'feature-example', component: FeatureExampleComponent },
+];
 
 @NgModule({
     imports: [RouterModule.forRoot(routes)],
