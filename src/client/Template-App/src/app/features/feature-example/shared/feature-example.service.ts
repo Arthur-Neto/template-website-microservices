@@ -12,6 +12,6 @@ export class FeatureExampleService {
     public constructor() { }
 
     public getFeatureExample(): Observable<string> {
-        return of('');
+        return of('Working');
     }
 }
