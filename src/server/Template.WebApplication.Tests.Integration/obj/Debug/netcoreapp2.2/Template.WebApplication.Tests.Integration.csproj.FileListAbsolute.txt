@@ -1,0 +1,12 @@
+C:\Users\arthu\OneDrive\template-website\src\server\Template.WebApplication.Tests.Integration\bin\Debug\netcoreapp2.2\NUnit3.TestAdapter.dll
+C:\Users\arthu\OneDrive\template-website\src\server\Template.WebApplication.Tests.Integration\bin\Debug\netcoreapp2.2\NUnit3.TestAdapter.pdb
+C:\Users\arthu\OneDrive\template-website\src\server\Template.WebApplication.Tests.Integration\bin\Debug\netcoreapp2.2\nunit.engine.dll
+C:\Users\arthu\OneDrive\template-website\src\server\Template.WebApplication.Tests.Integration\bin\Debug\netcoreapp2.2\nunit.engine.api.dll
+C:\Users\arthu\OneDrive\template-website\src\server\Template.WebApplication.Tests.Integration\bin\Debug\netcoreapp2.2\Template.WebApplication.Tests.Integration.deps.json
+C:\Users\arthu\OneDrive\template-website\src\server\Template.WebApplication.Tests.Integration\bin\Debug\netcoreapp2.2\Template.WebApplication.Tests.Integration.runtimeconfig.json
+C:\Users\arthu\OneDrive\template-website\src\server\Template.WebApplication.Tests.Integration\bin\Debug\netcoreapp2.2\Template.WebApplication.Tests.Integration.runtimeconfig.dev.json
+C:\Users\arthu\OneDrive\template-website\src\server\Template.WebApplication.Tests.Integration\bin\Debug\netcoreapp2.2\Template.WebApplication.Tests.Integration.dll
+C:\Users\arthu\OneDrive\template-website\src\server\Template.WebApplication.Tests.Integration\obj\Debug\netcoreapp2.2\Template.WebApplication.Tests.Integration.csprojAssemblyReference.cache
+C:\Users\arthu\OneDrive\template-website\src\server\Template.WebApplication.Tests.Integration\obj\Debug\netcoreapp2.2\Template.WebApplication.Tests.Integration.csproj.CoreCompileInputs.cache
+C:\Users\arthu\OneDrive\template-website\src\server\Template.WebApplication.Tests.Integration\obj\Debug\netcoreapp2.2\Template.WebApplication.Tests.Integration.AssemblyInfoInputs.cache
+C:\Users\arthu\OneDrive\template-website\src\server\Template.WebApplication.Tests.Integration\obj\Debug\netcoreapp2.2\Template.WebApplication.Tests.Integration.AssemblyInfo.cs
