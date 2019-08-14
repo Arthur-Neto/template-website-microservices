@@ -1,9 +1,0 @@
-C:\Users\arthu\OneDrive\template-website\src\server\Template.Domain\bin\Debug\netcoreapp2.2\Template.Domain.deps.json
-C:\Users\arthu\OneDrive\template-website\src\server\Template.Domain\bin\Debug\netcoreapp2.2\Template.Domain.dll
-C:\Users\arthu\OneDrive\template-website\src\server\Template.Domain\bin\Debug\netcoreapp2.2\Template.Domain.pdb
-C:\Users\arthu\OneDrive\template-website\src\server\Template.Domain\obj\Debug\netcoreapp2.2\Template.Domain.csprojAssemblyReference.cache
-C:\Users\arthu\OneDrive\template-website\src\server\Template.Domain\obj\Debug\netcoreapp2.2\Template.Domain.csproj.CoreCompileInputs.cache
-C:\Users\arthu\OneDrive\template-website\src\server\Template.Domain\obj\Debug\netcoreapp2.2\Template.Domain.AssemblyInfoInputs.cache
-C:\Users\arthu\OneDrive\template-website\src\server\Template.Domain\obj\Debug\netcoreapp2.2\Template.Domain.AssemblyInfo.cs
-C:\Users\arthu\OneDrive\template-website\src\server\Template.Domain\obj\Debug\netcoreapp2.2\Template.Domain.dll
-C:\Users\arthu\OneDrive\template-website\src\server\Template.Domain\obj\Debug\netcoreapp2.2\Template.Domain.pdb
