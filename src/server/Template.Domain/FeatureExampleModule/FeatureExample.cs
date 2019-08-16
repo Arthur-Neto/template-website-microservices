@@ -2,9 +2,16 @@
 
 namespace Template.Domain.FeatureExampleModule
 {
-    public class FeatureExample : TEntity
+    public class FeatureExample : Entity
     {
-        public int ID { get; set; }
         public FeatureExampleEnum FeatureExampleType { get; private set; }
+
+        public FeatureExample()
+        { }
+
+        public FeatureExample(FeatureExampleEnum featureExampleType)
+        {
+            FeatureExampleType = featureExampleType;
+        }
     }
 }

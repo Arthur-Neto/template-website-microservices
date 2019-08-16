@@ -2,6 +2,6 @@
 {
     public enum FeatureExampleEnum
     {
-        enumExample = 1,
+        EnumExample = 1,
     }
 }

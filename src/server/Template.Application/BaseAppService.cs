@@ -1,6 +1,6 @@
 ﻿namespace Template.Application
 {
-    public class BaseAppService<TRepository>
+    public abstract class BaseAppService<TRepository>
     {
         protected TRepository Repository;
 

@@ -14,4 +14,12 @@
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.9.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Api\" />
+    <Folder Include="Application\" />
+    <Folder Include="Domain\" />
+    <Folder Include="Infra.Data.EF\" />
+    <Folder Include="Infra.Data.Crosscutting\" />
+  </ItemGroup>
+
 </Project>

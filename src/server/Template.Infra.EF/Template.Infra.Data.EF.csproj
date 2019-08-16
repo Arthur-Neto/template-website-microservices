@@ -9,11 +9,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Configurations\" />
-    <Folder Include="Repositories\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\Template.Domain\Template.Domain.csproj" />
   </ItemGroup>
 

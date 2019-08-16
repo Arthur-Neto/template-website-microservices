@@ -1,6 +1,6 @@
 ﻿namespace Template.Domain.CommonModule
 {
-    public interface TEntity
+    public interface IEntity
     {
         int ID { get; set; }
     }

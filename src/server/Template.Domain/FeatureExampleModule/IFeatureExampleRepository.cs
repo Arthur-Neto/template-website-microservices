@@ -2,6 +2,10 @@
 
 namespace Template.Domain.FeatureExampleModule
 {
-    public interface IFeatureExampleRepository : TRepository<FeatureExample>
+    public interface IFeatureExampleRepository :
+        GetRepository<FeatureExample>,
+        AddRepository<FeatureExample>,
+        RemoveRepository<FeatureExample>,
+        UpdateRepository<FeatureExample>
     { }
 }

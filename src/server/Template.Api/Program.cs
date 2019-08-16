@@ -4,7 +4,7 @@ using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 
-namespace Template.WebApplication
+namespace Template.Api
 {
     public class Program
     {
