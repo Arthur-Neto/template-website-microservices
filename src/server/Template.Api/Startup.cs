@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Template.Api.DependencyResolution;
+using Template.Api.Filters;
 using Template.Application.FeatureExampleModule.Profiles;
 using Template.Infra.Data.EF.Context;
 
@@ -23,7 +24,12 @@ namespace Template.Api
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvcCore().AddJsonFormatters();
+            services.AddMvcCore(
+                config =>
+                {
+                    config.Filters.Add(new CheckInvalidIdOnRouteFilterAttribute());
+                }).AddJsonFormatters();
+
             services.AddDbContext<ExampleContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Example_Database")));
             services.AddAutoMapper(Assembly.GetAssembly(typeof(FeatureExampleProfile)));
         }

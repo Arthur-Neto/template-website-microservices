@@ -13,7 +13,7 @@ namespace Template.Application.FeatureExampleModule.Models.Commands
         public FeatureExampleAddCommandCommandValidator()
         {
             RuleFor(x => x.FeatureExampleType)
-                .NotNull();
+                .IsInEnum();
         }
     }
 }
