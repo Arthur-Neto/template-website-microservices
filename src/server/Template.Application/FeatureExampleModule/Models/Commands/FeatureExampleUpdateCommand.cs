@@ -18,7 +18,7 @@ namespace Template.Application.FeatureExampleModule.Models.Commands
                 .GreaterThan(0);
 
             RuleFor(x => x.FeatureExampleType)
-                .NotNull();
+                .IsInEnum();
         }
     }
 }

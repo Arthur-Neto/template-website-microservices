@@ -92,24 +92,51 @@ namespace Template.Tests.Api.Controllers
         }
 
         [Test]
-        public async Task Should_ReturnBadRequest_When_Add_With_InvalidCommand()
+        public async Task Should_ReturnOk_When_Update()
         {
             // Arrange
-            var command = new FeatureExampleAddCommand();
+            var command = new FeatureExampleUpdateCommand()
+            {
+                ID = 1,
+                FeatureExampleType = FeatureExampleEnum.EnumExample,
+            };
 
             _moqFeatureExampleAppService
-                .Setup(x => x.AddAsync(command))
+                .Setup(x => x.UpdateAsync(command))
                 .ReturnsAsync(true)
                 .Verifiable();
 
             // Action
             var controller = GetController();
 
-            var result = await controller.AddAsync(command);
+            var result = await controller.UpdateAsync(command);
 
             // Assert
-            var okObjectResult = result.Should().BeOfType<BadRequestObjectResult>().Subject;
-            okObjectResult.StatusCode.Should().Be(400);
+            var okObjectResult = result.Should().BeOfType<OkObjectResult>().Subject;
+            okObjectResult.StatusCode.Should().Be(200);
+
+            _moqFeatureExampleAppService.Verify();
+        }
+
+        [Test]
+        public async Task Should_ReturnOk_When_Remove()
+        {
+            // Arrange
+            var id = 1;
+
+            _moqFeatureExampleAppService
+                .Setup(x => x.RemoveAsync(id))
+                .ReturnsAsync(true)
+                .Verifiable();
+
+            // Action
+            var controller = GetController();
+
+            var result = await controller.RemoveAsync(id);
+
+            // Assert
+            var okObjectResult = result.Should().BeOfType<OkObjectResult>().Subject;
+            okObjectResult.StatusCode.Should().Be(200);
 
             _moqFeatureExampleAppService.Verify();
         }

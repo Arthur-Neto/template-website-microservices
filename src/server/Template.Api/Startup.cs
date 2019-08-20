@@ -1,6 +1,7 @@
 ﻿using System.Reflection;
 using Autofac;
 using AutoMapper;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -8,6 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Template.Api.DependencyResolution;
 using Template.Api.Filters;
+using Template.Application.FeatureExampleModule.Models.Commands;
 using Template.Application.FeatureExampleModule.Profiles;
 using Template.Infra.Data.EF.Context;
 
@@ -28,7 +30,9 @@ namespace Template.Api
                 config =>
                 {
                     config.Filters.Add(new CheckInvalidIdOnRouteFilterAttribute());
-                }).AddJsonFormatters();
+                })
+                .AddJsonFormatters()
+                .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<FeatureExampleAddCommandCommandValidator>());
 
             services.AddDbContext<ExampleContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Example_Database")));
             services.AddAutoMapper(Assembly.GetAssembly(typeof(FeatureExampleProfile)));
