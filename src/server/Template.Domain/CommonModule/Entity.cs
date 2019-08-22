@@ -5,7 +5,7 @@ namespace Template.Domain.CommonModule
 {
     public class Entity : IEntity, IEquatable<Entity>
     {
-        public int ID { get; set; }
+        public virtual int ID { get; private set; }
 
         public override bool Equals(object obj)
         {
