@@ -80,9 +80,9 @@ namespace Template.Tests.Application.FeatureExampleModule
 
             var featureIDToRemove = 1;
 
-            _moqMapper
-                .Setup(x => x.Map<FeatureExample>(featureIDToRemove))
-                .Returns(feature)
+            _moqFeatureExampleRepository
+                .Setup(x => x.GetByIDAsync(featureIDToRemove))
+                .ReturnsAsync(feature)
                 .Verifiable();
 
             _moqFeatureExampleRepository
@@ -105,6 +105,30 @@ namespace Template.Tests.Application.FeatureExampleModule
             _moqMapper.Verify();
             _moqFeatureExampleRepository.Verify();
             _moqUnitOfWork.Verify();
+        }
+
+        [Test]
+        public void Should_ThrowNullReferenceException_When_Remove_With_FeatureExampleNotFound()
+        {
+            // Arrange
+            var feature = new FeatureExample();
+
+            var featureIDToRemove = 1;
+
+            _moqFeatureExampleRepository
+                .Setup(x => x.GetByIDAsync(featureIDToRemove))
+                .ReturnsAsync(default(FeatureExample))
+                .Verifiable();
+
+            // Action
+            var service = GetService();
+
+            Func<Task> action = async () => await service.RemoveAsync(featureIDToRemove);
+
+            // Assert
+            action.Should().Throw<NullReferenceException>().WithMessage("NotFound");
+
+            _moqFeatureExampleRepository.Verify();
         }
 
         [Test]
@@ -178,9 +202,9 @@ namespace Template.Tests.Application.FeatureExampleModule
 
             var feature = new FeatureExample();
 
-            _moqMapper
-                .Setup(x => x.Map<FeatureExample>(command))
-                .Returns(feature)
+            _moqFeatureExampleRepository
+                .Setup(x => x.GetByIDAsync(command.ID))
+                .ReturnsAsync(feature)
                 .Verifiable();
 
             _moqFeatureExampleRepository
@@ -203,6 +227,32 @@ namespace Template.Tests.Application.FeatureExampleModule
             _moqMapper.Verify();
             _moqFeatureExampleRepository.Verify();
             _moqUnitOfWork.Verify();
+        }
+
+        [Test]
+        public void Should_ThrowNullReferenceException_When_Update_With_FeatureExampleNotFound()
+        {
+            // Arrange
+            var command = new FeatureExampleUpdateCommand()
+            {
+                ID = 1,
+                FeatureExampleType = FeatureExampleEnum.EnumExample
+            };
+
+            _moqFeatureExampleRepository
+                .Setup(x => x.GetByIDAsync(command.ID))
+                .ReturnsAsync(default(FeatureExample))
+                .Verifiable();
+
+            // Action
+            var service = GetService();
+
+            Func<Task> action = async () => await service.UpdateAsync(command);
+
+            // Assert
+            action.Should().Throw<NullReferenceException>().WithMessage("NotFound");
+
+            _moqFeatureExampleRepository.Verify();
         }
 
         private FeatureExampleAppService GetService()

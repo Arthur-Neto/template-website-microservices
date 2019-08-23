@@ -5,6 +5,7 @@ using AutoMapper;
 using Template.Application.FeatureExampleModule.Models.Commands;
 using Template.Domain.CommonModule;
 using Template.Domain.FeatureExampleModule;
+using Template.Infra.Data.Crosscutting.Guard;
 
 namespace Template.Application.FeatureExampleModule
 {
@@ -44,7 +45,8 @@ namespace Template.Application.FeatureExampleModule
 
         public async Task<bool> RemoveAsync(int id)
         {
-            var featureExample = _mapper.Value.Map<FeatureExample>(id);
+            var featureExample = await Repository.GetByIDAsync(id);
+            Guard.AgainstNull(featureExample, ExceptionArguments.NotFound);
 
             Repository.Remove(featureExample);
 
@@ -63,7 +65,8 @@ namespace Template.Application.FeatureExampleModule
 
         public async Task<bool> UpdateAsync(FeatureExampleUpdateCommand command)
         {
-            var featureExample = _mapper.Value.Map<FeatureExample>(command);
+            var featureExample = await Repository.GetByIDAsync(command.ID);
+            Guard.AgainstNull(featureExample, ExceptionArguments.NotFound);
 
             Repository.Update(featureExample);
 

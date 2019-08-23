@@ -17,13 +17,13 @@
 
   <ItemGroup>
     <Folder Include="Domain\" />
-    <Folder Include="Infra.Data.Crosscutting\" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Template.Api\Template.Api.csproj" />
     <ProjectReference Include="..\Template.Application\Template.Application.csproj" />
     <ProjectReference Include="..\Template.Domain\Template.Domain.csproj" />
+    <ProjectReference Include="..\Template.Infra.Crosscutting\Template.Infra.Data.Crosscutting.csproj" />
   </ItemGroup>
 
 </Project>
