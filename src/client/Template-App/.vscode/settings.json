@@ -17,6 +17,10 @@
     "editor.insertSpaces": true,
     "editor.tabSize": 4,
     "editor.trimAutoWhitespace": true,
+    "editor.formatOnSave": true,
+    "[html]": {
+        "editor.formatOnSave": false
+    },
     // Typescript
     "typescript.format.insertSpaceAfterCommaDelimiter": true,
     "typescript.format.insertSpaceAfterSemicolonInForStatements": true,
@@ -26,6 +30,7 @@
     "typescript.format.insertSpaceAfterOpeningAndBeforeClosingTemplateStringBraces": true,
     "typescript.format.placeOpenBraceOnNewLineForFunctions": false,
     "typescript.format.placeOpenBraceOnNewLineForControlBlocks": false,
+    "typescript.preferences.importModuleSpecifier": "relative",
     "typescript.implementationsCodeLens.enabled": true,
     "typescript.tsdk": "node_modules\\typescript\\lib",
     // Linters
@@ -41,6 +46,10 @@
             "regex": "^$",
             "orderLevel": 5,
             "disableSort": true
+        },
+        {
+            "regex": "^(@|(angular))",
+            "orderLevel": 6
         },
         {
             "regex": "^(@|(?!shared|core|features|\\.))",

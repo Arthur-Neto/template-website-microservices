@@ -34,6 +34,15 @@ namespace Template.Api
                 .AddJsonFormatters()
                 .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<FeatureExampleAddCommandCommandValidator>());
 
+            services.AddCors(c =>
+            {
+                c.AddPolicy("AllowOrigin", options =>
+                {
+                    options.AllowAnyOrigin();
+                    options.AllowAnyHeader();
+                    options.AllowAnyMethod();
+                });
+            });
             services.AddDbContext<ExampleContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Example_Database")));
             services.AddAutoMapper(Assembly.GetAssembly(typeof(FeatureExampleProfile)));
         }
@@ -53,7 +62,12 @@ namespace Template.Api
             {
                 app.UseHsts();
             }
-
+            app.UseCors(options =>
+            {
+                options.AllowAnyOrigin();
+                options.AllowAnyHeader();
+                options.AllowAnyMethod();
+            });
             app.UseMvc();
         }
     }
