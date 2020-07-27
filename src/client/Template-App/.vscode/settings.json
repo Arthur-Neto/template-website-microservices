@@ -18,9 +18,6 @@
     "editor.tabSize": 4,
     "editor.trimAutoWhitespace": true,
     "editor.formatOnSave": true,
-    "[html]": {
-        "editor.formatOnSave": false
-    },
     // Typescript
     "typescript.format.insertSpaceAfterCommaDelimiter": true,
     "typescript.format.insertSpaceAfterSemicolonInForStatements": true,
@@ -33,34 +30,4 @@
     "typescript.preferences.importModuleSpecifier": "relative",
     "typescript.implementationsCodeLens.enabled": true,
     "typescript.tsdk": "node_modules\\typescript\\lib",
-    // Linters
-    "beautify.options": {
-        "indent_size": 4,
-        "end_with_newline": true
-    },
-    // TypeScript Import Sorter
-    "importSorter.generalConfiguration.sortOnBeforeSave": true,
-    "importSorter.sortConfiguration.customOrderingRules.rules": [
-        {
-            "type": "importMember",
-            "regex": "^$",
-            "orderLevel": 5,
-            "disableSort": true
-        },
-        {
-            "regex": "^(@|(angular))",
-            "orderLevel": 6
-        },
-        {
-            "regex": "^(@|(?!shared|core|features|\\.))",
-            "orderLevel": 10
-        },
-        {
-            "regex": "^(\\.|shared|core|features)",
-            "orderLevel": 15
-        }
-    ],
-    "importSorter.importStringConfiguration.maximumNumberOfImportExpressionsPerLine.type": "words",
-    "importSorter.importStringConfiguration.maximumNumberOfImportExpressionsPerLine.count": 1,
-    "importSorter.importStringConfiguration.trailingComma": "multiLine",
 }

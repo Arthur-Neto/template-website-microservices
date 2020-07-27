@@ -1,74 +1,42 @@
-﻿using System.Reflection;
-using Autofac;
-using AutoMapper;
-using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Template.Api.DependencyResolution;
-using Template.Api.Filters;
-using Template.Application.FeatureExampleModule.Models.Commands;
-using Template.Application.FeatureExampleModule.Profiles;
-using Template.Infra.Data.EF.Context;
+using Microsoft.Extensions.Hosting;
 
 namespace Template.Api
 {
     public class Startup
     {
-        public IConfiguration Configuration { get; }
-
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
         }
 
+        public IConfiguration Configuration { get; }
+
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvcCore(
-                config =>
-                {
-                    config.Filters.Add(new CheckInvalidIdOnRouteFilterAttribute());
-                })
-                .AddJsonFormatters()
-                .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<FeatureExampleAddCommandCommandValidator>());
-
-            services.AddCors(c =>
-            {
-                c.AddPolicy("AllowOrigin", options =>
-                {
-                    options.AllowAnyOrigin();
-                    options.AllowAnyHeader();
-                    options.AllowAnyMethod();
-                });
-            });
-            services.AddDbContext<ExampleContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Example_Database")));
-            services.AddAutoMapper(Assembly.GetAssembly(typeof(FeatureExampleProfile)));
+            services.AddControllers();
         }
 
-        public void ConfigureContainer(ContainerBuilder builder)
-        {
-            builder.RegisterModule(new AutofacModule());
-        }
-
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
-            else
+
+            app.UseHttpsRedirection();
+
+            app.UseRouting();
+
+            app.UseAuthorization();
+
+            app.UseEndpoints(endpoints =>
             {
-                app.UseHsts();
-            }
-            app.UseCors(options =>
-            {
-                options.AllowAnyOrigin();
-                options.AllowAnyHeader();
-                options.AllowAnyMethod();
+                endpoints.MapControllers();
             });
-            app.UseMvc();
         }
     }
 }
