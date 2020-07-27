@@ -1,34 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using Template.Domain.UsersModule;
+using Template.Application.UsersModule;
 
 namespace Template.Api.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/users")]
     public class UserController : ControllerBase
     {
-        private readonly ILogger<UserController> _logger;
+        private readonly IUserService _userService;
 
-        public UserController(ILogger<UserController> logger)
+        public UserController(IUserService userService)
         {
-            _logger = logger;
+            _userService = userService;
         }
 
         [HttpGet]
-        public IEnumerable<User> Get()
+        [Route("")]
+        public async Task<IActionResult> RetrieveAllAsync()
         {
-            var rng = new Random();
-            return Enumerable.Range(1, 5).Select(index => new User
-            {
-                ID = 1,
-                Username = "teste",
-                Password = "teste",
-            })
-            .ToArray();
+            return Ok(await _userService.RetrieveAllAsync());
         }
     }
 }
