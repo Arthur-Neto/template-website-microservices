@@ -16,7 +16,7 @@ Backend
   * Swashbuckle.AspNetCore.Swagger 5.5.1
   * Swashbuckle.AspNetCore.SwaggerGen 5.5.1
   * Swashbuckle.AspNetCore.SwaggerUI 5.5.1
-  * FluentValidation 9.0.1
+  * FluentValidation.AspNetCore 9.0.1
   * NUnit 3.12.0
     * NUnit3TestAdapter 3.17.0
     * FluentAssertions 5.8.0
