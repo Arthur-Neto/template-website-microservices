@@ -9,44 +9,45 @@ namespace Template.Application.UsersModule
         Task<IEnumerable<User>> RetrieveAllAsync();
         Task<User> RetrieveByIDAsync(int id);
         Task<User> CreateAsync(User user);
-        Task DeleteAsync(int id);
-        Task Update(User user);
+        Task<bool> DeleteAsync(int id);
+        Task<bool> Update(User user);
     }
 
-    public class UserService : IUserService
+    public class UserService : AppServiceBase<IUserRepository>, IUserService
     {
-        private readonly IUserRepository _userRepository;
-
-        public UserService(IUserRepository userRepository)
-        {
-            _userRepository = userRepository;
-        }
+        public UserService(IUnitOfWork unitOfWork, IUserRepository repository)
+            : base(unitOfWork, repository)
+        { }
 
         public async Task<User> CreateAsync(User user)
         {
-            return await _userRepository.CreateAsync(user);
+            var createdUser = await _repository.CreateAsync(user);
+
+            return await CommitAsync() > 0 ? createdUser : null;
         }
 
-        public async Task DeleteAsync(int id)
+        public async Task<bool> DeleteAsync(int id)
         {
-            await _userRepository.DeleteAsync(id);
+            await _repository.DeleteAsync(id);
+
+            return await CommitAsync() > 0;
         }
 
-        public Task Update(User user)
+        public async Task<bool> Update(User user)
         {
-            _userRepository.Update(user);
+            _repository.Update(user);
 
-            return Task.CompletedTask;
+            return await CommitAsync() > 0;
         }
 
         public async Task<IEnumerable<User>> RetrieveAllAsync()
         {
-            return await _userRepository.RetrieveAllAsync();
+            return await _repository.RetrieveAllAsync();
         }
 
         public async Task<User> RetrieveByIDAsync(int id)
         {
-            return await _userRepository.RetrieveByIDAsync(id);
+            return await _repository.RetrieveByIDAsync(id);
         }
     }
 }
