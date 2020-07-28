@@ -1,9 +1,11 @@
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Template.Api.Extensions;
+using Template.Application;
 
 namespace Template.Api
 {
@@ -25,6 +27,8 @@ namespace Template.Api
             services.AddMvc();
 
             services.AddSwagger();
+
+            services.AddAutoMapper(typeof(IUnitOfWork));
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

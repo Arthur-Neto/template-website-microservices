@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using AutoMapper;
 
 namespace Template.Application
 {
@@ -7,14 +8,16 @@ namespace Template.Application
     {
         private readonly IUnitOfWork _unitOfWork;
         protected readonly TRepository _repository;
+        protected readonly IMapper _mapper;
 
-        protected AppServiceBase(TRepository repository)
+        protected AppServiceBase(TRepository repository, IMapper mapper)
         {
             _repository = repository;
+            _mapper = mapper;
         }
 
-        protected AppServiceBase(IUnitOfWork unitOfWork, TRepository repository)
-            : this(repository)
+        protected AppServiceBase(TRepository repository, IMapper mapper, IUnitOfWork unitOfWork)
+            : this(repository, mapper)
         {
             _unitOfWork = unitOfWork;
         }

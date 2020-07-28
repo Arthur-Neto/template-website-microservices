@@ -1,7 +1,9 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Template.Application.UsersModule;
-using Template.Domain.UsersModule;
+using Template.Application.UsersModule.Commands;
+using Template.Application.UsersModule.Models;
 
 namespace Template.Api.Controllers
 {
@@ -17,7 +19,7 @@ namespace Template.Api.Controllers
         }
 
         [HttpGet]
-        [Route("")]
+        [ProducesResponseType(typeof(IEnumerable<UserModel>), 200)]
         public async Task<IActionResult> RetrieveAllAsync()
         {
             return Ok(await _userService.RetrieveAllAsync());
@@ -25,32 +27,33 @@ namespace Template.Api.Controllers
 
         [HttpGet]
         [Route("{id:int}")]
+        [ProducesResponseType(typeof(UserModel), 200)]
         public async Task<IActionResult> RetrieveByIDAsync(int id)
         {
             return Ok(await _userService.RetrieveByIDAsync(id));
         }
 
         [HttpPost]
-        [Route("")]
-        public async Task<IActionResult> CreateAsync(User user)
+        [ProducesResponseType(typeof(int), 200)]
+        public async Task<IActionResult> CreateAsync(UserCreateCommand command)
         {
-            return Ok(await _userService.CreateAsync(user));
+            return Ok(await _userService.CreateAsync(command));
         }
 
         [HttpPut]
-        [Route("")]
-        public IActionResult Update(User user)
+        [ProducesResponseType(typeof(bool), 200)]
+        public IActionResult Update(UserUpdateCommand command)
         {
-            _userService.Update(user);
+            _userService.Update(command);
 
             return Ok(true);
         }
 
         [HttpDelete]
-        [Route("{id:int}")]
-        public async Task<IActionResult> DeleteAsync(int id)
+        [ProducesResponseType(typeof(bool), 200)]
+        public async Task<IActionResult> DeleteAsync(UserDeleteCommand command)
         {
-            await _userService.DeleteAsync(id);
+            await _userService.DeleteAsync(command);
 
             return Ok(true);
         }
