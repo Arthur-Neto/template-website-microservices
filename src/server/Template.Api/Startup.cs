@@ -1,5 +1,7 @@
+using System;
 using AutoMapper;
 using FluentValidation.AspNetCore;
+using Microsoft.AspNet.OData.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -21,7 +23,24 @@ namespace Template.Api
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(option =>
+                option.AddPolicy("TemplateCorsPolicy", builder =>
+                {
+                    builder.AllowAnyOrigin();
+                    builder.AllowAnyHeader();
+                })
+            );
+
+            services.AddHsts(options =>
+            {
+                options.Preload = true;
+                options.IncludeSubDomains = true;
+                options.MaxAge = TimeSpan.FromDays(60);
+            });
+
             services.AddDependencies();
+
+            services.AddODataConfig();
 
             services.AddControllers();
 
@@ -35,6 +54,8 @@ namespace Template.Api
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseCors("TemplateCorsPolicy");
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -56,7 +77,9 @@ namespace Template.Api
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.EnableDependencyInjection();
                 endpoints.MapControllers();
+                endpoints.MapODataEndpoints();
             });
         }
     }

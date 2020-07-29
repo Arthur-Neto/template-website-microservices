@@ -1,13 +1,11 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Template.Application.UsersModule;
 using Template.Application.UsersModule.Commands;
 using Template.Application.UsersModule.Models;
 
-namespace Template.Api.Controllers
+namespace Template.Api.Controllers.Api.UsersModule
 {
-    [ApiController]
     [Route("api/users")]
     public class UserController : ControllerBase
     {
@@ -16,13 +14,6 @@ namespace Template.Api.Controllers
         public UserController(IUserService userService)
         {
             _userService = userService;
-        }
-
-        [HttpGet]
-        [ProducesResponseType(typeof(IEnumerable<UserModel>), 200)]
-        public async Task<IActionResult> RetrieveAllAsync()
-        {
-            return Ok(await _userService.RetrieveAllAsync());
         }
 
         [HttpGet]

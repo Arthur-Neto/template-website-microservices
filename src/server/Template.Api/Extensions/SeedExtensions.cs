@@ -7,15 +7,13 @@ namespace Template.Api.Extensions
 {
     public static class SeedExtensions
     {
-        public static IApplicationBuilder SeedData(this IApplicationBuilder app)
+        public static void SeedData(this IApplicationBuilder app)
         {
             using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
             {
                 var context = serviceScope.ServiceProvider.GetRequiredService<ApiContext>();
                 SeedData(context);
             }
-
-            return app;
         }
 
         private static void SeedData(ApiContext context)

@@ -13,7 +13,7 @@ namespace Template.Api.Extensions
 {
     public static class DependencyExtensions
     {
-        public static IServiceCollection AddDependencies(this IServiceCollection services)
+        public static void AddDependencies(this IServiceCollection services)
         {
             var interfaces = new List<Type>();
             var implementations = new List<Type>();
@@ -37,8 +37,6 @@ namespace Template.Api.Extensions
             services.AddScoped<IDatabaseContext, ApiContext>();
 
             services.AddDbContext<ApiContext>(opt => opt.UseInMemoryDatabase("Template"));
-
-            return services;
         }
 
         private static Assembly[] GetAssemblies()
