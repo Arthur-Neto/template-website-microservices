@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
@@ -12,7 +11,7 @@ namespace Template.Infra.Data.EF.Repositories
     public sealed class GenericRepository<TEntity, KeyType> :
         ICreateRepository<TEntity>,
         IRetrieveByIDRepository<TEntity, KeyType>,
-        IRetrieveAllRepository<TEntity>,
+        IRetrieveOData<TEntity>,
         IUpdateRepository<TEntity>,
         IDeleteByIDRepository<TEntity, KeyType>,
         ISingleOrDefaultRepository<TEntity>,
@@ -42,21 +41,9 @@ namespace Template.Infra.Data.EF.Repositories
             return await Context.Set<TEntity>().FindAsync(key);
         }
 
-        public async Task<IEnumerable<TEntity>> RetrieveAllAsync(Expression<Func<TEntity, bool>> expression = null, params Expression<Func<TEntity, object>>[] includeExpression)
+        public IQueryable<TEntity> RetrieveOData()
         {
-            var query = Context.Set<TEntity>().AsQueryable();
-
-            if (includeExpression.Length == 0)
-            {
-                if (expression == null)
-                {
-                    return await query.AsNoTracking().ToListAsync();
-                }
-
-                return await query.AsNoTracking().Where(expression).ToListAsync();
-            }
-
-            return includeExpression.Aggregate(query, (current, include) => current.AsNoTracking().Include(include));
+            return Context.Set<TEntity>();
         }
 
         public void Update(TEntity entity)

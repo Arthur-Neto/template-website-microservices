@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNet.OData;
 using Microsoft.AspNetCore.Mvc;
-using Template.Application.UsersModule;
 using Template.Application.UsersModule.Models;
+using Template.Domain.UsersModule;
 using Template.Domain.UsersModule.Enums;
 using Template.WebApi.Attributes;
 
@@ -13,20 +13,25 @@ namespace Template.WebApi.Controllers.OData.UsersModule
     [Route("odata/users")]
     public class UserODataController : ControllerBase
     {
-        private readonly IUserService _userService;
+        private readonly IMapper _mapper;
+        private readonly IUserRepository _userRepository;
 
-        public UserODataController(IUserService userService)
+        public UserODataController(
+            IMapper mapper,
+            IUserRepository userRepository
+        )
         {
-            _userService = userService;
+            _mapper = mapper;
+            _userRepository = userRepository;
         }
 
         [AuthorizeRoles(Role.Manager)]
         [HttpGet]
         [EnableQuery]
         [ProducesResponseType(typeof(IEnumerable<UserModel>), 200)]
-        public async Task<IActionResult> RetrieveAllAsync()
+        public IActionResult GetUsers()
         {
-            return Ok(await _userService.RetrieveAllAsync());
+            return Ok(_mapper.Map<IEnumerable<UserModel>>(_userRepository.RetrieveOData()));
         }
     }
 }

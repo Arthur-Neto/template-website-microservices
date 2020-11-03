@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Template.Domain.UsersModule;
@@ -28,9 +28,9 @@ namespace Template.Infra.Data.EF.Repositories.UsersModule
             return GenericRepository.DeleteAsync(id);
         }
 
-        public Task<IEnumerable<User>> RetrieveAllAsync(Expression<Func<User, bool>> expression = null, params Expression<Func<User, object>>[] includeExpression)
+        public IQueryable<User> RetrieveOData()
         {
-            return GenericRepository.RetrieveAllAsync(expression, includeExpression);
+            return GenericRepository.RetrieveOData();
         }
 
         public Task<User> RetrieveByIDAsync(int id)

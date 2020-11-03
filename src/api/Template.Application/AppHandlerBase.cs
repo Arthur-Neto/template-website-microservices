@@ -4,19 +4,19 @@ using AutoMapper;
 
 namespace Template.Application
 {
-    public abstract class AppServiceBase<TRepository> : IDisposable where TRepository : IDisposable
+    public abstract class AppHandlerBase<TRepository> : IDisposable where TRepository : IDisposable
     {
         private readonly IUnitOfWork _unitOfWork;
         protected readonly TRepository _repository;
         protected readonly IMapper _mapper;
 
-        protected AppServiceBase(TRepository repository, IMapper mapper)
+        protected AppHandlerBase(TRepository repository, IMapper mapper)
         {
             _repository = repository;
             _mapper = mapper;
         }
 
-        protected AppServiceBase(TRepository repository, IMapper mapper, IUnitOfWork unitOfWork)
+        protected AppHandlerBase(TRepository repository, IMapper mapper, IUnitOfWork unitOfWork)
             : this(repository, mapper)
         {
             _unitOfWork = unitOfWork;

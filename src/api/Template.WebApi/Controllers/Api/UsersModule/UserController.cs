@@ -1,9 +1,10 @@
 ﻿using System.Threading.Tasks;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Template.Application.UsersModule;
 using Template.Application.UsersModule.Commands;
 using Template.Application.UsersModule.Models;
+using Template.Application.UsersModule.Queries;
 using Template.Domain.UsersModule.Enums;
 using Template.WebApi.Attributes;
 
@@ -11,14 +12,11 @@ namespace Template.WebApi.Controllers.Api.UsersModule
 {
     [ApiController]
     [Route("api/users")]
-    public class UserController : ControllerBase
+    public class UserController : BaseController
     {
-        private readonly IUserService _userService;
-
-        public UserController(IUserService userService)
-        {
-            _userService = userService;
-        }
+        public UserController(IMediator mediator)
+            : base(mediator)
+        { }
 
         [AllowAnonymous]
         [HttpPost]
@@ -26,9 +24,9 @@ namespace Template.WebApi.Controllers.Api.UsersModule
         [ProducesResponseType(typeof(AuthenticatedUserModel), 200)]
         public async Task<IActionResult> AuthenticateAsync(UserAuthenticateCommand command)
         {
-            var user = await _userService.AuthenticateAsync(command);
+            var result = await _mediator.Send(command);
 
-            return Ok(user);
+            return HandleResult(result);
         }
 
         [AuthorizeRoles(Role.Manager)]
@@ -37,7 +35,10 @@ namespace Template.WebApi.Controllers.Api.UsersModule
         [ProducesResponseType(typeof(UserModel), 200)]
         public async Task<IActionResult> RetrieveByIDAsync(int id)
         {
-            return Ok(await _userService.RetrieveByIDAsync(id));
+            var query = new UserRetrieveByIDQuery { ID = id };
+            var result = await _mediator.Send(query);
+
+            return HandleResult(result);
         }
 
         [AllowAnonymous]
@@ -45,7 +46,9 @@ namespace Template.WebApi.Controllers.Api.UsersModule
         [ProducesResponseType(typeof(int), 200)]
         public async Task<IActionResult> CreateAsync(UserCreateCommand command)
         {
-            return Ok(await _userService.CreateAsync(command));
+            var result = await _mediator.Send(command);
+
+            return HandleResult(result);
         }
 
         [AuthorizeRoles(Role.Manager, Role.Client)]
@@ -53,7 +56,9 @@ namespace Template.WebApi.Controllers.Api.UsersModule
         [ProducesResponseType(typeof(bool), 200)]
         public async Task<IActionResult> UpdateAsync(UserUpdateCommand command)
         {
-            return Ok(await _userService.UpdateAsync(command));
+            var result = await _mediator.Send(command);
+
+            return HandleResult(result);
         }
 
         [AuthorizeRoles(Role.Manager)]
@@ -61,9 +66,9 @@ namespace Template.WebApi.Controllers.Api.UsersModule
         [ProducesResponseType(typeof(bool), 200)]
         public async Task<IActionResult> DeleteAsync(UserDeleteCommand command)
         {
-            await _userService.DeleteAsync(command);
+            var result = await _mediator.Send(command);
 
-            return Ok(true);
+            return HandleResult(result);
         }
     }
 }

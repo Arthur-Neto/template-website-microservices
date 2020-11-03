@@ -1,6 +1,7 @@
 using System;
 using AutoMapper;
 using FluentValidation.AspNetCore;
+using MediatR;
 using Microsoft.AspNet.OData.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -53,8 +54,10 @@ namespace Template.WebApi
 
             services.AddAutoMapper(typeof(IUnitOfWork));
 
-            services.AddControllersWithViews()
+            services.AddControllers()
                     .AddFluentValidation(x => x.RegisterValidatorsFromAssemblyContaining<IUnitOfWork>());
+
+            services.AddMediatR(typeof(IUnitOfWork));
 
             services.AddSpaStaticFiles(configuration =>
             {

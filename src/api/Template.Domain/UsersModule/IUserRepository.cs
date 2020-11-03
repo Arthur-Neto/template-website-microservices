@@ -3,7 +3,7 @@
     public interface IUserRepository :
         ICreateRepository<User>,
         IDeleteByIDRepository<User, int>,
-        IRetrieveAllRepository<User>,
+        IRetrieveOData<User>,
         IRetrieveByIDRepository<User, int>,
         IUpdateRepository<User>,
         ISingleOrDefaultRepository<User>,

@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
@@ -15,9 +15,9 @@ namespace Template.Domain
         Task<TEntity> RetrieveByIDAsync(KeyType key);
     }
 
-    public interface IRetrieveAllRepository<TEntity> : IDisposable where TEntity : class
+    public interface IRetrieveOData<TEntity> : IDisposable where TEntity : class
     {
-        Task<IEnumerable<TEntity>> RetrieveAllAsync(Expression<Func<TEntity, bool>> expression = null, params Expression<Func<TEntity, object>>[] includeExpression);
+        IQueryable<TEntity> RetrieveOData();
     }
 
     public interface IUpdateRepository<TEntity> : IDisposable where TEntity : class
