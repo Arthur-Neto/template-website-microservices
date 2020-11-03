@@ -1,0 +1,62 @@
+<form [formGroup]="form"
+      novalidate
+      (ngSubmit)="onSubmit()">
+    <mat-card class="login-card">
+        <mat-card-header class="login-header">
+            <mat-card-title>Edit Login</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <div class="row">
+                <div class="col">
+                    <mat-form-field class="full-width">
+                        <input matInput
+                               placeholder="Username"
+                               formControlName="username">
+                        <mat-error *ngIf="showUsernameRequiredError">
+                            Username is <strong>required</strong>
+                        </mat-error>
+                        <mat-error *ngIf="showUsernameDuplicatedError">
+                            Username already exists
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <mat-form-field class="full-width">
+                        <input matInput
+                               placeholder="Password"
+                               formControlName="password">
+                        <mat-error *ngIf="showPasswordRequiredError">
+                            Password is <strong>required</strong>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <mat-form-field class="full-width">
+                        <input matInput
+                               placeholder="Confirm password"
+                               formControlName="confirmPassword"
+                               [pattern]="form.controls['password'].value">
+                        <mat-error *ngIf="showConfirmPasswordRequiredError">
+                            Confirm password is <strong>required</strong>
+                        </mat-error>
+                        <mat-error *ngIf="showPasswordDoesntMatchError">
+                            Passwords doesn't match
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+        </mat-card-content>
+        <mat-card-actions class="login-actions">
+            <button mat-raised-button
+                    class="login-btn"
+                    color="primary"
+                    type="submit">
+                Save
+            </button>
+        </mat-card-actions>
+    </mat-card>
+</form>

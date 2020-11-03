@@ -1,0 +1,62 @@
+{
+    "files.exclude": {
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/.DS_Store": true,
+        "**/bin": true,
+        "**/obj": true,
+        "**/Properties": true,
+        "**/*.csproj*": true,
+        "**/Web*.config": true
+    },
+    "files.insertFinalNewline": true,
+    "editor.detectIndentation": false,
+    "editor.insertSpaces": true,
+    "editor.tabSize": 4,
+    "editor.trimAutoWhitespace": true,
+    "editor.formatOnSave": true,
+    "typescript.format.insertSpaceAfterCommaDelimiter": true,
+    "typescript.format.insertSpaceAfterSemicolonInForStatements": true,
+    "typescript.format.insertSpaceAfterKeywordsInControlFlowStatements": true,
+    "typescript.format.insertSpaceAfterFunctionKeywordForAnonymousFunctions": true,
+    "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyParenthesis": false,
+    "typescript.format.insertSpaceAfterOpeningAndBeforeClosingTemplateStringBraces": true,
+    "typescript.format.placeOpenBraceOnNewLineForFunctions": false,
+    "typescript.format.placeOpenBraceOnNewLineForControlBlocks": false,
+    "typescript.preferences.importModuleSpecifier": "relative",
+    "typescript.implementationsCodeLens.enabled": true,
+    "typescript.tsdk": "node_modules\\typescript\\lib",
+    "importSorter.generalConfiguration.sortOnBeforeSave": true,
+    "importSorter.importStringConfiguration.maximumNumberOfImportExpressionsPerLine.count": 150,
+    "importSorter.importStringConfiguration.numberOfEmptyLinesAfterAllImports": 1,
+    "importSorter.importStringConfiguration.quoteMark": "single",
+    "importSorter.importStringConfiguration.spacingPerImportExpression.afterComma": 1,
+    "importSorter.importStringConfiguration.spacingPerImportExpression.afterStartingBracket": 1,
+    "importSorter.importStringConfiguration.spacingPerImportExpression.beforeComma": 0,
+    "importSorter.importStringConfiguration.spacingPerImportExpression.beforeEndingBracket": 1,
+    "importSorter.importStringConfiguration.tabSize": 4,
+    "importSorter.importStringConfiguration.trailingComma": "multiLine",
+    "importSorter.sortConfiguration.customOrderingRules.defaultNumberOfEmptyLinesAfterGroup": 1,
+    "importSorter.sortConfiguration.customOrderingRules.defaultOrderLevel": 20,
+    "importSorter.sortConfiguration.removeUnusedImports": true,
+    "importSorter.sortConfiguration.removeUnusedDefaultImports": true,
+    "importSorter.sortConfiguration.customOrderingRules.rules": [
+        {
+            "regex": "^[@]",
+            "orderLevel": 10
+        },
+        {
+            "type": "importMember",
+            "regex": "^$",
+            "orderLevel": 20,
+            "disableSort": true
+        },
+        {
+            "regex": "^[.]",
+            "orderLevel": 40
+        }
+    ],
+    "html.format.indentInnerHtml": true,
+    "html.format.wrapAttributes": "force-aligned",
+}

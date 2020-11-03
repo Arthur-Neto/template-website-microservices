@@ -1,0 +1,17 @@
+.sidebar-container {
+  height: calc(100% - 64px);
+}
+
+.mat-button.sidebar-item {
+  width: 100%;
+  margin: 0;
+  border: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.mat-sidenav.sidebar-items {
+  width: calc(120px);
+  border: 0;
+}

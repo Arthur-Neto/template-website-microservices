@@ -1,0 +1,17 @@
+<mat-sidenav-container class="sidebar-container">
+    <mat-sidenav class="sidebar-items"
+                 mode="side"
+                 [opened]="isUserLoggedManager">
+        <button mat-button
+                class="sidebar-item"
+                [routerLink]="'/users'">
+            <mat-icon>person</mat-icon>
+            Users
+        </button>
+        <mat-divider></mat-divider>
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+        <router-outlet></router-outlet>
+    </mat-sidenav-content>
+</mat-sidenav-container>

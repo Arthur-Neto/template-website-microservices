@@ -1,0 +1,32 @@
+{
+    "extends": "../tsconfig.json",
+    "compilerOptions": {
+        "baseUrl": "./",
+        "outDir": "../out-tsc/app",
+        "paths": {
+            "@core/*": [
+                "app/core/*"
+            ],
+            "@modules/*": [
+                "app/modules/*"
+            ],
+            "@layout/*": [
+                "app/layout/*"
+            ],
+            "@shared/*": [
+                "app/shared/*"
+            ],
+            "@env": [
+                "environments/environment"
+            ],
+        },
+    },
+    "files": [
+        "main.ts",
+        "polyfills.ts"
+    ],
+    "exclude": [
+        "src/test.ts",
+        "**/*.spec.ts"
+    ]
+}
