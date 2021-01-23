@@ -25,9 +25,8 @@ Template website made with Angular and authentication using JWT Bearer.
 >> * Swashbuckle.AspNetCore.Swagger 5.6.3
 >> * Swashbuckle.AspNetCore.SwaggerGen 5.6.3
 >> * Swashbuckle.AspNetCore.SwaggerUI 5.6.3
-
- * NUnit 3.12.0
-   * NUnit3TestAdapter 3.17.0
-   * FluentAssertions 5.8.0
-   * Moq 4.12.0
+>> * NUnit 3.12.0
+>> * NUnit3TestAdapter 3.17.0
+>> * FluentAssertions 5.8.0
+>> * Moq 4.12.0
   
