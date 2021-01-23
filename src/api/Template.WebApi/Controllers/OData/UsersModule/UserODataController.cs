@@ -31,7 +31,7 @@ namespace Template.WebApi.Controllers.OData.UsersModule
         [ProducesResponseType(typeof(IEnumerable<UserModel>), 200)]
         public IActionResult GetUsers()
         {
-            return Ok(_mapper.Map<IEnumerable<UserModel>>(_userRepository.RetrieveOData()));
+            return Ok(_userRepository.RetrieveOData<UserModel>(_mapper));
         }
     }
 }

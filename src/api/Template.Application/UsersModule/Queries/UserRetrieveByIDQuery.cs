@@ -5,6 +5,7 @@ using CSharpFunctionalExtensions;
 using MediatR;
 using Template.Application.UsersModule.Models;
 using Template.Domain.UsersModule;
+using Template.Infra.Crosscutting.Exceptions;
 
 namespace Template.Application.UsersModule.Queries
 {
@@ -23,7 +24,13 @@ namespace Template.Application.UsersModule.Queries
 
         public async Task<Result<UserModel>> Handle(UserRetrieveByIDQuery query, CancellationToken cancellationToken)
         {
-            return _mapper.Map<UserModel>(await _repository.RetrieveByIDAsync(query.ID));
+            var user = await _repository.RetrieveByIDAsync(query.ID, cancellationToken);
+            if (user == null)
+            {
+                return Result.Failure<UserModel>(ErrorType.NotFound.ToString());
+            }
+
+            return Result.Success(_mapper.Map<UserModel>(user));
         }
     }
 }

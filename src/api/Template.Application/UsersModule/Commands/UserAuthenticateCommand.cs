@@ -57,7 +57,7 @@ namespace Template.Application.UsersModule.Commands
 
         public async Task<Result<AuthenticatedUserModel>> Handle(UserAuthenticateCommand request, CancellationToken cancellationToken)
         {
-            var user = await _repository.SingleOrDefaultAsync(x => x.Username.Equals(request.Username));
+            var user = await _repository.SingleOrDefaultAsync(x => x.Username.Equals(request.Username), tracking: true, cancellationToken);
             if (user == null)
             {
                 return Result.Failure<AuthenticatedUserModel>(ErrorType.NotFound.ToString());

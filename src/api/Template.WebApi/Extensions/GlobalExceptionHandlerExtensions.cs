@@ -18,7 +18,7 @@ namespace Template.WebApi.Extensions
                     context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
                     context.Response.ContentType = "application/json";
 
-                    await context.Response.WriteAsync($"{exceptionHandlingFeature?.Error.InnerException.Message}");
+                    await context.Response.WriteAsync($"{exceptionHandlingFeature?.Error.InnerException?.Message}");
                 });
             });
         }

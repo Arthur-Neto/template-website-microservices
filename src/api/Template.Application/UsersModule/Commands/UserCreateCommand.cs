@@ -46,7 +46,7 @@ namespace Template.Application.UsersModule.Commands
 
         public async Task<Result<int>> Handle(UserCreateCommand request, CancellationToken cancellationToken)
         {
-            var countByUsername = await _repository.CountAsync(x => x.Username.Equals(request.Username));
+            var countByUsername = await _repository.CountAsync(x => x.Username.Equals(request.Username), cancellationToken);
 
             var isUserDuplicating = countByUsername > 0;
             if (isUserDuplicating)
@@ -57,7 +57,7 @@ namespace Template.Application.UsersModule.Commands
             var user = _mapper.Map<User>(request);
             user.Role = Role.Client;
 
-            var createdUser = await _repository.CreateAsync(user);
+            var createdUser = await _repository.CreateAsync(user, cancellationToken);
 
             return await CommitAsync() > 0 ? createdUser.ID : 0;
         }

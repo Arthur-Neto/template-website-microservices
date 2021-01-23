@@ -16,17 +16,6 @@ namespace Template.Application.UsersModule.Commands
         public string Password { get; set; }
     }
 
-    public class UserUpdateCommandMapping : Profile
-    {
-        public UserUpdateCommandMapping()
-        {
-            CreateMap<UserUpdateCommand, User>()
-                .ForMember(m => m.ID, opts => opts.MapFrom(src => src.ID))
-                .ForMember(m => m.Username, opts => opts.MapFrom(src => src.Username))
-                .ForMember(m => m.Password, opts => opts.MapFrom(src => src.Password));
-        }
-    }
-
     public class UserUpdateCommandValidator : AbstractValidator<UserUpdateCommand>
     {
         public UserUpdateCommandValidator()
@@ -48,19 +37,22 @@ namespace Template.Application.UsersModule.Commands
 
         public async Task<Result<bool>> Handle(UserUpdateCommand request, CancellationToken cancellationToken)
         {
-            var user = await _repository.SingleOrDefaultAsync(x => x.ID == request.ID);
+            var user = await _repository.RetrieveByIDAsync(request.ID, cancellationToken);
             if (user == null)
             {
                 return Result.Failure<bool>(ErrorType.NotFound.ToString());
             }
 
-            var countByUsername = await _repository.CountAsync(x => x.Username.Equals(request.Username) && x.ID != request.ID);
+            var countByUsername = await _repository.CountAsync(x => x.Username.Equals(request.Username) && x.ID != request.ID, cancellationToken);
 
             var isUserDuplicating = countByUsername > 0;
             if (isUserDuplicating)
             {
                 return Result.Failure<bool>(ErrorType.Duplicating.ToString());
             }
+
+            user.Username = request.Username;
+            user.Password = request.Password;
 
             _repository.Update(user);
 

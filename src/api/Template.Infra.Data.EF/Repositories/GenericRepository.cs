@@ -1,21 +1,24 @@
 ﻿using System;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Threading;
 using System.Threading.Tasks;
+using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using Microsoft.EntityFrameworkCore;
 using Template.Domain;
 using Template.Infra.Data.EF.Context;
 
 namespace Template.Infra.Data.EF.Repositories
 {
-    public sealed class GenericRepository<TEntity, KeyType> :
+    public sealed class GenericRepository<TEntity> :
         ICreateRepository<TEntity>,
-        IRetrieveByIDRepository<TEntity, KeyType>,
-        IRetrieveOData<TEntity>,
+        IRetrieveByIDRepository<TEntity>,
+        IRetrieveOData,
         IUpdateRepository<TEntity>,
-        IDeleteByIDRepository<TEntity, KeyType>,
+        IDeleteRepository<TEntity>,
         ISingleOrDefaultRepository<TEntity>,
-        ICountRepository<TEntity> where TEntity : class
+        ICountRepository<TEntity> where TEntity : Entity
     {
         public IDatabaseContext Context { get; private set; }
 
@@ -29,21 +32,23 @@ namespace Template.Infra.Data.EF.Repositories
             Context.Dispose();
         }
 
-        public async Task<TEntity> CreateAsync(TEntity entity)
+        public async Task<TEntity> CreateAsync(TEntity entity, CancellationToken cancellationToken)
         {
-            var entityEntry = await Context.Set<TEntity>().AddAsync(entity);
+            var entityEntry = await Context.Set<TEntity>().AddAsync(entity, cancellationToken);
 
             return entityEntry.Entity;
         }
 
-        public async Task<TEntity> RetrieveByIDAsync(KeyType key)
+        public Task<TEntity> RetrieveByIDAsync(long id, CancellationToken cancellationToken)
         {
-            return await Context.Set<TEntity>().FindAsync(key);
+            return Context.Set<TEntity>().FirstOrDefaultAsync(p => p.ID == id, cancellationToken);
         }
 
-        public IQueryable<TEntity> RetrieveOData()
+        public IQueryable<TDestination> RetrieveOData<TDestination>(IMapper mapper)
         {
-            return Context.Set<TEntity>();
+            return Context.Set<TEntity>()
+                          .AsNoTracking()
+                          .ProjectTo<TDestination>(mapper.ConfigurationProvider);
         }
 
         public void Update(TEntity entity)
@@ -51,14 +56,12 @@ namespace Template.Infra.Data.EF.Repositories
             Context.Entry(entity).State = EntityState.Modified;
         }
 
-        public async Task DeleteAsync(KeyType key)
+        public void Delete(TEntity entity, CancellationToken cancellationToken)
         {
-            var entities = Context.Set<TEntity>();
-            var entity = await entities.FindAsync(key);
-            entities.Remove(entity);
+            Context.Set<TEntity>().Remove(entity);
         }
 
-        public async Task<TEntity> SingleOrDefaultAsync(Expression<Func<TEntity, bool>> expression, bool tracking = true, params Expression<Func<TEntity, object>>[] includeExpression)
+        public Task<TEntity> SingleOrDefaultAsync(Expression<Func<TEntity, bool>> expression, bool tracking, CancellationToken cancellationToken, params Expression<Func<TEntity, object>>[] includeExpression)
         {
             var query = Context.Set<TEntity>().AsQueryable();
 
@@ -66,23 +69,23 @@ namespace Template.Infra.Data.EF.Repositories
             {
                 if (tracking)
                 {
-                    return await query.SingleOrDefaultAsync(expression);
+                    return query.SingleOrDefaultAsync(expression, cancellationToken);
                 }
 
-                return await query.AsNoTracking().SingleOrDefaultAsync(expression);
+                return query.AsNoTracking().SingleOrDefaultAsync(expression, cancellationToken);
             }
 
             if (tracking)
             {
-                return await includeExpression.Aggregate(query, (current, include) => current.Include(include)).SingleOrDefaultAsync(expression);
+                return includeExpression.Aggregate(query, (current, include) => current.Include(include)).SingleOrDefaultAsync(expression, cancellationToken);
             }
 
-            return await includeExpression.Aggregate(query, (current, include) => current.AsNoTracking().Include(include)).SingleOrDefaultAsync(expression);
+            return includeExpression.Aggregate(query, (current, include) => current.AsNoTracking().Include(include)).SingleOrDefaultAsync(expression, cancellationToken);
         }
 
-        public async Task<int> CountAsync(Expression<Func<TEntity, bool>> expression)
+        public Task<int> CountAsync(Expression<Func<TEntity, bool>> expression, CancellationToken cancellationToken)
         {
-            return await Context.Set<TEntity>().CountAsync(expression);
+            return Context.Set<TEntity>().CountAsync(expression, cancellationToken);
         }
     }
 }

@@ -16,8 +16,8 @@ namespace Template.WebApi.Controllers.Api
         public IActionResult HandleResult<T>(Result<T> result)
         {
             return result.IsSuccess ?
-                (IActionResult)Ok(result.Value) :
-                (IActionResult)BadRequest(result.Error);
+                Ok(result.Value) :
+                BadRequest(result.Error);
         }
     }
 }

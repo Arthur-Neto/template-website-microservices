@@ -1,46 +1,48 @@
 ﻿using System;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Threading;
 using System.Threading.Tasks;
+using AutoMapper;
 using Template.Domain.UsersModule;
 using Template.Infra.Data.EF.Context;
 
 namespace Template.Infra.Data.EF.Repositories.UsersModule
 {
-    public class UserRepository : GenericRepositoryBase<User, int>, IUserRepository
+    public class UserRepository : GenericRepositoryBase<User>, IUserRepository
     {
         public UserRepository(IDatabaseContext context)
             : base(context)
         { }
 
-        public Task<int> CountAsync(Expression<Func<User, bool>> expression)
+        public Task<int> CountAsync(Expression<Func<User, bool>> expression, CancellationToken cancellationToken)
         {
-            return GenericRepository.CountAsync(expression);
+            return GenericRepository.CountAsync(expression, cancellationToken);
         }
 
-        public Task<User> CreateAsync(User user)
+        public Task<User> CreateAsync(User user, CancellationToken cancellationToken)
         {
-            return GenericRepository.CreateAsync(user);
+            return GenericRepository.CreateAsync(user, cancellationToken);
         }
 
-        public Task DeleteAsync(int id)
+        public void Delete(User user, CancellationToken cancellationToken)
         {
-            return GenericRepository.DeleteAsync(id);
+            GenericRepository.Delete(user, cancellationToken);
         }
 
-        public IQueryable<User> RetrieveOData()
+        public IQueryable<TDestination> RetrieveOData<TDestination>(IMapper mapper)
         {
-            return GenericRepository.RetrieveOData();
+            return GenericRepository.RetrieveOData<TDestination>(mapper);
         }
 
-        public Task<User> RetrieveByIDAsync(int id)
+        public Task<User> RetrieveByIDAsync(long id, CancellationToken cancellationToken)
         {
-            return GenericRepository.RetrieveByIDAsync(id);
+            return GenericRepository.RetrieveByIDAsync(id, cancellationToken);
         }
 
-        public Task<User> SingleOrDefaultAsync(Expression<Func<User, bool>> expression, bool tracking = true, params Expression<Func<User, object>>[] includeExpression)
+        public Task<User> SingleOrDefaultAsync(Expression<Func<User, bool>> expression, bool tracking, CancellationToken cancellationToken, params Expression<Func<User, object>>[] includeExpression)
         {
-            return GenericRepository.SingleOrDefaultAsync(expression, tracking, includeExpression);
+            return GenericRepository.SingleOrDefaultAsync(expression, tracking, cancellationToken, includeExpression);
         }
 
         public void Update(User user)

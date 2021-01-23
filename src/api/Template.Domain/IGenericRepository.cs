@@ -1,23 +1,25 @@
 ﻿using System;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Threading;
 using System.Threading.Tasks;
+using AutoMapper;
 
 namespace Template.Domain
 {
     public interface ICreateRepository<TEntity> : IDisposable where TEntity : class
     {
-        Task<TEntity> CreateAsync(TEntity entity);
+        Task<TEntity> CreateAsync(TEntity entity, CancellationToken cancellationToken);
     }
 
-    public interface IRetrieveByIDRepository<TEntity, KeyType> : IDisposable where TEntity : class
+    public interface IRetrieveByIDRepository<TEntity> : IDisposable where TEntity : class
     {
-        Task<TEntity> RetrieveByIDAsync(KeyType key);
+        Task<TEntity> RetrieveByIDAsync(long id, CancellationToken cancellationToken);
     }
 
-    public interface IRetrieveOData<TEntity> : IDisposable where TEntity : class
+    public interface IRetrieveOData : IDisposable
     {
-        IQueryable<TEntity> RetrieveOData();
+        IQueryable<TDestination> RetrieveOData<TDestination>(IMapper mapper);
     }
 
     public interface IUpdateRepository<TEntity> : IDisposable where TEntity : class
@@ -25,18 +27,18 @@ namespace Template.Domain
         void Update(TEntity entity);
     }
 
-    public interface IDeleteByIDRepository<TEntity, KeyType> : IDisposable where TEntity : class
+    public interface IDeleteRepository<TEntity> : IDisposable where TEntity : class
     {
-        Task DeleteAsync(KeyType key);
+        void Delete(TEntity entity, CancellationToken cancellationToken);
     }
 
     public interface ISingleOrDefaultRepository<TEntity> : IDisposable where TEntity : class
     {
-        Task<TEntity> SingleOrDefaultAsync(Expression<Func<TEntity, bool>> expression, bool tracking = true, params Expression<Func<TEntity, object>>[] includeExpression);
+        Task<TEntity> SingleOrDefaultAsync(Expression<Func<TEntity, bool>> expression, bool tracking, CancellationToken cancellationToken, params Expression<Func<TEntity, object>>[] includeExpression);
     }
 
     public interface ICountRepository<TEntity> : IDisposable where TEntity : class
     {
-        Task<int> CountAsync(Expression<Func<TEntity, bool>> expression);
+        Task<int> CountAsync(Expression<Func<TEntity, bool>> expression, CancellationToken cancellationToken);
     }
 }
