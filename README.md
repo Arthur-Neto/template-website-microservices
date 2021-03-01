@@ -1,5 +1,5 @@
 # Template Website
-Template website made with Angular and authentication using JWT Bearer.
+Template website made with Angular 10, .NET 5 and authentication using JWT Bearer.
 
 ## Dependencies
 > Frontend
@@ -9,7 +9,7 @@ Template website made with Angular and authentication using JWT Bearer.
 >> * Typescript 4.0.5
  
 > Backend
->> * .NET Core 3.1
+>> * .NET 5
 >> * AutoMapper.Extensions.Microsoft.DependencyInjection 8.1.0
 >> * CSharpFunctionalExtensions 2.12.1
 >> * FluentValidation.AspNetCore 9.2.1
