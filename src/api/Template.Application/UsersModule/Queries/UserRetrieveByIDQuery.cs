@@ -24,6 +24,11 @@ namespace Template.Application.UsersModule.Queries
 
         public async Task<Result<UserModel>> Handle(UserRetrieveByIDQuery query, CancellationToken cancellationToken)
         {
+            if (query.ID <= 0)
+            {
+                return Result.Failure<UserModel>(ErrorType.IDShouldBeGreaterThanZero.ToString());
+            }
+
             var user = await _repository.RetrieveByIDAsync(query.ID, cancellationToken);
             if (user == null)
             {

@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿using System.Linq;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Query;
@@ -28,8 +28,8 @@ namespace Template.WebApi.Controllers.OData.UsersModule
         [AuthorizeRoles(Role.Manager)]
         [HttpGet]
         [EnableQuery]
-        [ProducesResponseType(typeof(IEnumerable<UserModel>), 200)]
-        public IActionResult GetUsers()
+        [ProducesResponseType(typeof(IQueryable<UserModel>), 200)]
+        public IActionResult Get()
         {
             return Ok(_userRepository.RetrieveOData<UserModel>(_mapper));
         }
