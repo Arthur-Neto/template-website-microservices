@@ -32,6 +32,7 @@ namespace Template.WebApi.Extensions
                         } , new string[] {}
                     }
                 });
+                options.DocInclusionPredicate((name, api) => api.HttpMethod != null);
             });
         }
 

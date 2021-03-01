@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using Template.Domain.UsersModule;
-using Template.Domain.UsersModule.Enums;
 
 namespace Template.Application.UsersModule.Models
 {
@@ -8,7 +7,7 @@ namespace Template.Application.UsersModule.Models
     {
         public int ID { get; set; }
         public string Username { get; set; }
-        public Role Role { get; set; }
+        public string Role { get; set; }
     }
 
     public class UserModelMapping : Profile

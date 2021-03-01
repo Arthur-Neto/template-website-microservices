@@ -15,10 +15,10 @@ namespace Template.WebApi.Extensions
                 {
                     var exceptionHandlingFeature = context.Features.Get<IExceptionHandlerPathFeature>();
 
-                    context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                    context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
                     context.Response.ContentType = "application/json";
 
-                    await context.Response.WriteAsync($"{exceptionHandlingFeature?.Error.InnerException?.Message}");
+                    await context.Response.WriteAsync($"{exceptionHandlingFeature?.Error.Message}");
                 });
             });
         }

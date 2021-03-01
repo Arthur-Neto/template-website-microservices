@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using AutoMapper;
-using Microsoft.AspNet.OData;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.OData.Query;
 using Template.Application.UsersModule.Models;
 using Template.Domain.UsersModule;
 using Template.Domain.UsersModule.Enums;

@@ -2,13 +2,12 @@ using System;
 using AutoMapper;
 using FluentValidation.AspNetCore;
 using MediatR;
-using Microsoft.AspNet.OData.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.OData.UriParser;
+using OData.Swagger.Services;
 using Template.Application;
 using Template.WebApi.Extensions;
 
@@ -48,14 +47,16 @@ namespace Template.WebApi
 
             services.AddDatabaseContext(Configuration);
 
+            services.AddControllers()
+                    .AddFluentValidation(x => x.RegisterValidatorsFromAssemblyContaining<IUnitOfWork>());
+
             services.AddODataConfig();
 
             services.AddSwagger();
 
-            services.AddAutoMapper(typeof(IUnitOfWork));
+            services.AddOdataSwaggerSupport();
 
-            services.AddControllers()
-                    .AddFluentValidation(x => x.RegisterValidatorsFromAssemblyContaining<IUnitOfWork>());
+            services.AddAutoMapper(typeof(IUnitOfWork));
 
             services.AddMediatR(typeof(IUnitOfWork));
 
@@ -84,8 +85,6 @@ namespace Template.WebApi
 
             app.SeedData();
 
-            app.ConfigSwagger();
-
             app.UseStaticFiles();
 
             if (!env.IsDevelopment())
@@ -99,14 +98,11 @@ namespace Template.WebApi
 
             app.UseAuthorization();
 
+            app.ConfigSwagger();
+
             app.UseEndpoints(endpoints =>
             {
-                endpoints.EnableDependencyInjection(builder =>
-                {
-                    builder.AddService(Microsoft.OData.ServiceLifetime.Singleton, typeof(ODataUriResolver), sp => new StringAsEnumResolver());
-                });
                 endpoints.MapControllers();
-                endpoints.MapODataEndpoints();
             });
 
             app.UseSpa(spa =>

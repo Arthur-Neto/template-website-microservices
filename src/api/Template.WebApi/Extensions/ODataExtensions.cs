@@ -1,13 +1,9 @@
-﻿using System.Linq;
-using Microsoft.AspNet.OData.Builder;
-using Microsoft.AspNet.OData.Extensions;
-using Microsoft.AspNet.OData.Formatter;
-using Microsoft.AspNetCore.Mvc.Formatters;
-using Microsoft.AspNetCore.Routing;
+﻿using Microsoft.AspNetCore.OData;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Net.Http.Headers;
 using Microsoft.OData.Edm;
-using Template.Domain.UsersModule;
+using Microsoft.OData.ModelBuilder;
+using Microsoft.OData.UriParser;
+using Template.Application.UsersModule.Models;
 
 namespace Template.WebApi.Extensions
 {
@@ -15,42 +11,20 @@ namespace Template.WebApi.Extensions
     {
         public static void AddODataConfig(this IServiceCollection services)
         {
-            services.AddOData();
-
-            services.AddMvcCore(options =>
-            {
-                var outputFormatters =
-                    options.OutputFormatters.OfType<ODataOutputFormatter>()
-                        .Where(foramtter => foramtter.SupportedMediaTypes.Count == 0);
-
-                foreach (var outputFormatter in outputFormatters)
-                {
-                    outputFormatter.SupportedMediaTypes.Add(new MediaTypeHeaderValue("application/odata"));
-                }
-
-                foreach (var outputFormatter in options.OutputFormatters.OfType<OutputFormatter>().Where(x => x.SupportedMediaTypes.Count == 0))
-                {
-                    outputFormatter.SupportedMediaTypes.Add(new MediaTypeHeaderValue("application/prs.odatatestxx-odata"));
-                }
-
-                foreach (var inputFormatter in options.InputFormatters.OfType<InputFormatter>().Where(x => x.SupportedMediaTypes.Count == 0))
-                {
-                    inputFormatter.SupportedMediaTypes.Add(new MediaTypeHeaderValue("application/prs.odatatestxx-odata"));
-                }
-            });
-        }
-
-        public static void MapODataEndpoints(this IEndpointRouteBuilder endpoint)
-        {
-            endpoint.Select().Count().Filter().OrderBy().Expand().MaxTop(100);
-            endpoint.MapODataRoute("ODataRoute", "odata", GetEdmModel());
+            services.AddOData(opt => opt.Count().Filter().Expand().Select().OrderBy().SetMaxTop(100)
+                .AddModel(
+                    "odata",
+                    GetEdmModel(),
+                    builder => builder.AddService(Microsoft.OData.ServiceLifetime.Singleton, typeof(ODataUriResolver), sp => new StringAsEnumResolver())
+                )
+            );
         }
 
         private static IEdmModel GetEdmModel()
         {
             var odataBuilder = new ODataConventionModelBuilder();
 
-            odataBuilder.EntitySet<User>("users");
+            odataBuilder.EntitySet<UserModel>("users");
 
             return odataBuilder.GetEdmModel();
         }
