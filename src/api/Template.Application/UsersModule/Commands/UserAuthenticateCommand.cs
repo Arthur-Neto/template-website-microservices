@@ -57,6 +57,12 @@ namespace Template.Application.UsersModule.Commands
 
         public async Task<Result<AuthenticatedUserModel>> Handle(UserAuthenticateCommand request, CancellationToken cancellationToken)
         {
+            var secret = _appSettings.GetValue<string>("Secret");
+            if (secret.Length < 15)
+            {
+                return Result.Failure<AuthenticatedUserModel>(ErrorType.SecretKeyTooShort.ToString());
+            }
+
             var user = await _repository.SingleOrDefaultAsync(x => x.Username.Equals(request.Username), tracking: true, cancellationToken);
             if (user == null)
             {
@@ -69,8 +75,7 @@ namespace Template.Application.UsersModule.Commands
                 return Result.Failure<AuthenticatedUserModel>(ErrorType.IncorrectUserPassword.ToString());
             }
 
-            var tokenExpiration = _appSettings.GetValue<string>("TokenExpiration");
-            var secret = _appSettings.GetValue<string>("Secret");
+            var parsedExpiration = double.TryParse(_appSettings.GetValue<string>("TokenExpiration"), out var tokenExpiration);
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(secret);
             var tokenDescriptor = new SecurityTokenDescriptor
@@ -80,15 +85,17 @@ namespace Template.Application.UsersModule.Commands
                     new Claim(ClaimTypes.Name, user.ID.ToString()),
                     new Claim(ClaimTypes.Role, user.Role.ToString()),
                 }),
-                Expires = DateTime.UtcNow.AddMinutes(60),
+                Expires = parsedExpiration
+                    ? DateTime.UtcNow.AddMinutes(tokenExpiration)
+                    : DateTime.UtcNow.AddMinutes(60),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha512Signature)
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);
             user.Token = tokenHandler.WriteToken(token);
 
-            await CommitAsync();
-
-            return Result.Success(_mapper.Map<AuthenticatedUserModel>(user));
+            return await CommitAsync() > 0
+                ? Result.Success(_mapper.Map<AuthenticatedUserModel>(user))
+                : Result.Failure<AuthenticatedUserModel>(ErrorType.FailToAutenticateUser.ToString());
         }
     }
 }

@@ -29,7 +29,7 @@ namespace Template.Domain
 
     public interface IDeleteRepository<TEntity> : IDisposable where TEntity : class
     {
-        void Delete(TEntity entity, CancellationToken cancellationToken);
+        void Delete(TEntity entity);
     }
 
     public interface ISingleOrDefaultRepository<TEntity> : IDisposable where TEntity : class
@@ -40,5 +40,10 @@ namespace Template.Domain
     public interface ICountRepository<TEntity> : IDisposable where TEntity : class
     {
         Task<int> CountAsync(Expression<Func<TEntity, bool>> expression, CancellationToken cancellationToken);
+    }
+
+    public interface IAnyRepository<TEntity> : IDisposable where TEntity : class
+    {
+        Task<bool> AnyAsync(Expression<Func<TEntity, bool>> expression, CancellationToken cancellationToken);
     }
 }

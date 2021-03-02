@@ -31,7 +31,7 @@ namespace Template.Tests.Controllers.Api.UsersModule.UserControllerTests
         }
 
         [Test]
-        public async Task Deve_Verificar_Metodo_E_Retornar_UsuarioPorID()
+        public async Task Deve_Verificar_Metodo_E_Retornar_Usuario_Por_ID()
         {
             // Arrange
             var id = 1;

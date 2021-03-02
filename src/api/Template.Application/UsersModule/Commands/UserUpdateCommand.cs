@@ -43,9 +43,7 @@ namespace Template.Application.UsersModule.Commands
                 return Result.Failure<bool>(ErrorType.NotFound.ToString());
             }
 
-            var countByUsername = await _repository.CountAsync(x => x.Username.Equals(request.Username) && x.ID != request.ID, cancellationToken);
-
-            var isUserDuplicating = countByUsername > 0;
+            var isUserDuplicating = await _repository.AnyAsync(x => x.Username.Equals(request.Username) && x.ID != request.ID, cancellationToken);
             if (isUserDuplicating)
             {
                 return Result.Failure<bool>(ErrorType.Duplicating.ToString());

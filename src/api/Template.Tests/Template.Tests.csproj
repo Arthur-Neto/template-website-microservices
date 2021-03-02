@@ -16,9 +16,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Application\" />
     <Folder Include="Domain\" />
-    <Folder Include="Infrastructure\EntityFramework\" />
+    <Folder Include="Infrastructure\" />
   </ItemGroup>
 
   <ItemGroup>

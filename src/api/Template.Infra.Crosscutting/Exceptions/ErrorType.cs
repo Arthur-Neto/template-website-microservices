@@ -5,6 +5,8 @@
         NotFound,
         Duplicating,
         IncorrectUserPassword,
-        IDShouldBeGreaterThanZero
+        IDShouldBeGreaterThanZero,
+        FailToAutenticateUser,
+        SecretKeyTooShort
     }
 }

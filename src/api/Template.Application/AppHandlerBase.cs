@@ -30,6 +30,7 @@ namespace Template.Application
         public void Dispose()
         {
             if (_unitOfWork != null) { _unitOfWork.Dispose(); }
+
             _repository.Dispose();
         }
     }

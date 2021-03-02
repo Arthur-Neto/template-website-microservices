@@ -25,9 +25,9 @@ namespace Template.Infra.Data.EF.Repositories.UsersModule
             return GenericRepository.CreateAsync(user, cancellationToken);
         }
 
-        public void Delete(User user, CancellationToken cancellationToken)
+        public void Delete(User user)
         {
-            GenericRepository.Delete(user, cancellationToken);
+            GenericRepository.Delete(user);
         }
 
         public IQueryable<TDestination> RetrieveOData<TDestination>(IMapper mapper)
@@ -48,6 +48,11 @@ namespace Template.Infra.Data.EF.Repositories.UsersModule
         public void Update(User user)
         {
             GenericRepository.Update(user);
+        }
+
+        public Task<bool> AnyAsync(Expression<Func<User, bool>> expression, CancellationToken cancellationToken)
+        {
+            return GenericRepository.AnyAsync(expression, cancellationToken);
         }
     }
 }

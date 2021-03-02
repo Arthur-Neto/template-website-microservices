@@ -48,7 +48,7 @@ namespace Template.Application.UsersModule.Commands
                 return Result.Failure<bool>(ErrorType.NotFound.ToString());
             }
 
-            _repository.Delete(user, cancellationToken);
+            _repository.Delete(user);
 
             return await CommitAsync() > 0;
         }

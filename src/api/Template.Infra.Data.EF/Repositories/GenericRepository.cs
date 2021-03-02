@@ -18,7 +18,9 @@ namespace Template.Infra.Data.EF.Repositories
         IUpdateRepository<TEntity>,
         IDeleteRepository<TEntity>,
         ISingleOrDefaultRepository<TEntity>,
-        ICountRepository<TEntity> where TEntity : Entity
+        ICountRepository<TEntity>,
+        IAnyRepository<TEntity>
+        where TEntity : Entity
     {
         public IDatabaseContext Context { get; private set; }
 
@@ -56,7 +58,7 @@ namespace Template.Infra.Data.EF.Repositories
             Context.Entry(entity).State = EntityState.Modified;
         }
 
-        public void Delete(TEntity entity, CancellationToken cancellationToken)
+        public void Delete(TEntity entity)
         {
             Context.Set<TEntity>().Remove(entity);
         }
@@ -85,7 +87,12 @@ namespace Template.Infra.Data.EF.Repositories
 
         public Task<int> CountAsync(Expression<Func<TEntity, bool>> expression, CancellationToken cancellationToken)
         {
-            return Context.Set<TEntity>().CountAsync(expression, cancellationToken);
+            return Context.Set<TEntity>().AsNoTracking().CountAsync(expression, cancellationToken);
+        }
+
+        public Task<bool> AnyAsync(Expression<Func<TEntity, bool>> expression, CancellationToken cancellationToken)
+        {
+            return Context.Set<TEntity>().AsNoTracking().AnyAsync(expression, cancellationToken);
         }
     }
 }
