@@ -4,7 +4,9 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
 
 trigger:
-- master
+  paths:
+    include:
+    - src/client/*
 
 pool:
   vmImage: ubuntu-latest
@@ -19,4 +21,5 @@ steps:
     npm install -g @angular/cli
     npm install
     ng build --prod
+  workingDirectory: src/client
   displayName: 'npm install and build'
