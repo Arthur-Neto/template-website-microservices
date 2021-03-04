@@ -74,13 +74,13 @@ namespace Template.WebApi
 
             app.CreateSqlServerDatabase(Configuration);
 
-            app.UseCors("TemplateCorsPolicy");
-
             app.ConfigExceptionHandler();
 
             app.SeedData();
 
             app.UseRouting();
+
+            app.UseCors("TemplateCorsPolicy");
 
             app.UseAuthentication();
 
