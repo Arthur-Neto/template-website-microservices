@@ -80,13 +80,6 @@ namespace Template.WebApi
 
             app.SeedData();
 
-            app.UseStaticFiles();
-
-            if (!env.IsDevelopment())
-            {
-                app.UseSpaStaticFiles();
-            }
-
             app.UseRouting();
 
             app.UseAuthentication();
