@@ -27,7 +27,7 @@ namespace Template.WebApi
             services.AddCors(option =>
                 option.AddPolicy("TemplateCorsPolicy", builder =>
                 {
-                    builder.WithOrigins("http://localhost:4200");
+                    builder.AllowAnyOrigin();
                     builder.AllowAnyHeader();
                     builder.AllowAnyMethod();
                     builder.AllowCredentials();
