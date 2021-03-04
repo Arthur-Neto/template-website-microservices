@@ -71,7 +71,6 @@ export class LoginComponent implements OnInit {
     }
 
     private onErrorCallback(error: any): void {
-        console.log(error);
         if (error.match('NotFound')) {
             this.form.controls.username.setErrors({ doesntExist: true });
         } else if (error.match('IncorrectUserPassword')) {

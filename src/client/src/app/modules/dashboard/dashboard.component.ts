@@ -39,8 +39,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
     public onDayChanged(dayAndMonth: IDayAndMonth): void {
         this.isLoading = true;
-
-        console.log(dayAndMonth);
         this.dayAndMonth = dayAndMonth;
         this.isLoading = false;
         this.cdr.detectChanges();

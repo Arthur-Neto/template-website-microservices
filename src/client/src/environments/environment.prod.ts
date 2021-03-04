@@ -1,4 +1,4 @@
 export const environment = {
     production: true,
-    apiUrl: 'http://localhost:5000/',
+    apiUrl: 'http://templatewebapi-prod.sa-east-1.elasticbeanstalk.com/',
 };
