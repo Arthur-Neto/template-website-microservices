@@ -1,0 +1,21 @@
+.full-width {
+    width: 100%;
+}
+
+.login-card {
+    width: calc(400px);
+    margin: calc(15%) auto;
+}
+
+.mat-card-header.login-header {
+    justify-content: center;
+}
+
+.mat-card-actions.login-actions {
+    justify-content: center;
+    display: flex;
+}
+
+button.login-btn {
+    width: calc(200px);
+}

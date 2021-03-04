@@ -1,0 +1,29 @@
+.grid-container {
+    margin: 1%;
+}
+
+h1 {
+    margin: 1%;
+}
+
+.dashboard-card {
+    position: absolute;
+    top: 2.5%;
+    left: 2.5%;
+    right: 2.5%;
+    bottom: 2.5%;
+
+    .dashboard-card-content {
+        margin-top: calc(25px);
+        justify-content: justify;
+    }
+
+    .dashboard-card-header {
+        justify-content: center;
+    }
+
+    .dashboard-card-image {
+        height: 50%;
+        width: 100%;
+    }
+}

@@ -1,5 +1,5 @@
 # Template Website
-Template website made with Angular 10, .NET 5 and authentication using JWT Bearer.
+Template website made with Angular 10, .NET 5.
 
 ## Dependencies
 > Frontend

@@ -1,0 +1,40 @@
+.grid-content table,
+.grid-content .mat-paginator,
+.grid-content .mat-form-field {
+    margin: auto;
+    width: 65%;
+}
+
+.grid-header {
+    display: flex;
+    flex-direction: row;
+
+    .grid-actions {
+        flex: 1;
+        justify-content: flex-end;
+        margin-right: 17.6%;
+        margin-top: 1%;
+        display: flex;
+    }
+
+    .grid-filter {
+        flex: 1;
+        margin-left: 17.6%;
+
+        &.mat-form-field {
+            font-size: 14px;
+        }
+    }
+}
+
+.grid-content th,
+.grid-content td {
+    overflow: hidden;
+    max-width: 200px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.mat-column-select {
+    overflow: initial;
+}

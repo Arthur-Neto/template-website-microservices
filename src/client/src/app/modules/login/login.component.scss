@@ -1,0 +1,36 @@
+.full-width {
+    width: 100%;
+}
+
+.login-content {
+    height: calc(100vh - 64px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .login-card {
+        width: calc(400px);
+    }
+
+    .mat-card-header.login-header {
+        justify-content: center;
+    }
+
+    .mat-card-actions.login-actions {
+        justify-content: center;
+        display: flex;
+    }
+
+    button.login-btn {
+        width: calc(200px);
+    }
+
+    .login-create-user {
+        margin-top: 0.5%;
+
+        &:hover {
+            cursor: pointer;
+        }
+    }
+}
