@@ -1,5 +1,5 @@
 # Template Website
-Template website made with Angular 10, .NET 5.
+Template website made with Angular 11, .NET 5.
 
 ## Dependencies
 > Frontend
