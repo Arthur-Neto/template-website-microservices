@@ -27,7 +27,9 @@ namespace Template.WebApi
             services.AddCors(option =>
                 option.AddPolicy("TemplateCorsPolicy", builder =>
                 {
-                    builder.AllowAnyOrigin();
+                    builder.WithOrigins(
+                        "http://localhost:4200/",
+                        "https://arthur-neto.github.io/template-website/");
                     builder.AllowAnyHeader();
                     builder.AllowAnyMethod();
                     builder.AllowCredentials();
