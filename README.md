@@ -1,9 +1,9 @@
 # Template Website
 Template website made with Angular 11, .NET 5.
 
-Frontend [![Build Status](https://netoarthur.visualstudio.com/Pipelines%20Github/_apis/build/status/template-website-dotnet?branchName=master)](https://netoarthur.visualstudio.com/Pipelines%20Github/_build/latest?definitionId=7&branchName=master)
+Frontend [![Build Status](https://netoarthur.visualstudio.com/Pipelines%20Github/_apis/build/status/template-website-dotnet?branchName=master)](https://netoarthur.visualstudio.com/Pipelines%20Github/_build/latest?definitionId=8&branchName=master)
 
-Backend [![Build Status](https://netoarthur.visualstudio.com/Pipelines%20Github/_apis/build/status/template-website-angular?branchName=master)](https://netoarthur.visualstudio.com/Pipelines%20Github/_build/latest?definitionId=8&branchName=master)
+Backend [![Build Status](https://netoarthur.visualstudio.com/Pipelines%20Github/_apis/build/status/template-website-angular?branchName=master)](https://netoarthur.visualstudio.com/Pipelines%20Github/_build/latest?definitionId=7&branchName=master)
 
 ## Dependencies
 > Frontend
