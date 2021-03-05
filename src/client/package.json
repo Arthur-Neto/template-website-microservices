@@ -5,7 +5,6 @@
         "ng": "ng",
         "start": "ng serve",
         "build": "ng build",
-        "buildgh": "ng build --prod --base-href \"http://www.template-website-teste.com/\"",
         "test": "ng test",
         "lint": "ng lint",
         "e2e": "ng e2e",
@@ -13,6 +12,7 @@
     },
     "private": true,
     "dependencies": {
+        "@angular-devkit/build-angular": "^0.1102.3",
         "@angular-material-components/datetime-picker": "^5.1.0",
         "@angular/animations": "~11.2.4",
         "@angular/cdk": "^11.2.3",
@@ -32,10 +32,8 @@
         "zone.js": "~0.11.4"
     },
     "devDependencies": {
-        "@angular-devkit/build-angular": "~0.1102.3",
         "@types/jasmine": "~3.6.4",
         "@types/node": "^14.14.31",
-        "angular-cli-ghpages": "^1.0.0-rc.1",
         "codelyzer": "^6.0.1",
         "jasmine-core": "~3.6.0",
         "jasmine-spec-reporter": "~6.0.0",
