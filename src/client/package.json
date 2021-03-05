@@ -1,6 +1,9 @@
 {
     "name": "template-website",
     "version": "1.0.0",
+    "engines": {
+        "node": "14.x"
+    },
     "scripts": {
         "ng": "ng",
         "start": "ng serve",
@@ -8,7 +11,7 @@
         "test": "ng test",
         "lint": "ng lint",
         "e2e": "ng e2e",
-        "heroku-postbuild": "ng build --prod"
+        "heroku-postbuild": "ng build --aot --prod"
     },
     "private": true,
     "dependencies": {
