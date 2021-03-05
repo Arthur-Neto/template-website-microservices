@@ -23,7 +23,14 @@ steps:
     ng build --prod --aot
   workingDirectory: src/client
   displayName: 'npm install and build'
-  
+
+- task: CopyFiles@2
+  inputs:
+    SourceFolder: '$(Agent.BuildDirectory)'
+    Contents: '**'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+    CleanTargetFolder: true
+
 - task: S3Upload@1
   inputs:
     awsCredentials: 'AWS'
