@@ -68,7 +68,7 @@
                 "serve": {
                     "builder": "@angular-devkit/build-angular:dev-server",
                     "options": {
-                        "browserTarget": "template-website:build",
+                        "browserTarget": "template-website:build"
                     },
                     "configurations": {
                         "production": {
