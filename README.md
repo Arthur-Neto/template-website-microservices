@@ -2,6 +2,7 @@
 Template website made with Angular 11, .NET 5.
 
 Running app: http://template-webapi.s3-website-sa-east-1.amazonaws.com/#/dashboard
+(Contact me to get access to the running application)
 
 Frontend [![Build Status](https://netoarthur.visualstudio.com/Pipelines%20Github/_apis/build/status/template-website-dotnet?branchName=master)](https://netoarthur.visualstudio.com/Pipelines%20Github/_build/latest?definitionId=8&branchName=master)
 
