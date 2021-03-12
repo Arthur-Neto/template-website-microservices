@@ -4,8 +4,8 @@ export interface IAuthenticateCommand {
 }
 
 export enum Role {
-    Manager = 1,
-    Client = 2
+    Manager = "Manager",
+    Client = "Client"
 }
 
 export interface IAuthenticatedUser {

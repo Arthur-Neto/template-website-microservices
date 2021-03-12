@@ -12,6 +12,7 @@
     </mat-sidenav>
 
     <mat-sidenav-content>
+        <app-spinner [isLoading]="isLoading"></app-spinner>
         <router-outlet></router-outlet>
     </mat-sidenav-content>
 </mat-sidenav-container>
