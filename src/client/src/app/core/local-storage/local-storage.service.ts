@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
 
-
-
 class LocalStorage implements Storage {
     [name: string]: any;
     readonly length!: number;
