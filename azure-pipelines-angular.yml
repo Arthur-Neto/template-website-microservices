@@ -20,6 +20,22 @@ steps:
 - script: |
     npm install -g @angular/cli
     npm install
-    ng build --prod
+    ng build --prod --aot
   workingDirectory: src/client
   displayName: 'npm install and build'
+
+- task: CopyFiles@2
+  inputs:
+    SourceFolder: '$(Agent.BuildDirectory)/s/src/client/dist/template-website/'
+    Contents: '**'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+    CleanTargetFolder: true
+
+- task: S3Upload@1
+  inputs:
+    awsCredentials: 'AWS'
+    regionName: 'sa-east-1'
+    bucketName: 'template-webapi'
+    sourceFolder: '$(Build.ArtifactStagingDirectory)'
+    globExpressions: '**'
+    filesAcl: 'public-read'
