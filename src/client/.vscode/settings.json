@@ -54,6 +54,4 @@
     ],
     "html.format.indentInnerHtml": true,
     "html.format.wrapAttributes": "force-aligned",
-    "prettier.endOfLine": "crlf",
-    "prettier.printWidth": 150,
 }

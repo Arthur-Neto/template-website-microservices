@@ -23,10 +23,11 @@ body {
 
 body {
     margin: 0;
+    font-size: 16px;
     font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
-*:focus {
-    outline: none !important;
-    border: 0 !important;
+@function rem-calc($size) {
+    $remSize: $size / 16px;
+    @return #{$remSize}rem;
 }

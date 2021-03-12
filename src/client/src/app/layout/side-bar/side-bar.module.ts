@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { MatDividerModule } from '@angular/material/divider';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { SharedModule } from '@shared/shared.module';
 
@@ -10,7 +9,6 @@ import { SideBarComponent } from './side-bar.component';
         SharedModule,
 
         MatSidenavModule,
-        MatDividerModule,
     ],
     declarations: [
         SideBarComponent,

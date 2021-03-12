@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { SharedModule } from '@shared/shared.module';
 
@@ -10,6 +11,7 @@ import { NavBarComponent } from './nav-bar.component';
     imports: [
         SharedModule,
 
+        MatSidenavModule,
         MatToolbarModule,
         MatMenuModule,
     ],

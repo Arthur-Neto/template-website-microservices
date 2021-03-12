@@ -1,4 +1,6 @@
-import { NgxMatDatetimePickerModule, NgxMatNativeDateModule, NgxMatTimepickerModule } from '@angular-material-components/datetime-picker';
+import {
+    NgxMatDatetimePickerModule, NgxMatNativeDateModule, NgxMatTimepickerModule
+} from '@angular-material-components/datetime-picker';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -23,7 +25,9 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { MatTableModule } from '@angular/material/table';
 import { RouterModule } from '@angular/router';
 
-import { CarouselDaypickerComponent } from './components/carousel-daypicker/carousel-daypicker.component';
+import {
+    CarouselDaypickerComponent
+} from './components/carousel-daypicker/carousel-daypicker.component';
 import { GridComponent } from './components/grid/grid.component';
 import { SpinnerComponent } from './components/spinner/spinner.component';
 
@@ -32,6 +36,7 @@ import { SpinnerComponent } from './components/spinner/spinner.component';
         CommonModule,
         RouterModule,
         ReactiveFormsModule,
+
         MatProgressSpinnerModule,
         MatInputModule,
         MatTableModule,

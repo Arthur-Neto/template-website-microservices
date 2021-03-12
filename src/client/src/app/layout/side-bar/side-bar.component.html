@@ -1,18 +1,23 @@
-<mat-sidenav-container class="sidebar-container">
-    <mat-sidenav class="sidebar-items"
-                 mode="side"
-                 [opened]="isUserLoggedManager">
-        <button mat-button
-                class="sidebar-item"
-                [routerLink]="'/users'">
-            <mat-icon>person</mat-icon>
-            Users
-        </button>
-        <mat-divider></mat-divider>
-    </mat-sidenav>
+<mat-drawer-container class="sidebar-container mat-typography">
+    <mat-drawer #sidenav
+                mode="side"
+                opened>
+        <div class="sidebar-list"
+             [@onSideNavChange]="isExpanded ? 'open' : 'close'">
+            <mat-nav-list>
+                <mat-list-item [routerLink]="'/users'">
+                    <mat-icon mat-list-icon>person</mat-icon>
+                    <span [@animateText]="isExpanded ? 'show' : 'hide'">
+                        Users
+                    </span>
+                </mat-list-item>
+            </mat-nav-list>
+        </div>
+    </mat-drawer>
 
-    <mat-sidenav-content>
+    <mat-drawer-content class="sidebar-content"
+                        [@onMainContentChange]="isExpanded ? 'open': 'close'">
         <app-spinner [isLoading]="isLoading"></app-spinner>
         <router-outlet></router-outlet>
-    </mat-sidenav-content>
-</mat-sidenav-container>
+    </mat-drawer-content>
+</mat-drawer-container>
