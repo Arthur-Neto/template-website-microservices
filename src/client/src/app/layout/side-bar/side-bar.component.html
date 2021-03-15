@@ -1,5 +1,6 @@
 <mat-drawer-container class="sidebar-container mat-typography">
     <mat-drawer #sidenav
+                *ngIf="isUserLoggedManager"
                 mode="side"
                 opened>
         <div class="sidebar-list"
@@ -16,7 +17,7 @@
     </mat-drawer>
 
     <mat-drawer-content class="sidebar-content"
-                        [@onMainContentChange]="isExpanded ? 'open': 'close'">
+                        [@onMainContentChange]="sidebarState">
         <app-spinner [isLoading]="isLoading"></app-spinner>
         <router-outlet></router-outlet>
     </mat-drawer-content>
