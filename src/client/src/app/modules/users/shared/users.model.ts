@@ -8,3 +8,9 @@ export interface IUserUpdateCommand {
     username: string;
     password: string;
 }
+
+export interface IUsersGridModel {
+    id: number;
+    username: string;
+    role: string;
+}

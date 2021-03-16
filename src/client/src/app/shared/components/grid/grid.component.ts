@@ -1,5 +1,7 @@
 import { SelectionModel } from '@angular/cdk/collections';
-import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import {
+    AfterViewInit, Component, EventEmitter, Input, OnInit, Output, ViewChild
+} from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable, MatTableDataSource } from '@angular/material/table';

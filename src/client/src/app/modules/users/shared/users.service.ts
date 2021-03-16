@@ -4,7 +4,7 @@ import { environment } from '@env';
 
 import { Observable } from 'rxjs';
 
-import { IUserCreateCommand, IUserUpdateCommand } from './users.model';
+import { IUserCreateCommand, IUsersGridModel, IUserUpdateCommand } from './users.model';
 
 @Injectable()
 export class UsersApiService {
@@ -22,5 +22,20 @@ export class UsersApiService {
 
     public update(command: IUserUpdateCommand): Observable<boolean> {
         return this.http.put<boolean>(`${ this.apiUrl }`, command);
+    }
+}
+
+@Injectable()
+export class UsersODataService {
+    private odataUrl: string;
+
+    constructor(
+        private http: HttpClient
+    ) {
+        this.odataUrl = `${ environment.apiUrl }odata/users`;
+    }
+
+    public get(): Observable<IUsersGridModel[]> {
+        return this.http.get<IUsersGridModel[]>(`${ this.odataUrl }`);
     }
 }
