@@ -2,6 +2,7 @@
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Query;
+using Microsoft.AspNetCore.OData.Routing.Controllers;
 using Template.Application.UsersModule.Models;
 using Template.Domain.UsersModule;
 using Template.Domain.UsersModule.Enums;
@@ -9,7 +10,7 @@ using Template.WebApi.Attributes;
 
 namespace Template.WebApi.Controllers.OData.UsersModule
 {
-    public class UsersController : ControllerBase
+    public class UsersController : ODataController
     {
         private readonly IMapper _mapper;
         private readonly IUserRepository _userRepository;
