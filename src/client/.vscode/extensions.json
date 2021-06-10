@@ -10,5 +10,10 @@
         "mike-co.import-sorter",
         "pmneo.tsimporter",
         "pflannery.vscode-versionlens",
+        "dbaeumer.vscode-eslint",
+        "tombonnike.vscode-status-bar-format-toggle",
+        "abusaidm.html-snippets",
+        "esbenp.prettier-vscode",
+        "sibiraj-s.vscode-scss-formatter"
     ]
 }

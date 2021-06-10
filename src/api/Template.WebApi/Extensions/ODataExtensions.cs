@@ -11,12 +11,12 @@ namespace Template.WebApi.Extensions
     {
         public static void AddODataConfig(this IServiceCollection services)
         {
-            services.AddOData(opt => opt.Count().Filter().Expand().Select().OrderBy().SetMaxTop(100)
+            services.AddOData(opt => opt
                 .AddModel(
                     "odata",
                     GetEdmModel(),
                     builder => builder.AddService(Microsoft.OData.ServiceLifetime.Singleton, typeof(ODataUriResolver), sp => new StringAsEnumResolver())
-                )
+                ).Count().Filter().Expand().Select().OrderBy().SetMaxTop(100)
             );
         }
 
@@ -24,7 +24,7 @@ namespace Template.WebApi.Extensions
         {
             var odataBuilder = new ODataConventionModelBuilder();
 
-            odataBuilder.EntitySet<UserModel>("users");
+            odataBuilder.EntitySet<UserModel>("Users");
 
             return odataBuilder.GetEdmModel();
         }

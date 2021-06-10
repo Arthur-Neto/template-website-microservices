@@ -9,14 +9,12 @@ using Template.WebApi.Attributes;
 
 namespace Template.WebApi.Controllers.OData.UsersModule
 {
-    [ApiController]
-    [Route("odata/users")]
-    public class UserODataController : ControllerBase
+    public class UsersController : ControllerBase
     {
         private readonly IMapper _mapper;
         private readonly IUserRepository _userRepository;
 
-        public UserODataController(
+        public UsersController(
             IMapper mapper,
             IUserRepository userRepository
         )

@@ -12,7 +12,7 @@ using Template.Domain.UsersModule.Enums;
 using Template.WebApi.Attributes;
 using Template.WebApi.Controllers.OData.UsersModule;
 
-namespace Template.Tests.Controllers.OData.UsersModule.UserODataControllerTests
+namespace Template.Tests.Controllers.OData.UsersModule.UsersControllerTests
 {
     [TestFixture]
     public class GetTests
@@ -68,7 +68,7 @@ namespace Template.Tests.Controllers.OData.UsersModule.UserODataControllerTests
         public void Deve_Verificar_Atributos()
         {
             // Assert
-            typeof(UserODataController)
+            typeof(UsersController)
                 .GetMethod("Get")
                 .Should()
                 .BeDecoratedWith<AuthorizeRoles>(p => p.Roles.Equals(Role.Manager.ToString())).And
@@ -77,9 +77,9 @@ namespace Template.Tests.Controllers.OData.UsersModule.UserODataControllerTests
                 .BeDecoratedWith<ProducesResponseTypeAttribute>(a => a.Type == typeof(IQueryable<UserModel>) && a.StatusCode == 200);
         }
 
-        private UserODataController GetController()
+        private UsersController GetController()
         {
-            return new UserODataController(_moqMapper.Object, _moqUserRepository.Object);
+            return new UsersController(_moqMapper.Object, _moqUserRepository.Object);
         }
     }
 }
