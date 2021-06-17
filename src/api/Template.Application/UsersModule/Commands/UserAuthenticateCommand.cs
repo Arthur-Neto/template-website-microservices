@@ -73,8 +73,8 @@ namespace Template.Application.UsersModule.Commands
                 return Result.Failure<AuthenticatedUserModel>(ErrorType.NotFound.ToString());
             }
 
-            var isCorrectPassword = user.Value.Password.Equals(request.Password);
-            if (!isCorrectPassword)
+            var correctPassword = user.Value.Password.Equals(request.Password);
+            if (correctPassword is false)
             {
                 return Result.Failure<AuthenticatedUserModel>(ErrorType.IncorrectUserPassword.ToString());
             }
