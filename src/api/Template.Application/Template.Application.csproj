@@ -16,6 +16,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Template.Domain\Template.Domain.csproj" />
     <ProjectReference Include="..\Template.Infra.Crosscutting\Template.Infra.Crosscutting.csproj" />
+    <ProjectReference Include="..\Template.Infra.Serilog\Template.Infra.Serilog.csproj" />
   </ItemGroup>
 
 </Project>

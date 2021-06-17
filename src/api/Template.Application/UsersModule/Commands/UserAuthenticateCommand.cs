@@ -9,6 +9,7 @@ using CSharpFunctionalExtensions;
 using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Template.Application.UsersModule.Models;
 using Template.Domain.UsersModule;
@@ -48,15 +49,18 @@ namespace Template.Application.UsersModule.Commands
         public UserAuthenticateCommandHandler(
             IMapper mapper,
             IUnitOfWork unitOfWork,
+            ILogger<UserAuthenticateCommandHandler> logger,
             IConfiguration appSettings,
             IUserRepository userRepository
-        ) : base(userRepository, mapper, unitOfWork)
+        ) : base(userRepository, mapper, logger, unitOfWork)
         {
             _appSettings = appSettings;
         }
 
         public async Task<Result<AuthenticatedUserModel>> Handle(UserAuthenticateCommand request, CancellationToken cancellationToken)
         {
+            _logger.LogInformation("New request with {username} and {password}", request.Username, request.Password);
+
             var secret = _appSettings.GetValue<string>("Secret");
             if (secret.Length < 15)
             {

@@ -25,6 +25,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Template.Tests", "Template.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Template.WebApi", "Template.WebApi\Template.WebApi.csproj", "{3FE768BF-BEAB-4BC8-8D3C-EF2C2A2F421D}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Template.Infra.Serilog", "Template.Infra.Serilog\Template.Infra.Serilog.csproj", "{801571FA-761B-41A8-B333-B9AE42A904A4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -55,6 +57,10 @@ Global
 		{3FE768BF-BEAB-4BC8-8D3C-EF2C2A2F421D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3FE768BF-BEAB-4BC8-8D3C-EF2C2A2F421D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3FE768BF-BEAB-4BC8-8D3C-EF2C2A2F421D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{801571FA-761B-41A8-B333-B9AE42A904A4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{801571FA-761B-41A8-B333-B9AE42A904A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{801571FA-761B-41A8-B333-B9AE42A904A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{801571FA-761B-41A8-B333-B9AE42A904A4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -66,6 +72,7 @@ Global
 		{ED54F7C4-DA97-49C5-A5F2-0631124FDE4B} = {C8320742-712B-4354-8DE9-B487CC30AA26}
 		{CBB5DE8D-E44A-4979-8EAD-249886C4A561} = {717DA9F0-022C-4426-B0E4-FE363E10DF1B}
 		{3FE768BF-BEAB-4BC8-8D3C-EF2C2A2F421D} = {015AA021-C656-4D30-9AE4-3AB547CCE4E4}
+		{801571FA-761B-41A8-B333-B9AE42A904A4} = {C8320742-712B-4354-8DE9-B487CC30AA26}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0DA186E5-D60B-4458-A221-EC3F188DEFB1}

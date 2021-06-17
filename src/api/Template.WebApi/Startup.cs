@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using OData.Swagger.Services;
 using Template.Application;
+using Template.Infra.Serilog;
 using Template.WebApi.Extensions;
 
 namespace Template.WebApi
@@ -42,6 +43,8 @@ namespace Template.WebApi
             });
 
             services.ConfigAuthorization(Configuration);
+
+            services.RegisterLogger(dispose: true);
 
             services.AddDependencies();
 
