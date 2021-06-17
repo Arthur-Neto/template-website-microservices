@@ -29,13 +29,13 @@ namespace Template.Application.UsersModule.Queries
                 return Result.Failure<UserModel>(ErrorType.IDShouldBeGreaterThanZero.ToString());
             }
 
-            var user = await _repository.RetrieveByIDAsync(query.ID, cancellationToken);
-            if (user == null)
+            Maybe<User> user = await _repository.RetrieveByIDAsync(query.ID, cancellationToken);
+            if (user.HasNoValue)
             {
                 return Result.Failure<UserModel>(ErrorType.NotFound.ToString());
             }
 
-            return Result.Success(_mapper.Map<UserModel>(user));
+            return Result.Success(_mapper.Map<UserModel>(user.Value));
         }
     }
 }

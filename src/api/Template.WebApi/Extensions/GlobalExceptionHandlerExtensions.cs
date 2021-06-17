@@ -13,12 +13,13 @@ namespace Template.WebApi.Extensions
             {
                 errorApp.Run(async context =>
                 {
-                    var exceptionHandlingFeature = context.Features.Get<IExceptionHandlerPathFeature>();
+                    var exception = context.Features.Get<IExceptionHandlerPathFeature>().Error;
 
                     context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
                     context.Response.ContentType = "application/json";
 
-                    await context.Response.WriteAsync($"{exceptionHandlingFeature?.Error.Message}");
+                    var response = new { Error = exception.Message };
+                    await context.Response.WriteAsJsonAsync(response);
                 });
             });
         }

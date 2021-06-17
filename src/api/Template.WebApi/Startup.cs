@@ -1,5 +1,4 @@
 using System;
-using AutoMapper;
 using FluentValidation.AspNetCore;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
@@ -25,6 +24,8 @@ namespace Template.WebApi
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.RegisterLogger(dispose: true);
+
             services.AddCors(option =>
                 option.AddPolicy("TemplateCorsPolicy", builder =>
                 {
@@ -43,8 +44,6 @@ namespace Template.WebApi
             });
 
             services.ConfigAuthorization(Configuration);
-
-            services.RegisterLogger(dispose: true);
 
             services.AddDependencies();
 

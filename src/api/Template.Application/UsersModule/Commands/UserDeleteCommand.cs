@@ -42,13 +42,13 @@ namespace Template.Application.UsersModule.Commands
 
         public async Task<Result<bool>> Handle(UserDeleteCommand request, CancellationToken cancellationToken)
         {
-            var user = await _repository.RetrieveByIDAsync(request.ID, cancellationToken);
-            if (user == null)
+            Maybe<User> user = await _repository.RetrieveByIDAsync(request.ID, cancellationToken);
+            if (user.HasNoValue)
             {
                 return Result.Failure<bool>(ErrorType.NotFound.ToString());
             }
 
-            _repository.Delete(user);
+            _repository.Delete(user.Value);
 
             return await CommitAsync() > 0;
         }

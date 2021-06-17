@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System;
+using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -10,7 +11,13 @@ namespace Template.WebApi.Extensions
     {
         public static void ConfigAuthorization(this IServiceCollection services, IConfiguration configuration)
         {
-            var secret = Encoding.ASCII.GetBytes(configuration.GetValue<string>("Secret"));
+            var secret = configuration.GetValue<string>("Secret");
+            if (secret == null)
+            {
+                throw new Exception("Secret not defined on appsettings");
+            }
+
+            var secretEncoded = Encoding.ASCII.GetBytes(secret);
             services.AddAuthentication(x =>
             {
                 x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -23,7 +30,7 @@ namespace Template.WebApi.Extensions
                 x.TokenValidationParameters = new TokenValidationParameters
                 {
                     ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(secret),
+                    IssuerSigningKey = new SymmetricSecurityKey(secretEncoded),
                     ValidateIssuer = false,
                     ValidateAudience = false
                 };

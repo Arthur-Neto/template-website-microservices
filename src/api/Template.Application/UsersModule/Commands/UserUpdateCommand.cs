@@ -37,8 +37,8 @@ namespace Template.Application.UsersModule.Commands
 
         public async Task<Result<bool>> Handle(UserUpdateCommand request, CancellationToken cancellationToken)
         {
-            var user = await _repository.RetrieveByIDAsync(request.ID, cancellationToken);
-            if (user == null)
+            Maybe<User> user = await _repository.RetrieveByIDAsync(request.ID, cancellationToken);
+            if (user.HasNoValue)
             {
                 return Result.Failure<bool>(ErrorType.NotFound.ToString());
             }
@@ -49,10 +49,10 @@ namespace Template.Application.UsersModule.Commands
                 return Result.Failure<bool>(ErrorType.Duplicating.ToString());
             }
 
-            user.Username = request.Username;
-            user.Password = request.Password;
+            user.Value.Username = request.Username;
+            user.Value.Password = request.Password;
 
-            _repository.Update(user);
+            _repository.Update(user.Value);
 
             return await CommitAsync() > 0;
         }

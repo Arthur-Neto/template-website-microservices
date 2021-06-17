@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using FluentAssertions;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using Moq;
 using NUnit.Framework;
 using Template.Application;
@@ -21,6 +22,7 @@ namespace Template.Tests.Application.UsersModule.Commands
         private Mock<IMapper> _moqMapper;
         private Mock<IUnitOfWork> _moqUnitOfWork;
         private Mock<IUserRepository> _moqUserRepository;
+        private Mock<ILogger<UserAuthenticateCommandHandler>> _moqLogger;
 
         [SetUp]
         public void SetUp()
@@ -28,6 +30,7 @@ namespace Template.Tests.Application.UsersModule.Commands
             _moqMapper = new Mock<IMapper>(MockBehavior.Strict);
             _moqUnitOfWork = new Mock<IUnitOfWork>(MockBehavior.Strict);
             _moqUserRepository = new Mock<IUserRepository>(MockBehavior.Strict);
+            _moqLogger = new Mock<ILogger<UserAuthenticateCommandHandler>>(MockBehavior.Loose);
         }
 
         [TearDown]
@@ -179,6 +182,7 @@ namespace Template.Tests.Application.UsersModule.Commands
             return new UserAuthenticateCommandHandler(
                 _moqMapper.Object,
                 _moqUnitOfWork.Object,
+                _moqLogger.Object,
                 _moqConfiguration,
                 _moqUserRepository.Object
             );

@@ -67,13 +67,13 @@ namespace Template.Application.UsersModule.Commands
                 return Result.Failure<AuthenticatedUserModel>(ErrorType.SecretKeyTooShort.ToString());
             }
 
-            var user = await _repository.SingleOrDefaultAsync(x => x.Username.Equals(request.Username), tracking: true, cancellationToken);
-            if (user == null)
+            Maybe<User> user = await _repository.SingleOrDefaultAsync(x => x.Username.Equals(request.Username), tracking: true, cancellationToken);
+            if (user.HasNoValue)
             {
                 return Result.Failure<AuthenticatedUserModel>(ErrorType.NotFound.ToString());
             }
 
-            var isCorrectPassword = user.Password.Equals(request.Password);
+            var isCorrectPassword = user.Value.Password.Equals(request.Password);
             if (!isCorrectPassword)
             {
                 return Result.Failure<AuthenticatedUserModel>(ErrorType.IncorrectUserPassword.ToString());
@@ -86,8 +86,8 @@ namespace Template.Application.UsersModule.Commands
             {
                 Subject = new ClaimsIdentity(new Claim[]
                 {
-                    new Claim(ClaimTypes.Name, user.ID.ToString()),
-                    new Claim(ClaimTypes.Role, user.Role.ToString()),
+                    new Claim(ClaimTypes.Name, user.Value.ID.ToString()),
+                    new Claim(ClaimTypes.Role, user.Value.Role.ToString()),
                 }),
                 Expires = parsedExpiration
                     ? DateTime.UtcNow.AddMinutes(tokenExpiration)
@@ -95,10 +95,10 @@ namespace Template.Application.UsersModule.Commands
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha512Signature)
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);
-            user.Token = tokenHandler.WriteToken(token);
+            user.Value.Token = tokenHandler.WriteToken(token);
 
             return await CommitAsync() > 0
-                ? Result.Success(_mapper.Map<AuthenticatedUserModel>(user))
+                ? Result.Success(_mapper.Map<AuthenticatedUserModel>(user.Value))
                 : Result.Failure<AuthenticatedUserModel>(ErrorType.FailToAutenticateUser.ToString());
         }
     }

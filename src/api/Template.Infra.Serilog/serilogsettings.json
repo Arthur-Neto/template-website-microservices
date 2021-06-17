@@ -1,14 +1,21 @@
 ﻿{
   "Serilog": {
-    "Using": [ "Serilog.Sinks.File" ],
+    "Using": [ "Serilog.Sinks.File", "Serilog.Sinks.Async" ],
     "MinimumLevel": "Debug",
     "WriteTo": [
       {
-        "Name": "File",
+        "Name": "Async",
         "Args": {
-          "path": "Logs/log.txt",
-          "rollingInterval": "Day",
-          "retainedFileCountLimit": "100"
+          "configure": [
+            {
+              "Name": "File",
+              "Args": {
+                "path": "Logs/log.txt",
+                "rollingInterval": "Day",
+                "retainedFileCountLimit": "1000"
+              }
+            }
+          ]
         }
       }
     ],

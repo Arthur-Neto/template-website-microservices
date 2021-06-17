@@ -1,14 +1,21 @@
 ﻿{
   "Serilog": {
-    "Using": [ "Serilog.Sinks.File", "Serilog.Sinks.Elasticsearch" ],
+    "Using": [ "Serilog.Sinks.File", "Serilog.Sinks.Elasticsearch", "Serilog.Sinks.Async" ],
     "MinimumLevel": "Warning",
     "WriteTo": [
       {
-        "Name": "File",
+        "Name": "Async",
         "Args": {
-          "path": "Logs/log.txt",
-          "rollingInterval": "Day",
-          "retainedFileCountLimit": "1000"
+          "configure": [
+            {
+              "Name": "File",
+              "Args": {
+                "path": "Logs/log.txt",
+                "rollingInterval": "Day",
+                "retainedFileCountLimit": "1000"
+              }
+            }
+          ]
         }
       },
       {
