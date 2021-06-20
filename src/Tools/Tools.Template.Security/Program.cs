@@ -7,10 +7,12 @@ namespace Tools.Template.Security
     {
         static void Main(string[] args)
         {
+            var hashing = new Hashing();
+
             Console.WriteLine("Password: ");
             var password = Console.ReadLine();
-            var salt = SecurityHelper.GenerateSalt();
-            var hash = SecurityHelper.GenerateHash(password, salt);
+            var salt = hashing.GenerateSalt();
+            var hash = hashing.GenerateHash(password, salt);
 
             Console.WriteLine("Salt: " + salt);
             Console.WriteLine("Hash: " + hash);
