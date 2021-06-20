@@ -12,9 +12,9 @@ namespace Template.WebApi.Controllers.Api.UsersModule
 {
     [ApiController]
     [Route("api/users")]
-    public class UserController : BaseController
+    public class UsersController : BaseController
     {
-        public UserController(IMediator mediator)
+        public UsersController(IMediator mediator)
             : base(mediator)
         { }
 

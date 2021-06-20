@@ -41,12 +41,17 @@ namespace Template.Application.TenantsModule.Commands
 
     public class TenantCreateCommandHandler : AppHandlerBase<ITenantRepository, ITenantDbContext>, IRequestHandler<TenantCreateCommand, Result<Guid>>
     {
+        private readonly IHashing _hashing;
+
         public TenantCreateCommandHandler(
             IMapper mapper,
             IUnitOfWork<ITenantDbContext> unitOfWork,
-            ITenantRepository tenantRepository
+            ITenantRepository tenantRepository,
+            IHashing hashing
         ) : base(tenantRepository, mapper, unitOfWork)
-        { }
+        {
+            _hashing = hashing;
+        }
 
         public async Task<Result<Guid>> Handle(TenantCreateCommand request, CancellationToken cancellationToken)
         {
@@ -57,8 +62,8 @@ namespace Template.Application.TenantsModule.Commands
             }
 
             var tenant = _mapper.Map<Tenant>(request);
-            tenant.Salt = SecurityHelper.GenerateSalt();
-            tenant.Password = SecurityHelper.GenerateHash(request.Password, tenant.Salt);
+            tenant.Salt = _hashing.GenerateSalt();
+            tenant.Password = _hashing.GenerateHash(request.Password, tenant.Salt);
 
             var createdTenant = await _repository.CreateAsync(tenant, cancellationToken);
 

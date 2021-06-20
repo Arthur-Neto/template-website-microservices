@@ -12,7 +12,7 @@ using Template.Domain.TenantsModule.Enums;
 using Template.WebApi.Attributes;
 using Template.WebApi.Controllers.Api.UsersModule;
 
-namespace Template.Tests.Controllers.Api.UsersModule.UserControllerTests
+namespace Template.Tests.Controllers.Api.UsersModule.UsersControllerTests
 {
     [TestFixture]
     public class RetrieveByIDAsyncTests
@@ -82,7 +82,7 @@ namespace Template.Tests.Controllers.Api.UsersModule.UserControllerTests
         public void Deve_Verificar_Atributos()
         {
             // Assert
-            typeof(UserController)
+            typeof(UsersController)
                 .GetMethod("RetrieveByIDAsync")
                 .Should()
                 .BeDecoratedWith<AuthorizeRoles>(p => p.Roles.Equals(Role.Manager.ToString())).And
@@ -91,9 +91,9 @@ namespace Template.Tests.Controllers.Api.UsersModule.UserControllerTests
                 .BeDecoratedWith<ProducesResponseTypeAttribute>(a => a.Type == typeof(UserModel) && a.StatusCode == 200);
         }
 
-        private UserController GetController()
+        private UsersController GetController()
         {
-            return new UserController(_moqMediator.Object);
+            return new UsersController(_moqMediator.Object);
         }
     }
 }

@@ -4,11 +4,17 @@ using System.Security.Claims;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
 
-namespace Template.Infra.Crosscutting.Security
+namespace Template.Security
 {
-    public static class JwtTokenHelper
+    public interface IJwtTokenFactory
     {
-        public static string CreateToken(string secret, double tokenExpiration, string claimName, string claimRole, string claimEnterprise)
+        string CreateToken(string secret, double tokenExpiration, string claimName, string claimRole, string claimEnterprise);
+        JwtSecurityToken ValidateToken(string token, string secret);
+    }
+
+    public class JwtTokenFactory : IJwtTokenFactory
+    {
+        public string CreateToken(string secret, double tokenExpiration, string claimName, string claimRole, string claimEnterprise)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(secret);
@@ -28,7 +34,7 @@ namespace Template.Infra.Crosscutting.Security
             return tokenHandler.WriteToken(token);
         }
 
-        public static JwtSecurityToken ValidateToken(string token, string secret)
+        public JwtSecurityToken ValidateToken(string token, string secret)
         {
             var key = Encoding.ASCII.GetBytes(secret);
             var tokenHandler = new JwtSecurityTokenHandler();

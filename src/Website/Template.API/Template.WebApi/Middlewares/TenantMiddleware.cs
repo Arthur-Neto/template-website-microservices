@@ -1,9 +1,10 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
-using Template.Infra.Crosscutting.Http;
+using Template.Security;
 
 namespace Template.WebApi.Middlewares
 {
@@ -16,7 +17,7 @@ namespace Template.WebApi.Middlewares
             _next = next;
         }
 
-        public async Task InvokeAsync(HttpContext context, IConfiguration configuration)
+        public async Task InvokeAsync(HttpContext context, IConfiguration configuration, IJwtTokenFactory jwtTokenFactory)
         {
             var endpoint = context.GetEndpoint();
             if (endpoint?.Metadata?.GetMetadata<IAllowAnonymous>() is object)
@@ -32,7 +33,9 @@ namespace Template.WebApi.Middlewares
                 return;
             }
 
-            var jwtToken = await context.GetTokenFromCurrentUserAsync(configuration);
+            var token = await context.GetTokenAsync("Bearer", "access_token");
+            var secret = configuration.GetValue<string>("Secret");
+            var jwtToken = jwtTokenFactory.ValidateToken(token, secret);
             var enterpriseSchema = jwtToken.Claims.FirstOrDefault(x => x.Type == "enterprise_schema")?.Value;
             if (string.IsNullOrWhiteSpace(enterpriseSchema) is false)
             {

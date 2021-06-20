@@ -4,9 +4,16 @@ using System.Text;
 
 namespace Template.Security
 {
-    public static class SecurityHelper
+    public interface IHashing
     {
-        public static bool IsValidHash(string hash, string salt, string plainValue)
+        bool IsValidHash(string hash, string salt, string plainValue);
+        string GenerateHash(string plainValue, string salt);
+        string GenerateSalt();
+    }
+
+    public class Hashing : IHashing
+    {
+        public bool IsValidHash(string hash, string salt, string plainValue)
         {
             var bytesPlainValue = Encoding.UTF8.GetBytes(plainValue);
             var bytesSalt = Encoding.UTF8.GetBytes(salt);
@@ -15,7 +22,7 @@ namespace Template.Security
             return Convert.ToBase64String(byteResult.GetBytes(24)).Equals(hash);
         }
 
-        public static string GenerateHash(string plainValue, string salt)
+        public string GenerateHash(string plainValue, string salt)
         {
             var bytesPlainValue = Encoding.UTF8.GetBytes(plainValue);
             var bytesSalt = Encoding.UTF8.GetBytes(salt);
@@ -24,7 +31,7 @@ namespace Template.Security
             return Convert.ToBase64String(byteResult.GetBytes(24));
         }
 
-        public static string GenerateSalt()
+        public string GenerateSalt()
         {
             var bytes = new byte[128 / 8];
             var rng = new RNGCryptoServiceProvider();

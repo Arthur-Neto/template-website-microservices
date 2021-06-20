@@ -8,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using OData.Swagger.Services;
 using Template.Application;
+using Template.Security;
 using Template.Serilog;
 using Template.WebApi.Extensions;
 using Template.WebApi.Middlewares;
@@ -43,6 +44,8 @@ namespace Template.WebApi
                 options.IncludeSubDomains = true;
                 options.MaxAge = TimeSpan.FromDays(60);
             });
+
+            services.AddSecurityHelpers();
 
             services.ConfigAuthentication(Configuration);
 

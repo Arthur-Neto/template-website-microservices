@@ -9,9 +9,9 @@ namespace Template.WebApi.Controllers.Api.TenantsModule
 {
     [ApiController]
     [Route("api/tenants")]
-    public class TenantController : BaseController
+    public class TenantsController : BaseController
     {
-        public TenantController(IMediator mediator)
+        public TenantsController(IMediator mediator)
             : base(mediator)
         { }
 

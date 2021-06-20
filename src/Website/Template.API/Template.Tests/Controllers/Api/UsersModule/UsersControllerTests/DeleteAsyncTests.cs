@@ -11,10 +11,10 @@ using Template.Domain.TenantsModule.Enums;
 using Template.WebApi.Attributes;
 using Template.WebApi.Controllers.Api.UsersModule;
 
-namespace Template.Tests.Controllers.Api.UsersModule.UserControllerTests
+namespace Template.Tests.Controllers.Api.UsersModule.UsersControllerTests
 {
     [TestFixture]
-    public class CreateAsyncTests
+    public class DeleteAsyncTests
     {
         private Mock<IMediator> _moqMediator;
 
@@ -31,22 +31,22 @@ namespace Template.Tests.Controllers.Api.UsersModule.UserControllerTests
         }
 
         [Test]
-        public async Task Deve_Verificar_Metodo_E_Retornar_ID_Do_Usuario_Criado()
+        public async Task Deve_Verificar_Metodo_E_Retornar_Verdadeiro_Quando_Remover_Corretamente()
         {
             // Arrange
-            var command = new UserCreateCommand
+            var command = new UserDeleteCommand
             {
-                Name = "mock-Name",
+                ID = Guid.NewGuid()
             };
 
-            var expectedResult = Guid.NewGuid();
+            var expectedResult = true;
 
             _moqMediator
                 .Setup(p => p.Send(command, default))
                 .ReturnsAsync(Result.Success(expectedResult));
 
             // Act
-            var result = await GetController().CreateAsync(command);
+            var result = await GetController().DeleteAsync(command);
 
             // Assert
             var okResult = result as OkObjectResult;
@@ -59,19 +59,19 @@ namespace Template.Tests.Controllers.Api.UsersModule.UserControllerTests
         public async Task Deve_Verificar_Metodo_Com_Retorno_BadRequest_Quando_Resultado_For_Falha()
         {
             // Arrange
-            var command = new UserCreateCommand
+            var command = new UserDeleteCommand
             {
-                Name = "mock-Name",
+                ID = Guid.NewGuid()
             };
 
             var expectedResult = "BadRequest";
 
             _moqMediator
                 .Setup(p => p.Send(command, default))
-                .ReturnsAsync(Result.Failure<Guid>(expectedResult));
+                .ReturnsAsync(Result.Failure<bool>(expectedResult));
 
             // Act
-            var result = await GetController().CreateAsync(command);
+            var result = await GetController().DeleteAsync(command);
 
             // Assert
             var badRequest = result as BadRequestObjectResult;
@@ -84,17 +84,17 @@ namespace Template.Tests.Controllers.Api.UsersModule.UserControllerTests
         public void Deve_Verificar_Atributos()
         {
             // Assert
-            typeof(UserController)
-                .GetMethod("CreateAsync")
+            typeof(UsersController)
+                .GetMethod("DeleteAsync")
                 .Should()
                 .BeDecoratedWith<AuthorizeRoles>(p => p.Roles.Equals(Role.Manager.ToString())).And
-                .BeDecoratedWith<HttpPostAttribute>().And
-                .BeDecoratedWith<ProducesResponseTypeAttribute>(a => a.Type == typeof(int) && a.StatusCode == 200);
+                .BeDecoratedWith<HttpDeleteAttribute>().And
+                .BeDecoratedWith<ProducesResponseTypeAttribute>(a => a.Type == typeof(bool) && a.StatusCode == 200);
         }
 
-        private UserController GetController()
+        private UsersController GetController()
         {
-            return new UserController(_moqMediator.Object);
+            return new UsersController(_moqMediator.Object);
         }
     }
 }

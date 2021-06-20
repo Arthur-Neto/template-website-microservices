@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
-using CSharpFunctionalExtensions;
 using FluentAssertions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
@@ -10,9 +9,11 @@ using Moq;
 using NUnit.Framework;
 using Template.Application.TenantsModule.Commands;
 using Template.Application.TenantsModule.Models;
+using Template.Domain.EnterprisesModule;
 using Template.Domain.TenantsModule;
 using Template.Domain.TenantsModule.Enums;
 using Template.Infra.Crosscutting.Exceptions;
+using Template.Security;
 
 namespace Template.Tests.Application.TenantsModule.Commands
 {
@@ -23,6 +24,8 @@ namespace Template.Tests.Application.TenantsModule.Commands
         private Mock<IMapper> _moqMapper;
         private Mock<ITenantRepository> _moqTenantRepository;
         private Mock<ILogger<TenantAuthenticateCommandHandler>> _moqLogger;
+        private Mock<IJwtTokenFactory> _moqJwtTokenFactory;
+        private Mock<IHashing> _moqHashing;
 
         [SetUp]
         public void SetUp()
@@ -30,6 +33,8 @@ namespace Template.Tests.Application.TenantsModule.Commands
             _moqMapper = new Mock<IMapper>(MockBehavior.Strict);
             _moqTenantRepository = new Mock<ITenantRepository>(MockBehavior.Strict);
             _moqLogger = new Mock<ILogger<TenantAuthenticateCommandHandler>>(MockBehavior.Loose);
+            _moqJwtTokenFactory = new Mock<IJwtTokenFactory>(MockBehavior.Strict);
+            _moqHashing = new Mock<IHashing>(MockBehavior.Strict);
         }
 
         [TearDown]
@@ -37,6 +42,8 @@ namespace Template.Tests.Application.TenantsModule.Commands
         {
             _moqMapper.VerifyAll();
             _moqTenantRepository.VerifyAll();
+            _moqJwtTokenFactory.VerifyAll();
+            _moqHashing.VerifyAll();
         }
 
         private void BuildConfiguration(string secret = "super secret key", string tokenExpiration = "10")
@@ -55,7 +62,9 @@ namespace Template.Tests.Application.TenantsModule.Commands
         public async Task Deve_Verificar_Metodo_E_Retornar_Usuario_Autenticado()
         {
             // Arrange
-            BuildConfiguration();
+            var secret = "super secret key";
+            var tokenExpiration = 10;
+            BuildConfiguration(secret, tokenExpiration.ToString());
 
             var command = new TenantAuthenticateCommand()
             {
@@ -63,28 +72,40 @@ namespace Template.Tests.Application.TenantsModule.Commands
                 Password = "password"
             };
 
-            Maybe<Tenant> tenant = new Tenant()
+            var tenant = new Tenant()
             {
                 ID = Guid.NewGuid(),
                 Salt = "123456789",
                 Logon = command.Logon,
                 Password = command.Password,
-                Role = Role.Client
+                Role = Role.Client,
+                Enterprise = new Enterprise()
+                {
+                    SchemaName = "mock-schema"
+                }
             };
 
             var expectedResult = new AuthenticatedTenantModel()
             {
-                ID = tenant.Value.ID.ToString(),
-                Logon = tenant.Value.Logon,
-                Role = tenant.Value.Role.ToString()
+                ID = tenant.ID.ToString(),
+                Logon = tenant.Logon,
+                Role = tenant.Role.ToString()
             };
 
             _moqTenantRepository
                 .Setup(p => p.SingleOrDefaultAsync(x => x.Logon.Equals(command.Logon), true, default, x => x.Enterprise))
-                .ReturnsAsync(tenant.Value);
+                .ReturnsAsync(tenant);
+
+            _moqHashing
+                .Setup(p => p.IsValidHash(tenant.Password, tenant.Salt, command.Password))
+                .Returns(true);
+
+            _moqJwtTokenFactory
+                .Setup(p => p.CreateToken(secret, tokenExpiration, tenant.ID.ToString(), tenant.Role.ToString(), tenant.Enterprise.SchemaName))
+                .Returns(It.IsAny<string>());
 
             _moqMapper
-                .Setup(p => p.Map<AuthenticatedTenantModel>(tenant.Value))
+                .Setup(p => p.Map<AuthenticatedTenantModel>(tenant))
                 .Returns(expectedResult);
 
             // Act
@@ -166,6 +187,10 @@ namespace Template.Tests.Application.TenantsModule.Commands
                 .Setup(p => p.SingleOrDefaultAsync(x => x.Logon.Equals(command.Logon), true, default, x => x.Enterprise))
                 .ReturnsAsync(tenant);
 
+            _moqHashing
+                .Setup(p => p.IsValidHash(tenant.Password, tenant.Salt, command.Password))
+                .Returns(false);
+
             // Act
             var result = await GetHandler().Handle(command, default);
 
@@ -179,7 +204,9 @@ namespace Template.Tests.Application.TenantsModule.Commands
                 _moqMapper.Object,
                 _moqLogger.Object,
                 _moqConfiguration,
-                _moqTenantRepository.Object
+                _moqTenantRepository.Object,
+                _moqHashing.Object,
+                _moqJwtTokenFactory.Object
             );
         }
     }

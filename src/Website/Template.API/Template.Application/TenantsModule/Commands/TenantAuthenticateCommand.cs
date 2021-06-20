@@ -9,7 +9,6 @@ using Microsoft.Extensions.Logging;
 using Template.Application.TenantsModule.Models;
 using Template.Domain.TenantsModule;
 using Template.Infra.Crosscutting.Exceptions;
-using Template.Infra.Crosscutting.Security;
 using Template.Security;
 
 namespace Template.Application.TenantsModule.Commands
@@ -41,15 +40,21 @@ namespace Template.Application.TenantsModule.Commands
     public class TenantAuthenticateCommandHandler : AppHandlerBase<ITenantRepository>, IRequestHandler<TenantAuthenticateCommand, Result<AuthenticatedTenantModel>>
     {
         private readonly IConfiguration _appSettings;
+        private readonly IHashing _hashing;
+        private readonly IJwtTokenFactory _jwtTokenFactory;
 
         public TenantAuthenticateCommandHandler(
             IMapper mapper,
             ILogger<TenantAuthenticateCommandHandler> logger,
             IConfiguration appSettings,
-            ITenantRepository tenantRepository
+            ITenantRepository tenantRepository,
+            IHashing hashing,
+            IJwtTokenFactory jwtTokenFactory
         ) : base(tenantRepository, mapper, logger)
         {
             _appSettings = appSettings;
+            _hashing = hashing;
+            _jwtTokenFactory = jwtTokenFactory;
         }
 
         public async Task<Result<AuthenticatedTenantModel>> Handle(TenantAuthenticateCommand request, CancellationToken cancellationToken)
@@ -68,7 +73,7 @@ namespace Template.Application.TenantsModule.Commands
                 return Result.Failure<AuthenticatedTenantModel>(ErrorType.NotFound.ToString());
             }
 
-            var correctPassword = SecurityHelper.IsValidHash(tenant.Value.Password, tenant.Value.Salt, request.Password);
+            var correctPassword = _hashing.IsValidHash(tenant.Value.Password, tenant.Value.Salt, request.Password);
             if (correctPassword is false)
             {
                 return Result.Failure<AuthenticatedTenantModel>(ErrorType.IncorrectUserPassword.ToString());
@@ -80,7 +85,7 @@ namespace Template.Application.TenantsModule.Commands
                 tokenExpiration = 60;
             }
 
-            tenant.Value.Token = JwtTokenHelper.CreateToken(secret, tokenExpiration, tenant.Value.ID.ToString(), tenant.Value.Role.ToString(), tenant.Value.Enterprise.SchemaName.ToString());
+            tenant.Value.Token = _jwtTokenFactory.CreateToken(secret, tokenExpiration, tenant.Value.ID.ToString(), tenant.Value.Role.ToString(), tenant.Value.Enterprise.SchemaName.ToString());
 
             return Result.Success(_mapper.Map<AuthenticatedTenantModel>(tenant.Value));
         }

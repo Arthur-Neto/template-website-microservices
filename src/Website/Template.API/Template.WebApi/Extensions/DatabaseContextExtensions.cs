@@ -9,6 +9,7 @@ using Template.Infra.Data.EF.Contexts;
 
 namespace Template.WebApi.Extensions
 {
+    // TODO: REVER
     public static class DatabaseContextExtensions
     {
         public static void AddDatabaseContext(this IServiceCollection services, IConfiguration configuration)
