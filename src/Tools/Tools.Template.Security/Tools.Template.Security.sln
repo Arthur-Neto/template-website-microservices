@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31410.357
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tools.Template.Security", "Tools.Template.Security.csproj", "{C621DD45-A4EA-40B3-8336-130BC6941EC3}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Template.Security", "..\..\Website\Template.API\Template.Security\Template.Security.csproj", "{9BA59E6A-4254-4F9A-B5D6-286B56EC751B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C621DD45-A4EA-40B3-8336-130BC6941EC3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C621DD45-A4EA-40B3-8336-130BC6941EC3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C621DD45-A4EA-40B3-8336-130BC6941EC3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C621DD45-A4EA-40B3-8336-130BC6941EC3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9BA59E6A-4254-4F9A-B5D6-286B56EC751B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9BA59E6A-4254-4F9A-B5D6-286B56EC751B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9BA59E6A-4254-4F9A-B5D6-286B56EC751B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9BA59E6A-4254-4F9A-B5D6-286B56EC751B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A16C1912-9203-4273-BBA6-FB4BA578A0B0}
+	EndGlobalSection
+EndGlobal
