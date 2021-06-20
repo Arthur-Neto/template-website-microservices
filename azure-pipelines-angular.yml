@@ -21,7 +21,7 @@ steps:
     npm install -g @angular/cli
     npm install
     ng build --prod --aot
-  workingDirectory: src/client
+  workingDirectory: src/Website/Template.Client
   displayName: 'npm install and build'
 
 #- task: CopyFiles@2
