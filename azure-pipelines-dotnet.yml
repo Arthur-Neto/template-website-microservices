@@ -26,11 +26,11 @@ steps:
 - task: DotNetCoreCLI@2
   inputs:
     command: 'build'
-    projects: '**/*.csproj'
+    projects: 'src/Website/Template.API/**/*.csproj'
 
 - task: DotNetCoreCLI@2
   inputs:
     command: 'test'
-    projects: '**/*.csproj'
+    projects: 'src/Website/Template.API/**/*.csproj'
     arguments: '--collect "Code coverage"'
     testRunTitle: 'Test run'
