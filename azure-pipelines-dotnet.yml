@@ -12,17 +12,6 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
-- powershell: |
-    $xml = [Xml] (Get-Content src\Website\Template.API\Template.WebApiTemplate.WebApi.csproj.csproj)
-    $version = $xml.Project.PropertyGroup.Version
-    
-    echo $version
-    echo $(System.DefaultWorkingDirectory)
-
-    echo "##vso[build.updatebuildnumber]$version"
-    echo "##vso[task.setvariable variable=version]$version"
-  displayName: 'Get csproj version and set build number'
-
 - task: NuGetToolInstaller@1
   displayName: "Installing NuGet Tool"
 
@@ -37,6 +26,17 @@ steps:
     command: 'build'
     arguments: '--configuration $(buildConfiguration)'
     projects: 'src/Website/Template.API/**/*.csproj'
+
+- powershell: |
+    $xml = [Xml] (Get-Content src\Website\Template.API\Template.WebApiTemplate.WebApi.csproj.csproj)
+    $version = $xml.Project.PropertyGroup.Version
+    
+    echo $version
+    echo $(System.DefaultWorkingDirectory)
+
+    echo "##vso[build.updatebuildnumber]$version"
+    echo "##vso[task.setvariable variable=version]$version"
+  displayName: 'Get csproj version and set build number'
 
 - task: DotNetCoreCLI@2
   displayName: "Running Unit Tests"
