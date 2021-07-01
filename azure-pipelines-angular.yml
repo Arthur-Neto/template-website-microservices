@@ -37,7 +37,7 @@ steps:
   inputs:
     codeCoverageTool: Cobertura
     summaryFileLocation: '$(Build.SourcesDirectory)/coverage/cobertura-coverage.xml'
-    failIfCoverageEmpty: true
+    failIfCoverageEmpty: false
 
 #- task: CopyFiles@2
 #  inputs:
@@ -54,3 +54,11 @@ steps:
 #    sourceFolder: '$(Build.ArtifactStagingDirectory)'
 #    globExpressions: '**'
 #    filesAcl: 'public-read'
+
+#- task: Npm@1
+#  displayName: 'Publish to feed'
+#  inputs:
+#    command: 'publish'
+#    workingDir: 'components/ng-grid/'
+#    publishRegistry: 'useFeed'
+#    publishFeed: 'e7902e1c-f9a4-4aac-9ebb-dcc718fe7809'
