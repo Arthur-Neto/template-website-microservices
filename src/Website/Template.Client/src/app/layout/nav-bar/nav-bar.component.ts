@@ -14,19 +14,15 @@ export class NavBarComponent {
 
     @Input() sidebar: SideBarComponent | undefined;
 
-    constructor(
-        private authenticationService: AuthenticationService
-    ) { }
+    constructor(private authenticationService: AuthenticationService) {}
 
     public ngOnInit(): void {
-        this.authenticationService
-            .user
-            .subscribe((user: IAuthenticatedUser | null) => {
-                this.isUserLoggedManager = user?.role === Role.Manager;
-            });
+        this.authenticationService.user.subscribe((user: IAuthenticatedUser | null) => {
+            this.isUserLoggedManager = user?.role === Role.Manager;
+        });
     }
 
     public onSidenavToggle() {
-        this.sidebar?.toggle()
+        this.sidebar?.toggle();
     }
 }

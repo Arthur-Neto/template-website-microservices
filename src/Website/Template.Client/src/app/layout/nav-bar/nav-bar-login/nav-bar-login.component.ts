@@ -9,25 +9,19 @@ import { takeUntil } from 'rxjs/operators';
 @Component({
     selector: 'app-nav-bar-login',
     templateUrl: './nav-bar-login.component.html',
-    styleUrls: ['./nav-bar-login.component.scss']
+    styleUrls: ['./nav-bar-login.component.scss'],
 })
 export class NavBarLoginComponent implements OnInit, OnDestroy {
     public userLogged!: IAuthenticatedUser | null;
 
     private ngUnsubscribe: Subject<void> = new Subject<void>();
 
-    constructor(
-        private router: Router,
-        private authenticationService: AuthenticationService
-    ) { }
+    constructor(private router: Router, private authenticationService: AuthenticationService) {}
 
     public ngOnInit(): void {
-        this.authenticationService
-            .user
-            .pipe(takeUntil(this.ngUnsubscribe))
-            .subscribe((user: IAuthenticatedUser | null) => {
-                this.userLogged = user;
-            });
+        this.authenticationService.user.pipe(takeUntil(this.ngUnsubscribe)).subscribe((user: IAuthenticatedUser | null) => {
+            this.userLogged = user;
+        });
     }
 
     public ngOnDestroy(): void {

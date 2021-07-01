@@ -7,13 +7,11 @@ import { JwtInterceptor } from './interceptors/jwt-interceptor.service';
 import { SpinnerInterceptor } from './interceptors/spinner-interceptor.service';
 
 @NgModule({
-    imports: [
-        CommonModule,
-    ],
+    imports: [CommonModule],
     providers: [
         { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
         { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
         { provide: HTTP_INTERCEPTORS, useClass: SpinnerInterceptor, multi: true },
-    ]
+    ],
 })
-export class CoreModule { }
+export class CoreModule {}

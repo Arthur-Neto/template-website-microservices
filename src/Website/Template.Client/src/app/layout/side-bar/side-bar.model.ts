@@ -1,5 +1,5 @@
 export enum SidebarState {
-    HIDDEN = "hidden",
-    CLOSE = "close",
-    OPEN = "open",
+    HIDDEN = 'hidden',
+    CLOSE = 'close',
+    OPEN = 'open',
 }

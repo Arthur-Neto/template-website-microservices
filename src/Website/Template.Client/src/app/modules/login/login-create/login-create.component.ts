@@ -9,7 +9,7 @@ import { take } from 'rxjs/operators';
 
 @Component({
     templateUrl: './login-create.component.html',
-    styleUrls: ['./login-create.component.scss']
+    styleUrls: ['./login-create.component.scss'],
 })
 export class LoginCreateComponent implements OnInit {
     public form!: FormGroup;
@@ -30,12 +30,7 @@ export class LoginCreateComponent implements OnInit {
         return this.form.controls.confirmPassword.hasError('pattern');
     }
 
-    constructor(
-        private fb: FormBuilder,
-        private router: Router,
-        private usersApiService: UsersApiService,
-        private snackBar: MatSnackBar,
-    ) { }
+    constructor(private fb: FormBuilder, private router: Router, private usersApiService: UsersApiService, private snackBar: MatSnackBar) {}
 
     public ngOnInit(): void {
         this.form = this.fb.group({
@@ -49,7 +44,7 @@ export class LoginCreateComponent implements OnInit {
         if (this.form.valid) {
             const command = {
                 username: this.form.controls.username.value,
-                password: this.form.controls.password.value
+                password: this.form.controls.password.value,
             } as IUserCreateCommand;
 
             this.usersApiService
@@ -57,7 +52,7 @@ export class LoginCreateComponent implements OnInit {
                 .pipe(take(1))
                 .subscribe({
                     next: this.onSuccessCallback.bind(this),
-                    error: this.onErrorCallback.bind(this)
+                    error: this.onErrorCallback.bind(this),
                 });
         }
     }

@@ -9,7 +9,7 @@ import { takeUntil } from 'rxjs/operators';
 @Component({
     selector: 'app-dashboard',
     templateUrl: './dashboard.component.html',
-    styleUrls: ['./dashboard.component.scss']
+    styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent implements OnInit, OnDestroy {
     public isLoading = true;
@@ -18,18 +18,12 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
     private ngUnsubscribe: Subject<void> = new Subject<void>();
 
-    constructor(
-        private authenticationService: AuthenticationService,
-        private cdr: ChangeDetectorRef,
-    ) { }
+    constructor(private authenticationService: AuthenticationService, private cdr: ChangeDetectorRef) {}
 
     public ngOnInit(): void {
-        this.authenticationService
-            .user
-            .pipe(takeUntil(this.ngUnsubscribe))
-            .subscribe((user: IAuthenticatedUser | null) => {
-                this.userLogged = user;
-            });
+        this.authenticationService.user.pipe(takeUntil(this.ngUnsubscribe)).subscribe((user: IAuthenticatedUser | null) => {
+            this.userLogged = user;
+        });
     }
 
     public ngOnDestroy(): void {

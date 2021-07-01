@@ -1,11 +1,11 @@
 {
     "printWidth": 150,
-    "trailingComma": "all",
     "tabWidth": 4,
     "semi": true,
     "singleQuote": true,
     "bracketSpacing": true,
     "arrowParens": "always",
+    "endOfLine": "crlf",
     "overrides": [
         {
             "files": "*.component.html",

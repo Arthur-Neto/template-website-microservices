@@ -6,19 +6,22 @@ export const onSideNavChange = trigger('onSideNavChange', [
 ]);
 
 export const onMainContentChange = trigger('onMainContentChange', [
-    state('hidden',
+    state(
+        'hidden',
         style({
-            'margin-left': '100px'
+            'margin-left': '100px',
         })
     ),
-    state('close',
+    state(
+        'close',
         style({
-            'margin-left': '150px'
+            'margin-left': '150px',
         })
     ),
-    state('open',
+    state(
+        'open',
         style({
-            'margin-left': '200px'
+            'margin-left': '200px',
         })
     ),
     transition('* => hidden', animate('250ms ease-in')),
@@ -30,15 +33,17 @@ export const onMainContentChange = trigger('onMainContentChange', [
 ]);
 
 export const animateText = trigger('animateText', [
-    state('hide',
+    state(
+        'hide',
         style({
-            'display': 'none',
+            display: 'none',
             opacity: 0,
         })
     ),
-    state('show',
+    state(
+        'show',
         style({
-            'display': 'block',
+            display: 'block',
             opacity: 1,
         })
     ),

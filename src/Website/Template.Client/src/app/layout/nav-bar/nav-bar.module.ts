@@ -8,19 +8,8 @@ import { NavBarLoginComponent } from './nav-bar-login/nav-bar-login.component';
 import { NavBarComponent } from './nav-bar.component';
 
 @NgModule({
-    imports: [
-        SharedModule,
-
-        MatSidenavModule,
-        MatToolbarModule,
-        MatMenuModule,
-    ],
-    declarations: [
-        NavBarComponent,
-        NavBarLoginComponent,
-    ],
-    exports: [
-        NavBarComponent
-    ],
+    imports: [SharedModule, MatSidenavModule, MatToolbarModule, MatMenuModule],
+    declarations: [NavBarComponent, NavBarLoginComponent],
+    exports: [NavBarComponent],
 })
-export class NavBarModule { }
+export class NavBarModule {}

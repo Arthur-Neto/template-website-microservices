@@ -5,28 +5,29 @@ const routes: Routes = [
     {
         path: '',
         redirectTo: 'dashboard',
-        pathMatch: 'full'
+        pathMatch: 'full',
     },
     {
         path: 'auth',
-        loadChildren: () => import('@modules/login/login.module').then(m => m.LoginModule)
+        loadChildren: () => import('@modules/login/login.module').then((m) => m.LoginModule),
     },
     {
         path: 'dashboard',
-        loadChildren: () => import('@modules/dashboard/dashboard.module').then(m => m.DashboardModule)
+        loadChildren: () => import('@modules/dashboard/dashboard.module').then((m) => m.DashboardModule),
     },
     {
         path: 'users',
-        loadChildren: () => import('@modules/users/users.module').then(m => m.UsersModule)
+        loadChildren: () => import('@modules/users/users.module').then((m) => m.UsersModule),
     },
 ];
 
 @NgModule({
-    imports: [RouterModule.forRoot(routes,
-        {
+    imports: [
+        RouterModule.forRoot(routes, {
             useHash: true,
-            preloadingStrategy: PreloadAllModules
-        })],
-    exports: [RouterModule]
+            preloadingStrategy: PreloadAllModules,
+        }),
+    ],
+    exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

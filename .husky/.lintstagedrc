@@ -1,0 +1,9 @@
+{
+	"*.{js,json,css,scss,md,ts,html}": [
+		"npx prettier --write",
+		"npx eslint --fix -c src/Website/Template.Client/.eslintrc"
+	],
+	"*.cs": [
+		"dotnet csharpier"
+	],
+}

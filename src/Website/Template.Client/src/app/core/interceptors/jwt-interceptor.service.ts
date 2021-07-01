@@ -8,7 +8,7 @@ import { AuthenticationService } from '../authentication/authentication.service'
 
 @Injectable()
 export class JwtInterceptor implements HttpInterceptor {
-    constructor(private authenticationService: AuthenticationService) { }
+    constructor(private authenticationService: AuthenticationService) {}
 
     public intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         const user = this.authenticationService.userValue;
@@ -18,8 +18,8 @@ export class JwtInterceptor implements HttpInterceptor {
         if (isLoggedIn && isApiUrl) {
             request = request.clone({
                 setHeaders: {
-                    Authorization: `Bearer ${ user?.token }`,
-                }
+                    Authorization: `Bearer ${user?.token}`,
+                },
             });
         }
 

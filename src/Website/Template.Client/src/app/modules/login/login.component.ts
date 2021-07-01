@@ -9,7 +9,7 @@ import { take } from 'rxjs/operators';
 @Component({
     selector: 'app-login',
     templateUrl: './login.component.html',
-    styleUrls: ['./login.component.scss']
+    styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
     public form!: FormGroup;
@@ -31,7 +31,7 @@ export class LoginComponent implements OnInit {
         private fb: FormBuilder,
         private router: Router,
         private route: ActivatedRoute,
-        private authenticationService: AuthenticationService,
+        private authenticationService: AuthenticationService
     ) {
         if (this.authenticationService.userValue) {
             this.router.navigate(['dashboard']);
@@ -49,7 +49,7 @@ export class LoginComponent implements OnInit {
         if (this.form.valid) {
             const command = {
                 username: this.form.controls.username.value,
-                password: this.form.controls.password.value
+                password: this.form.controls.password.value,
             } as IAuthenticateCommand;
 
             this.authenticationService
@@ -57,7 +57,7 @@ export class LoginComponent implements OnInit {
                 .pipe(take(1))
                 .subscribe({
                     next: this.onSuccessCallback.bind(this),
-                    error: this.onErrorCallback.bind(this)
+                    error: this.onErrorCallback.bind(this),
                 });
         }
     }

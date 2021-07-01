@@ -11,15 +11,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 @NgModule({
-    imports: [
-        HttpClientModule,
-        AppRoutingModule,
-        BrowserAnimationsModule,
-        LayoutModule,
-
-        CoreModule,
-        CustomLayoutModule,
-    ],
+    imports: [HttpClientModule, AppRoutingModule, BrowserAnimationsModule, LayoutModule, CoreModule, CustomLayoutModule],
     providers: [
         { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: { duration: 5000 } },
         { provide: STEPPER_GLOBAL_OPTIONS, useValue: { showError: true } },
@@ -27,4 +19,4 @@ import { AppComponent } from './app.component';
     declarations: [AppComponent],
     bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

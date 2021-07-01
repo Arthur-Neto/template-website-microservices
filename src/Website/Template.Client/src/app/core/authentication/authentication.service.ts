@@ -19,23 +19,20 @@ export class AuthenticationService {
 
     private userSubject: BehaviorSubject<IAuthenticatedUser | null>;
 
-    constructor(
-        private localStorageService: LocalStorageService,
-        private router: Router,
-        private http: HttpClient
-    ) {
+    constructor(private localStorageService: LocalStorageService, private router: Router, private http: HttpClient) {
         this.userSubject = new BehaviorSubject<IAuthenticatedUser | null>(this.getToken());
         this.user = this.userSubject.asObservable();
     }
 
     public login(command: IAuthenticateCommand): Observable<IAuthenticatedUser> {
-        return this.http.post<IAuthenticatedUser>(`${ environment.apiUrl }api/users/login`, command)
-            .pipe(map((user: IAuthenticatedUser) => {
+        return this.http.post<IAuthenticatedUser>(`${environment.apiUrl}api/users/login`, command).pipe(
+            map((user: IAuthenticatedUser) => {
                 this.localStorageService.setItem('user', JSON.stringify(user));
                 this.userSubject.next(user);
 
                 return user;
-            }));
+            })
+        );
     }
 
     public logout(): void {

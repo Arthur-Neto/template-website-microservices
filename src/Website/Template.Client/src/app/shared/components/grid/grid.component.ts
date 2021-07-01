@@ -1,7 +1,5 @@
 import { SelectionModel } from '@angular/cdk/collections';
-import {
-    AfterViewInit, Component, EventEmitter, Input, OnInit, Output, ViewChild
-} from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
@@ -11,7 +9,7 @@ import { IActionModel } from './shared/grid.model';
 @Component({
     selector: 'app-grid',
     templateUrl: './grid.component.html',
-    styleUrls: ['./grid.component.scss']
+    styleUrls: ['./grid.component.scss'],
 })
 export class GridComponent<T> implements OnInit, AfterViewInit {
     @Input() public headerNames!: string[];
@@ -43,7 +41,7 @@ export class GridComponent<T> implements OnInit, AfterViewInit {
     public onApplyFilter(event: Event): void {
         const filterValue = (event.target as HTMLInputElement).value;
         this.dataSource.filter = filterValue.trim().toLowerCase();
-        this.noRowsMsg = `No data matching the filter "${ filterValue }"`;
+        this.noRowsMsg = `No data matching the filter "${filterValue}"`;
 
         if (this.dataSource.paginator) {
             this.dataSource.paginator.firstPage();

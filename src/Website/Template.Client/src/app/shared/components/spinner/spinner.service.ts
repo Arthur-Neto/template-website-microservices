@@ -1,4 +1,3 @@
-
 import { Overlay, OverlayRef } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
 import { Injectable } from '@angular/core';
@@ -14,7 +13,7 @@ import { SpinnerComponent } from './spinner.component';
 export class SpinnerService {
     private overlayRef: OverlayRef | undefined = undefined;
 
-    constructor(private overlay: Overlay) { }
+    constructor(private overlay: Overlay) {}
 
     public readonly spinner$ = defer(() => {
         this.show();
@@ -35,11 +34,7 @@ export class SpinnerService {
         Promise.resolve(null).then(() => {
             if (!this.overlayRef) {
                 this.overlayRef = this.overlay.create({
-                    positionStrategy: this.overlay
-                        .position()
-                        .global()
-                        .centerHorizontally()
-                        .centerVertically(),
+                    positionStrategy: this.overlay.position().global().centerHorizontally().centerVertically(),
                     hasBackdrop: true,
                 });
             }

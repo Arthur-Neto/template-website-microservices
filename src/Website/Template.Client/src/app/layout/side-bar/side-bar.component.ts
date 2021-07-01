@@ -1,8 +1,6 @@
 import { AfterViewInit, ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
-import {
-    Event, NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router
-} from '@angular/router';
+import { Event, NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router } from '@angular/router';
 import { IAuthenticatedUser, Role } from '@core/authentication/authentication-models';
 import { AuthenticationService } from '@core/authentication/authentication.service';
 import { LocalStorageService } from '@core/local-storage/local-storage.service';
@@ -14,7 +12,7 @@ import { SidebarState } from './side-bar.model';
     selector: 'app-side-bar',
     templateUrl: './side-bar.component.html',
     styleUrls: ['./side-bar.component.scss'],
-    animations: [onSideNavChange, onMainContentChange, animateText]
+    animations: [onSideNavChange, onMainContentChange, animateText],
 })
 export class SideBarComponent implements OnInit, AfterViewInit {
     public isLoading = true;
@@ -56,19 +54,17 @@ export class SideBarComponent implements OnInit, AfterViewInit {
     public ngAfterViewInit(): void {
         if (this.isUserLoggedManager) {
             const sidebarState = this.localStorageService.getItem('sidebarState');
-            this.sidebarState = sidebarState ? sidebarState as SidebarState : SidebarState.OPEN;
+            this.sidebarState = sidebarState ? (sidebarState as SidebarState) : SidebarState.OPEN;
         }
 
         this.cdr.detectChanges();
     }
 
     public ngOnInit(): void {
-        this.authenticationService
-            .user
-            .subscribe((user: IAuthenticatedUser | null) => {
-                this.isUserLoggedManager = user?.role === Role.Manager;
-                this.sidebarState = this.isUserLoggedManager ? SidebarState.CLOSE : SidebarState.HIDDEN;
-            });
+        this.authenticationService.user.subscribe((user: IAuthenticatedUser | null) => {
+            this.isUserLoggedManager = user?.role === Role.Manager;
+            this.sidebarState = this.isUserLoggedManager ? SidebarState.CLOSE : SidebarState.HIDDEN;
+        });
     }
 
     public toggle() {

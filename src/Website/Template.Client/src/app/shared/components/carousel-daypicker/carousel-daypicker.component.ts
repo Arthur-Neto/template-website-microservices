@@ -16,7 +16,7 @@ export interface IDayAndMonth {
 @Component({
     selector: 'app-carousel-daypicker',
     templateUrl: './carousel-daypicker.component.html',
-    styleUrls: ['./carousel-daypicker.component.scss']
+    styleUrls: ['./carousel-daypicker.component.scss'],
 })
 export class CarouselDaypickerComponent implements OnInit {
     @Output() dayChanged: EventEmitter<IDayAndMonth> = new EventEmitter<IDayAndMonth>();

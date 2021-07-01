@@ -11,7 +11,7 @@ import { take } from 'rxjs/operators';
 
 @Component({
     templateUrl: './login-edit.component.html',
-    styleUrls: ['./login-edit.component.scss']
+    styleUrls: ['./login-edit.component.scss'],
 })
 export class LoginEditComponent implements OnInit {
     public form!: FormGroup;
@@ -38,22 +38,19 @@ export class LoginEditComponent implements OnInit {
         private router: Router,
         private authenticationService: AuthenticationService,
         private usersApiService: UsersApiService,
-        private snackBar: MatSnackBar,
-    ) { }
+        private snackBar: MatSnackBar
+    ) {}
 
     public ngOnInit(): void {
-        this.authenticationService
-            .user
-            .pipe(take(1))
-            .subscribe((user: IAuthenticatedUser | null) => {
-                this.userLogged = user;
+        this.authenticationService.user.pipe(take(1)).subscribe((user: IAuthenticatedUser | null) => {
+            this.userLogged = user;
 
-                this.form = this.fb.group({
-                    username: [user?.username, Validators.required],
-                    password: [user?.password, Validators.required],
-                    confirmPassword: [user?.password, Validators.required],
-                });
+            this.form = this.fb.group({
+                username: [user?.username, Validators.required],
+                password: [user?.password, Validators.required],
+                confirmPassword: [user?.password, Validators.required],
             });
+        });
     }
 
     public onSubmit(): void {
@@ -61,7 +58,7 @@ export class LoginEditComponent implements OnInit {
             const command = {
                 id: this.userLogged?.id,
                 username: this.form.controls.username.value,
-                password: this.form.controls.password.value
+                password: this.form.controls.password.value,
             } as IUserUpdateCommand;
 
             this.usersApiService
@@ -69,7 +66,7 @@ export class LoginEditComponent implements OnInit {
                 .pipe(take(1))
                 .subscribe({
                     next: this.onSuccessCallback.bind(this),
-                    error: this.onErrorCallback.bind(this)
+                    error: this.onErrorCallback.bind(this),
                 });
         }
     }

@@ -6,9 +6,7 @@ import { AuthenticationService } from '../authentication/authentication.service'
 
 @Injectable({ providedIn: 'root' })
 export class IsAuthenticatedUserManagerGuard implements CanActivate {
-    constructor(
-        private authenticationService: AuthenticationService
-    ) { }
+    constructor(private authenticationService: AuthenticationService) {}
 
     public canActivate(): boolean {
         if (this.authenticationService.userValue?.role === Role.Manager) {

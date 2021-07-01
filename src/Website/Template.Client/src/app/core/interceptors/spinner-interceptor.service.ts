@@ -7,7 +7,7 @@ import { finalize } from 'rxjs/operators';
 
 @Injectable()
 export class SpinnerInterceptor implements HttpInterceptor {
-    constructor(private readonly spinnerService: SpinnerService) { }
+    constructor(private readonly spinnerService: SpinnerService) {}
 
     public intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         const spinnerSubscription: Subscription = this.spinnerService.spinner$.subscribe();

@@ -6,13 +6,8 @@ import { NavBarModule } from './nav-bar/nav-bar.module';
 import { SideBarModule } from './side-bar/side-bar.module';
 
 @NgModule({
-    imports: [
-        SharedModule,
-
-        NavBarModule,
-        SideBarModule,
-    ],
+    imports: [SharedModule, NavBarModule, SideBarModule],
     declarations: [LayoutContentComponent],
-    exports: [LayoutContentComponent]
+    exports: [LayoutContentComponent],
 })
-export class CustomLayoutModule { }
+export class CustomLayoutModule {}
