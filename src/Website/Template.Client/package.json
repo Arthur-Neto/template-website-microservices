@@ -4,10 +4,11 @@
     "scripts": {
         "ng": "ng",
         "start": "ng serve",
-        "build": "ng build --configuration production",
+        "build": "npm run test-ci-grid && ng build --configuration production",
         "test": "ng test",
         "e2e": "ng e2e",
-        "lint": "tsc --noEmit && eslint . --fix"
+        "lint": "tsc --noEmit && eslint . --fix",
+        "test-ci": "ng test --watch=false --code-coverage --karma-config=./karma-ci.conf.js"
     },
     "private": true,
     "dependencies": {
@@ -54,6 +55,8 @@
         "karma-coverage": "~2.0.3",
         "karma-jasmine": "~4.0.1",
         "karma-jasmine-html-reporter": "^1.6.0",
+        "karma-junit-reporter": "^2.0.1",
+        "ng-packagr": "^12.0.8",
         "prettier": "^2.3.2",
         "prettier-eslint": "^12.0.0",
         "ts-node": "~10.0.0",
