@@ -4,7 +4,7 @@
     "scripts": {
         "ng": "ng",
         "start": "ng serve",
-        "build": "npm run test-ci-grid && ng build --configuration production",
+        "build": "npm run test-ci && ng build --configuration production",
         "test": "ng test",
         "e2e": "ng e2e",
         "lint": "tsc --noEmit && eslint . --fix",
