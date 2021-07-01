@@ -4,9 +4,9 @@ Template website made with Angular 11, .NET 5.
 Running app: http://template-webapi.s3-website-sa-east-1.amazonaws.com/#/dashboard
 (Contact me to get access to the running application)
 
-Frontend [![Build Status](https://netoarthur.visualstudio.com/Pipelines%20Github/_apis/build/status/template-website-dotnet?branchName=master)](https://netoarthur.visualstudio.com/Pipelines%20Github/_build/latest?definitionId=8&branchName=master)
+Frontend [![Build Status Frontend](https://netoarthur.visualstudio.com/Pipelines%20Github/_apis/build/status/template-website-angular?branchName=master)](https://netoarthur.visualstudio.com/Pipelines%20Github/_build/latest?definitionId=8&branchName=master)
 
-Backend [![Build Status](https://netoarthur.visualstudio.com/Pipelines%20Github/_apis/build/status/template-website-dotnet?branchName=master)](https://netoarthur.visualstudio.com/Pipelines%20Github/_build/latest?definitionId=7&branchName=master)
+Backend [![Build Status Backend](https://netoarthur.visualstudio.com/Pipelines%20Github/_apis/build/status/template-website-dotnet?branchName=master)](https://netoarthur.visualstudio.com/Pipelines%20Github/_build/latest?definitionId=7&branchName=master)
 
 ## Dependencies
 > Frontend
