@@ -1,10 +1,19 @@
 <mat-toolbar color="primary">
-    <button mat-icon-button *ngIf="isUserLoggedManager" (click)="onSidenavToggle()">
+    <button
+        mat-icon-button
+        *ngIf="isUserLoggedManager"
+        (click)="onSidenavToggle()"
+    >
         <mat-icon>menu</mat-icon>
     </button>
 
     <div class="navbar-company-logo">
-        <button mat-button class="navbar-company-logo-btn" aria-label="dashboard" [routerLink]="['/dashboard']">
+        <button
+            mat-button
+            class="navbar-company-logo-btn"
+            aria-label="dashboard"
+            [routerLink]="['/dashboard']"
+        >
             <span>PlaceholderCompany</span>
         </button>
     </div>

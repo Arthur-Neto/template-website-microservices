@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { take } from 'rxjs/operators';
+
 import { IUserCreateCommand } from '@modules/users/shared/users.model';
 import { UsersApiService } from '@modules/users/shared/users.service';
-
-import { take } from 'rxjs/operators';
 
 @Component({
     templateUrl: './login-create.component.html',
@@ -30,7 +30,12 @@ export class LoginCreateComponent implements OnInit {
         return this.form.controls.confirmPassword.hasError('pattern');
     }
 
-    constructor(private fb: FormBuilder, private router: Router, private usersApiService: UsersApiService, private snackBar: MatSnackBar) {}
+    constructor(
+        private fb: FormBuilder,
+        private router: Router,
+        private usersApiService: UsersApiService,
+        private snackBar: MatSnackBar
+    ) {}
 
     public ngOnInit(): void {
         this.form = this.fb.group({

@@ -1,10 +1,11 @@
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
-import { IAuthenticatedUser } from '@core/authentication/authentication-models';
-import { AuthenticationService } from '@core/authentication/authentication.service';
-import { IDayAndMonth } from '@shared/components/carousel-daypicker/carousel-daypicker.component';
-
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+
+import { IAuthenticatedUser } from '@core/authentication/authentication-models';
+import { AuthenticationService } from '@core/authentication/authentication.service';
+
+import { IDayAndMonth } from '@shared/components/carousel-daypicker/carousel-daypicker.component';
 
 @Component({
     selector: 'app-dashboard',
@@ -18,12 +19,17 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
     private ngUnsubscribe: Subject<void> = new Subject<void>();
 
-    constructor(private authenticationService: AuthenticationService, private cdr: ChangeDetectorRef) {}
+    constructor(
+        private authenticationService: AuthenticationService,
+        private cdr: ChangeDetectorRef
+    ) {}
 
     public ngOnInit(): void {
-        this.authenticationService.user.pipe(takeUntil(this.ngUnsubscribe)).subscribe((user: IAuthenticatedUser | null) => {
-            this.userLogged = user;
-        });
+        this.authenticationService.user
+            .pipe(takeUntil(this.ngUnsubscribe))
+            .subscribe((user: IAuthenticatedUser | null) => {
+                this.userLogged = user;
+            });
     }
 
     public ngOnDestroy(): void {

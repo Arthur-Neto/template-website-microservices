@@ -3,7 +3,9 @@
 </button>
 
 <div *ngIf="userLogged">
-    <button mat-button [matMenuTriggerFor]="menu">{{ userLogged.username }}</button>
+    <button mat-button [matMenuTriggerFor]="menu">
+        {{ userLogged.username }}
+    </button>
     <mat-menu #menu="matMenu">
         <button mat-menu-item (click)="editLogin()">
             <span>Edit info</span>

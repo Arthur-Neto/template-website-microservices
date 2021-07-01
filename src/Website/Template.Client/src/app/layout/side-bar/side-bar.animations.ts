@@ -1,4 +1,10 @@
-import { animate, state, style, transition, trigger } from '@angular/animations';
+import {
+    animate,
+    state,
+    style,
+    transition,
+    trigger,
+} from '@angular/animations';
 
 export const onSideNavChange = trigger('onSideNavChange', [
     transition('close => open', animate('250ms ease-in')),

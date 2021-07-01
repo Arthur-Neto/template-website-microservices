@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+
 import { SharedModule } from '@shared/shared.module';
 
 import { LayoutContentComponent } from './layout-content/layout-content.component';

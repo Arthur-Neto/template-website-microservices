@@ -8,27 +8,52 @@
                 <div class="row">
                     <div class="col">
                         <mat-form-field class="full-width">
-                            <input matInput placeholder="Username" formControlName="username" />
-                            <mat-error *ngIf="showUsernameRequiredError"> Username is <strong>required</strong> </mat-error>
-                            <mat-error *ngIf="showUsernameNotFoundError"> Username not found </mat-error>
+                            <input
+                                matInput
+                                placeholder="Username"
+                                formControlName="username"
+                            />
+                            <mat-error *ngIf="showUsernameRequiredError">
+                                Username is <strong>required</strong>
+                            </mat-error>
+                            <mat-error *ngIf="showUsernameNotFoundError">
+                                Username not found
+                            </mat-error>
                         </mat-form-field>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col">
                         <mat-form-field class="full-width">
-                            <input matInput placeholder="Password" formControlName="password" />
-                            <mat-error *ngIf="showPasswordRequiredError"> Password is <strong>required</strong> </mat-error>
-                            <mat-error *ngIf="showWrongPasswordError"> Invalid password </mat-error>
+                            <input
+                                matInput
+                                placeholder="Password"
+                                formControlName="password"
+                            />
+                            <mat-error *ngIf="showPasswordRequiredError">
+                                Password is <strong>required</strong>
+                            </mat-error>
+                            <mat-error *ngIf="showWrongPasswordError">
+                                Invalid password
+                            </mat-error>
                         </mat-form-field>
                     </div>
                 </div>
             </mat-card-content>
             <mat-card-actions class="login-actions">
-                <button mat-raised-button class="login-btn" color="primary" type="submit">Login</button>
+                <button
+                    mat-raised-button
+                    class="login-btn"
+                    color="primary"
+                    type="submit"
+                >
+                    Login
+                </button>
             </mat-card-actions>
         </mat-card>
     </form>
 
-    <a class="login-create-user" (click)="onCreateNewUser()"> Create new user </a>
+    <a class="login-create-user" (click)="onCreateNewUser()">
+        Create new user
+    </a>
 </div>

@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { take } from 'rxjs/operators';
+
 import { IAuthenticateCommand } from '@core/authentication/authentication-models';
 import { AuthenticationService } from '@core/authentication/authentication.service';
-
-import { take } from 'rxjs/operators';
 
 @Component({
     selector: 'app-login',

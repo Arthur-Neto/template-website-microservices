@@ -1,5 +1,13 @@
 import { SelectionModel } from '@angular/cdk/collections';
-import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import {
+    AfterViewInit,
+    Component,
+    EventEmitter,
+    Input,
+    OnInit,
+    Output,
+    ViewChild,
+} from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
@@ -30,7 +38,9 @@ export class GridComponent<T> implements OnInit, AfterViewInit {
 
     public ngOnInit(): void {
         this.hasIdColumn = this.displayedColumns[0] === 'id';
-        this.headers = this.hasIdColumn ? this.displayedColumns.slice(1) : this.displayedColumns;
+        this.headers = this.hasIdColumn
+            ? this.displayedColumns.slice(1)
+            : this.displayedColumns;
     }
 
     public ngAfterViewInit(): void {

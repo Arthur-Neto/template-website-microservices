@@ -2,12 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { take } from 'rxjs/operators';
+
 import { IAuthenticatedUser } from '@core/authentication/authentication-models';
 import { AuthenticationService } from '@core/authentication/authentication.service';
+
 import { IUserUpdateCommand } from '@modules/users/shared/users.model';
 import { UsersApiService } from '@modules/users/shared/users.service';
-
-import { take } from 'rxjs/operators';
 
 @Component({
     templateUrl: './login-edit.component.html',
@@ -42,15 +43,17 @@ export class LoginEditComponent implements OnInit {
     ) {}
 
     public ngOnInit(): void {
-        this.authenticationService.user.pipe(take(1)).subscribe((user: IAuthenticatedUser | null) => {
-            this.userLogged = user;
+        this.authenticationService.user
+            .pipe(take(1))
+            .subscribe((user: IAuthenticatedUser | null) => {
+                this.userLogged = user;
 
-            this.form = this.fb.group({
-                username: [user?.username, Validators.required],
-                password: [user?.password, Validators.required],
-                confirmPassword: [user?.password, Validators.required],
+                this.form = this.fb.group({
+                    username: [user?.username, Validators.required],
+                    password: [user?.password, Validators.required],
+                    confirmPassword: [user?.password, Validators.required],
+                });
             });
-        });
     }
 
     public onSubmit(): void {

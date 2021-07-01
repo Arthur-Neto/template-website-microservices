@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
     {
@@ -9,25 +9,25 @@ const routes: Routes = [
     },
     {
         path: 'auth',
-        loadChildren: () => import('@modules/login/login.module').then((m) => m.LoginModule),
+        loadChildren: () =>
+            import('@modules/login/login.module').then((m) => m.LoginModule),
     },
     {
         path: 'dashboard',
-        loadChildren: () => import('@modules/dashboard/dashboard.module').then((m) => m.DashboardModule),
+        loadChildren: () =>
+            import('@modules/dashboard/dashboard.module').then(
+                (m) => m.DashboardModule
+            ),
     },
     {
         path: 'users',
-        loadChildren: () => import('@modules/users/users.module').then((m) => m.UsersModule),
+        loadChildren: () =>
+            import('@modules/users/users.module').then((m) => m.UsersModule),
     },
 ];
 
 @NgModule({
-    imports: [
-        RouterModule.forRoot(routes, {
-            useHash: true,
-            preloadingStrategy: PreloadAllModules,
-        }),
-    ],
+    imports: [RouterModule.forRoot(routes)],
     exports: [RouterModule],
 })
 export class AppRoutingModule {}

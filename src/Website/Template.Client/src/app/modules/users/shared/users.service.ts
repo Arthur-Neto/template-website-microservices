@@ -1,27 +1,29 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { environment } from '@env';
-
 import { Observable } from 'rxjs';
 
-import { IUserCreateCommand, IUsersGridModel, IUserUpdateCommand } from './users.model';
+import { environment } from '@env';
+
+import {
+    IUserCreateCommand,
+    IUsersGridModel,
+    IUserUpdateCommand,
+} from './users.model';
 
 @Injectable()
 export class UsersApiService {
     private apiUrl: string;
 
-    constructor(
-        private http: HttpClient
-    ) {
-        this.apiUrl = `${ environment.apiUrl }api/users`;
+    constructor(private http: HttpClient) {
+        this.apiUrl = `${environment.apiUrl}api/users`;
     }
 
     public create(command: IUserCreateCommand): Observable<number> {
-        return this.http.post<number>(`${ this.apiUrl }`, command);
+        return this.http.post<number>(`${this.apiUrl}`, command);
     }
 
     public update(command: IUserUpdateCommand): Observable<boolean> {
-        return this.http.put<boolean>(`${ this.apiUrl }`, command);
+        return this.http.put<boolean>(`${this.apiUrl}`, command);
     }
 }
 
@@ -29,13 +31,11 @@ export class UsersApiService {
 export class UsersODataService {
     private odataUrl: string;
 
-    constructor(
-        private http: HttpClient
-    ) {
-        this.odataUrl = `${ environment.apiUrl }odata/users`;
+    constructor(private http: HttpClient) {
+        this.odataUrl = `${environment.apiUrl}odata/users`;
     }
 
     public get(): Observable<IUsersGridModel[]> {
-        return this.http.get<IUsersGridModel[]>(`${ this.odataUrl }`);
+        return this.http.get<IUsersGridModel[]>(`${this.odataUrl}`);
     }
 }

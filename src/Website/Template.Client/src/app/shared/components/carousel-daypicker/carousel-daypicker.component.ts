@@ -1,5 +1,4 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-
 import * as moment from 'moment';
 
 interface IDayOnWeek {
@@ -19,7 +18,8 @@ export interface IDayAndMonth {
     styleUrls: ['./carousel-daypicker.component.scss'],
 })
 export class CarouselDaypickerComponent implements OnInit {
-    @Output() dayChanged: EventEmitter<IDayAndMonth> = new EventEmitter<IDayAndMonth>();
+    @Output() dayChanged: EventEmitter<IDayAndMonth> =
+        new EventEmitter<IDayAndMonth>();
 
     public daysOnWeek: IDayOnWeek[] = [];
     public isCurrentWeek = false;
@@ -31,7 +31,9 @@ export class CarouselDaypickerComponent implements OnInit {
     }
 
     public onWeekChange(nextWeek: boolean): void {
-        nextWeek ? this.changeWeek(++this.weekNumber) : this.changeWeek(--this.weekNumber);
+        nextWeek
+            ? this.changeWeek(++this.weekNumber)
+            : this.changeWeek(--this.weekNumber);
     }
 
     public onDayChange(dayOnWeek: IDayOnWeek): void {
@@ -45,10 +47,14 @@ export class CarouselDaypickerComponent implements OnInit {
         this.isCurrentWeek = false;
         this.daysOnWeek = [];
         const today = new Date();
-        const startOfWeek: moment.Moment = moment().add(weekNumber, 'weeks').startOf('isoWeek');
+        const startOfWeek: moment.Moment = moment()
+            .add(weekNumber, 'weeks')
+            .startOf('isoWeek');
 
         for (let i = 0; i <= 6; i++) {
-            const dayAndMonth: string = moment(startOfWeek).add(i, 'days').format('DD/MM');
+            const dayAndMonth: string = moment(startOfWeek)
+                .add(i, 'days')
+                .format('DD/MM');
 
             let dayBeforeToday = false;
             let dayName: string;
@@ -56,7 +62,11 @@ export class CarouselDaypickerComponent implements OnInit {
             if (day.isSame(today, 'day')) {
                 dayName = 'TODAY';
                 this.isCurrentWeek = true;
-                this.onDayChange({ dayName, dayAndMonth, dayBeforeToday: false });
+                this.onDayChange({
+                    dayName,
+                    dayAndMonth,
+                    dayBeforeToday: false,
+                });
             } else {
                 dayName = day.format('ddd').toUpperCase();
 

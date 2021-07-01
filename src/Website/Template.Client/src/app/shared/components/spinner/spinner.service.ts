@@ -1,7 +1,6 @@
 import { Overlay, OverlayRef } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
 import { Injectable } from '@angular/core';
-
 import { defer, NEVER } from 'rxjs';
 import { finalize, share } from 'rxjs/operators';
 
@@ -34,7 +33,11 @@ export class SpinnerService {
         Promise.resolve(null).then(() => {
             if (!this.overlayRef) {
                 this.overlayRef = this.overlay.create({
-                    positionStrategy: this.overlay.position().global().centerHorizontally().centerVertically(),
+                    positionStrategy: this.overlay
+                        .position()
+                        .global()
+                        .centerHorizontally()
+                        .centerVertically(),
                     hasBackdrop: true,
                 });
             }

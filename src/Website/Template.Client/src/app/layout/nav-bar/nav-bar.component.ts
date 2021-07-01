@@ -1,5 +1,9 @@
 import { Component, Input } from '@angular/core';
-import { IAuthenticatedUser, Role } from '@core/authentication/authentication-models';
+
+import {
+    IAuthenticatedUser,
+    Role,
+} from '@core/authentication/authentication-models';
 import { AuthenticationService } from '@core/authentication/authentication.service';
 
 import { SideBarComponent } from '../side-bar/side-bar.component';
@@ -17,9 +21,11 @@ export class NavBarComponent {
     constructor(private authenticationService: AuthenticationService) {}
 
     public ngOnInit(): void {
-        this.authenticationService.user.subscribe((user: IAuthenticatedUser | null) => {
-            this.isUserLoggedManager = user?.role === Role.Manager;
-        });
+        this.authenticationService.user.subscribe(
+            (user: IAuthenticatedUser | null) => {
+                this.isUserLoggedManager = user?.role === Role.Manager;
+            }
+        );
     }
 
     public onSidenavToggle() {

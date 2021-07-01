@@ -5,7 +5,11 @@
         {
             "files": ["*.ts"],
             "parser": "@typescript-eslint/parser",
-            "extends": ["plugin:@angular-eslint/recommended", "plugin:@typescript-eslint/recommended", "plugin:prettier/recommended"],
+            "extends": [
+                "plugin:@angular-eslint/recommended",
+                "plugin:@typescript-eslint/recommended",
+                "plugin:prettier/recommended"
+            ],
             "plugins": ["prettier"],
             "rules": {
                 "@angular-eslint/directive-selector": [
@@ -29,7 +33,10 @@
         },
         {
             "files": ["*.html"],
-            "extends": ["plugin:@angular-eslint/template/recommended", "prettier"],
+            "extends": [
+                "plugin:@angular-eslint/template/recommended",
+                "prettier"
+            ],
             "plugins": ["prettier"],
             "rules": {
                 "prettier/prettier": "error"
