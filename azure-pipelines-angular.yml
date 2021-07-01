@@ -8,7 +8,7 @@ pool:
 
 steps:
 - script: |
-    npmVersionString=$(node -p "require('./components/ng-grid/package.json').version") 
+    npmVersionString=$(node -p "require('./src/Website/Template.Client/package.json').version") 
     echo "##vso[build.updatebuildnumber]$npmVersionString"
   displayName: 'Set build number'
 
