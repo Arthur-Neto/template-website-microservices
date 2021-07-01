@@ -28,7 +28,7 @@ steps:
     projects: 'src/Website/Template.API/**/*.csproj'
 
 - powershell: |
-    $xml = [Xml] (Get-Content src\Website\Template.API\Template.WebApiTemplate.WebApi.csproj.csproj)
+    $xml = [Xml] (Get-Content src\Website\Template.API\Template.WebApi\Template.WebApi.csproj)
     $version = $xml.Project.PropertyGroup.Version
     
     echo $version
@@ -50,6 +50,7 @@ steps:
 #  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
 #  inputs:
 #    command: 'push'
+#    arguments: '--skip-duplicate'
 #    packagesToPush: '$(System.DefaultWorkingDirectory)/**/$(buildConfiguration)/**/*.$(version).nupkg'
 #    nuGetFeedType: 'internal'
 #    publishVstsFeed: 'e7902e1c-f9a4-4aac-9ebb-dcc718fe7809'
