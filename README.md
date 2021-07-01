@@ -12,10 +12,8 @@ Backend [![Build Status](https://netoarthur.visualstudio.com/Pipelines%20Github/
 > Frontend
 >> * Angular
 >> * Angular Material
->> * RxJS
 >> * Moment
->> * Typescript
- 
+
 > Backend
 >> * .NET 5
 >> * AutoMapper
