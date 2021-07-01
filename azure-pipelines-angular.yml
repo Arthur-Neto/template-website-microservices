@@ -3,26 +3,41 @@
 # Add steps that analyze code, save build artifacts, deploy, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
 
-trigger:
-  paths:
-    include:
-    - src/Website/Template.Client/*
-
 pool:
   vmImage: ubuntu-latest
 
 steps:
+- script: |
+    npmVersionString=$(node -p "require('./src/Website/Template.Client/package.json').version") 
+    echo "##vso[build.updatebuildnumber]$npmVersionString"
+  displayName: 'Set build number'
+
 - task: NodeTool@0
   inputs:
-    versionSpec: '10.x'
+    versionSpec: '14.x'
   displayName: 'Install Node.js'
 
 - script: |
     npm install -g @angular/cli
     npm install
-    ng build --prod --aot
+    npm run build
   workingDirectory: src/Website/Template.Client
   displayName: 'npm install and build'
+
+- task: PublishTestResults@2
+  condition: succeededOrFailed()
+  displayName: 'Publish unit test results'
+  inputs:
+    testResultsFormat: 'JUnit'
+    testResultsFiles: '**/TESTS-*.xml'
+
+- task: PublishCodeCoverageResults@1
+  displayName: 'Publish code coverage report'
+  condition: succeededOrFailed()
+  inputs:
+    codeCoverageTool: Cobertura
+    summaryFileLocation: '$(Build.SourcesDirectory)/coverage/cobertura-coverage.xml'
+    failIfCoverageEmpty: true
 
 #- task: CopyFiles@2
 #  inputs:
