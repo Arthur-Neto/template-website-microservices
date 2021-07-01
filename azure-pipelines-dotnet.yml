@@ -42,8 +42,8 @@ steps:
   displayName: "Running Unit Tests"
   inputs:
     command: 'test'
-    projects: 'src/Website/Template.API/**/*Tests.csproj'
-    arguments: '--collect "Code coverage"'
+    projects: 'src/Website/Template.API/Template.Tests/*.csproj'
+    arguments: '--configuration $(buildConfiguration) --collect "Code coverage"'
 
 #- task: DotNetCoreCLI@2
 #  displayName: "Pushing to NuGet Feed"
