@@ -101,7 +101,7 @@ namespace Template.Tests.Application.TenantsModule.Commands
                 .Returns(true);
 
             _moqJwtTokenFactory
-                .Setup(p => p.CreateToken(secret, tokenExpiration, tenant.ID.ToString(), tenant.Role.ToString(), tenant.Enterprise.ConnectionString))
+                .Setup(p => p.CreateToken(secret, tokenExpiration, tenant.ID.ToString(), tenant.Role.ToString(), tenant.Enterprise.NormalizedEnterpriseName))
                 .Returns(It.IsAny<string>());
 
             _moqMapper
