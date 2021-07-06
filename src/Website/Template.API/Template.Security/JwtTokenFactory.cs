@@ -24,7 +24,7 @@ namespace Template.Security
                 {
                     new Claim(ClaimTypes.Name, claimName),
                     new Claim(ClaimTypes.Role, claimRole),
-                    new Claim("enterprise_schema", claimEnterprise),
+                    new Claim(CustomClaims.EnterpriseName, claimEnterprise),
                 }),
                 Expires = DateTime.UtcNow.AddMinutes(tokenExpiration),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha512Signature)

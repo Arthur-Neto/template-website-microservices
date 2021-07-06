@@ -1,16 +1,15 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Template.Infra.Crosscutting.Constants;
 
 namespace Template.Infra.Data.EF.Contexts
 {
     public interface IEnterpriseProvider
     {
-        string GetSchemaName();
+        string GetTenantConnectionString();
     }
 
     public class EnterpriseProvider : IEnterpriseProvider
     {
-        private readonly string _schemaFormat = "Template_{0}";
-
         private readonly IHttpContextAccessor _accesor;
 
         public EnterpriseProvider(IHttpContextAccessor accesor)
@@ -18,11 +17,11 @@ namespace Template.Infra.Data.EF.Contexts
             _accesor = accesor;
         }
 
-        public string GetSchemaName()
+        public string GetTenantConnectionString()
         {
-            var schemaName = _accesor.HttpContext?.Items["Schema"].ToString();
+            var connectionString = _accesor.HttpContext?.Items[HttpContextKeys.TenantConnectionString].ToString();
 
-            return string.Format(_schemaFormat, schemaName);
+            return connectionString;
         }
     }
 }

@@ -5,20 +5,25 @@ namespace Template.Infra.Data.EF.Contexts
 {
     public class TenantDbContext : DbContext, ITenantDbContext
     {
-        public readonly string SchemaName;
+        public readonly string ConnectionString;
 
         public TenantDbContext(DbContextOptions<TenantDbContext> options, IEnterpriseProvider entepriseProvider)
             : base(options)
         {
-            SchemaName = entepriseProvider.GetSchemaName();
+            ConnectionString = entepriseProvider.GetTenantConnectionString();
+        }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlServer(ConnectionString);
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.HasDefaultSchema(SchemaName);
-
             if (Database.ProviderName.Equals(ProviderNames.Postgres))
             {
+                modelBuilder.HasDefaultSchema(ConnectionString);
+
                 modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetAssembly(typeof(Postgres.UsersModule.UserConfiguration)));
             }
             else

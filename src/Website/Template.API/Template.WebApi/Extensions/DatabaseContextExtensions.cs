@@ -9,20 +9,31 @@ using Template.Infra.Data.EF.Contexts;
 
 namespace Template.WebApi.Extensions
 {
-    // TODO: REVER
     public static class DatabaseContextExtensions
     {
         public static void AddDatabaseContext(this IServiceCollection services, IConfiguration configuration)
         {
-            //Action<DbContextOptionsBuilder> action = (DbContextOptionsBuilder builder) => builder.UseInMemoryDatabase("TemplateMaster"); ;
             if (bool.Parse(configuration["UseInMemory"]))
             {
-                //action = (DbContextOptionsBuilder builder) => builder.UseInMemoryDatabase("TemplateMaster");
-                //services.AddDbContext<TenantDbContext>(opt => action.BuildDatabaseContext(opt));
+                services.AddEntityFrameworkInMemoryDatabase()
+                    .AddDbContext<MasterDbContext>(opt => opt.UseInMemoryDatabase("Template"))
+                    .AddDbContext<TenantDbContext>((serviceProvider, options) => options
+                        .UseInMemoryDatabase("Template")
+                        .UseInternalServiceProvider(serviceProvider));
+                return;
             }
-            else
+
+            if (bool.Parse(configuration["UseMultiTenantDatabase"]))
             {
-                if (bool.Parse(configuration["UseMultiTenantDatabase"]))
+                if (bool.Parse(configuration["UseSQLServer"]))
+                {
+                    services.AddEntityFrameworkSqlServer()
+                        .AddDbContext<MasterDbContext>(opt => opt.UseSqlServer(configuration.GetConnectionString("SqlServer")))
+                        .AddDbContext<TenantDbContext>((serviceProvider, options) => options
+                            .UseSqlServer(configuration.GetConnectionString("SqlServer"))
+                            .UseInternalServiceProvider(serviceProvider));
+                }
+                else
                 {
                     services.AddEntityFrameworkNpgsql()
                         .AddDbContext<MasterDbContext>(opt => opt.UseNpgsql(configuration.GetConnectionString("Postgres")))
@@ -30,16 +41,28 @@ namespace Template.WebApi.Extensions
                             .UseNpgsql(configuration.GetConnectionString("Postgres"))
                             .UseInternalServiceProvider(serviceProvider));
                 }
+
+                services.Replace(ServiceDescriptor.Singleton<IModelCacheKeyFactory, MultiTenantModelCacheKeyFactory>());
+            }
+            else
+            {
+                if (bool.Parse(configuration["UseSQLServer"]))
+                {
+                    services.AddEntityFrameworkSqlServer()
+                        .AddDbContext<MasterDbContext>(opt => opt.UseSqlServer(configuration.GetConnectionString("SqlServer")))
+                        .AddDbContext<TenantDbContext>((serviceProvider, options) => options
+                            .UseSqlServer(configuration.GetConnectionString("SqlServer"))
+                            .UseInternalServiceProvider(serviceProvider));
+                }
                 else
                 {
-                    //action = (DbContextOptionsBuilder builder) => builder.UseSqlServer(configuration.GetConnectionString("SqlServer"));
-                    //services.AddDbContext<TenantDbContext>(opt => action.BuildDatabaseContext(opt));
+                    services.AddEntityFrameworkNpgsql()
+                        .AddDbContext<MasterDbContext>(opt => opt.UseNpgsql(configuration.GetConnectionString("Postgres")))
+                        .AddDbContext<TenantDbContext>((serviceProvider, options) => options
+                            .UseNpgsql(configuration.GetConnectionString("Postgres"))
+                            .UseInternalServiceProvider(serviceProvider));
                 }
             }
-
-            //services.AddDbContext<MasterDbContext>(opt => action.BuildDatabaseContext(opt));
-
-            services.Replace(ServiceDescriptor.Singleton<IModelCacheKeyFactory, MultiTenantModelCacheKeyFactory>());
         }
 
         public static void BuildDatabaseContext(this Action<DbContextOptionsBuilder> action, DbContextOptionsBuilder builder)

@@ -16,7 +16,7 @@ CREATE SCHEMA "Template_TESTE2";
 CREATE TABLE "TemplateMaster"."Enterprise" (
     "ID" uuid DEFAULT public.uuid_generate_v4() NOT NULL,
     "EnterpriseName" character varying(100) NOT NULL,
-    "SchemaName" character varying(100) NOT NULL
+    "ConnectionString" character varying(100) NOT NULL
 );
 
 CREATE TABLE "TemplateMaster"."Tenant" (
@@ -38,7 +38,7 @@ CREATE TABLE "Template_TESTE2"."User" (
     "Name" character varying(100) NOT NULL
 );
 
-COPY "TemplateMaster"."Enterprise" ("ID", "EnterpriseName", "SchemaName") FROM stdin;
+COPY "TemplateMaster"."Enterprise" ("ID", "EnterpriseName", "ConnectionString") FROM stdin;
 123a390f-5362-445d-8d03-d2b234095cb6	Teste1	TESTE1
 82564bde-01e3-4b23-bc69-5e4a4e114461	Teste2	TESTE2
 \.

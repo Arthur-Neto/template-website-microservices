@@ -8,6 +8,7 @@
         IDShouldBeGreaterThanZero,
         FailToAutenticateUser,
         SecretKeyTooShort,
-        SaveChangesFailure
+        SaveChangesFailure,
+        EnterpriseNotFound
     }
 }

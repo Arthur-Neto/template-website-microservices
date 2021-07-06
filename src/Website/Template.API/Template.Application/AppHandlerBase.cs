@@ -50,6 +50,11 @@ namespace Template.Application
             _logger = logger;
         }
 
+        protected AppHandlerBase(TRepository repository)
+        {
+            _repository = repository;
+        }
+
         protected AppHandlerBase(TRepository repository, IMapper mapper, ILogger logger)
             : this(logger)
         {

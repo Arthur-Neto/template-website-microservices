@@ -81,7 +81,7 @@ namespace Template.Tests.Application.TenantsModule.Commands
                 Role = Role.Client,
                 Enterprise = new Enterprise()
                 {
-                    SchemaName = "mock-schema"
+                    ConnectionString = "mock-schema"
                 }
             };
 
@@ -101,7 +101,7 @@ namespace Template.Tests.Application.TenantsModule.Commands
                 .Returns(true);
 
             _moqJwtTokenFactory
-                .Setup(p => p.CreateToken(secret, tokenExpiration, tenant.ID.ToString(), tenant.Role.ToString(), tenant.Enterprise.SchemaName))
+                .Setup(p => p.CreateToken(secret, tokenExpiration, tenant.ID.ToString(), tenant.Role.ToString(), tenant.Enterprise.ConnectionString))
                 .Returns(It.IsAny<string>());
 
             _moqMapper

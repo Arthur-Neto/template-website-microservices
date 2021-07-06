@@ -5,33 +5,33 @@ namespace Template.Infra.Data.EF.Contexts
 {
     public class MultiTenantModelCacheKeyFactory : IModelCacheKeyFactory
     {
-        private string _schemaName;
+        private string _connectionString;
 
         public object Create(DbContext context)
         {
             var dataContext = context as TenantDbContext;
             if (dataContext != null)
             {
-                _schemaName = dataContext.SchemaName;
+                _connectionString = dataContext.ConnectionString;
             }
 
-            return new MultiTenantModelCacheKey(_schemaName, context);
+            return new MultiTenantModelCacheKey(_connectionString, context);
         }
     }
 
     public class MultiTenantModelCacheKey : ModelCacheKey
     {
-        private readonly string _schemaName;
+        private readonly string _connectionString;
 
-        public MultiTenantModelCacheKey(string schemaName, DbContext context)
+        public MultiTenantModelCacheKey(string connectionString, DbContext context)
             : base(context)
         {
-            _schemaName = schemaName;
+            _connectionString = connectionString;
         }
 
         public override int GetHashCode()
         {
-            return _schemaName.GetHashCode();
+            return _connectionString.GetHashCode();
         }
     }
 }

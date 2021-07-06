@@ -85,7 +85,7 @@ namespace Template.Application.TenantsModule.Commands
                 tokenExpiration = 60;
             }
 
-            tenant.Value.Token = _jwtTokenFactory.CreateToken(secret, tokenExpiration, tenant.Value.ID.ToString(), tenant.Value.Role.ToString(), tenant.Value.Enterprise.SchemaName.ToString());
+            tenant.Value.Token = _jwtTokenFactory.CreateToken(secret, tokenExpiration, tenant.Value.ID.ToString(), tenant.Value.Role.ToString(), tenant.Value.Enterprise.NormalizedEnterpriseName);
 
             return Result.Success(_mapper.Map<AuthenticatedTenantModel>(tenant.Value));
         }
