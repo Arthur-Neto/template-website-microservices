@@ -1,0 +1,7 @@
+<app-spinner [isLoading]="isLoading"></app-spinner>
+
+<h1>Carousel Daypicker</h1>
+<app-carousel-daypicker
+    (dayChanged)="onDayChanged($event)"
+></app-carousel-daypicker>
+<span>Select day and month: {{dayAndMonth.day}}/{{dayAndMonth.month}}</span>

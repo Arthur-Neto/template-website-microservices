@@ -1,0 +1,15 @@
+{
+    "recommendations": [
+        "coenraads.bracket-pair-colorizer",
+        "waderyan.gitblame",
+        "donjayamanne.githistory",
+        "eamodio.gitlens",
+        "zignd.html-css-class-completion",
+        "eg2.vscode-npm-script",
+        "christian-kohler.npm-intellisense",
+        "pflannery.vscode-versionlens",
+        "dbaeumer.vscode-eslint",
+        "abusaidm.html-snippets",
+        "esbenp.prettier-vscode"
+    ]
+}

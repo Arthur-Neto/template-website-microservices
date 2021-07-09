@@ -1,0 +1,22 @@
+<button
+    *ngIf="!(userLogged$ | async)?.isAuthenticated"
+    mat-button
+    aria-label="login"
+    (click)="login()"
+>
+    <span>Login</span>
+</button>
+
+<div *ngIf="(userLogged$ | async)?.isAuthenticated">
+    <button mat-button [matMenuTriggerFor]="menu">
+        {{ (userLogged$ | async)?.username }}
+    </button>
+    <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="editLogin()">
+            <span>Edit info</span>
+        </button>
+        <button mat-menu-item (click)="logout()">
+            <span>Logout</span>
+        </button>
+    </mat-menu>
+</div>

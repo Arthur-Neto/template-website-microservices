@@ -8,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using OData.Swagger.Services;
 using Template.Application;
+using Template.Identity;
 using Template.Security;
 using Template.Serilog;
 using Template.WebApi.Extensions;
@@ -47,7 +48,9 @@ namespace Template.WebApi
 
             services.AddSecurityHelpers();
 
-            services.ConfigAuthentication(Configuration);
+            // services.ConfigAuthentication(Configuration);
+
+            services.ConfigureIdentity("template", "901564A5-E7FE-42CB-B10D-61EF6A8F3654", "/api/public/login");
 
             services.AddDependencies();
 

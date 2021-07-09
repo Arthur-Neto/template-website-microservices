@@ -32,6 +32,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Template.Application\Template.Application.csproj" />
     <ProjectReference Include="..\Template.Domain\Template.Domain.csproj" />
+    <ProjectReference Include="..\Template.Identity\Template.Identity.csproj" />
     <ProjectReference Include="..\Template.Infra.Crosscutting\Template.Infra.Crosscutting.csproj" />
     <ProjectReference Include="..\Template.Infra.Data.EF\Template.Infra.Data.EF.csproj" />
     <ProjectReference Include="..\Template.Serilog\Template.Serilog.csproj" />

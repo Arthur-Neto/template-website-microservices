@@ -1,0 +1,25 @@
+<mat-drawer-container class="sidebar-container mat-typography">
+    <mat-drawer #sidenav *ngIf="isUserLoggedManager" mode="side" opened>
+        <div
+            class="sidebar-list"
+            [@onSideNavChange]="isExpanded ? 'open' : 'close'"
+        >
+            <mat-nav-list>
+                <mat-list-item [routerLink]="'/users'">
+                    <mat-icon mat-list-icon>person</mat-icon>
+                    <span [@animateText]="isExpanded ? 'show' : 'hide'">
+                        Users
+                    </span>
+                </mat-list-item>
+            </mat-nav-list>
+        </div>
+    </mat-drawer>
+
+    <mat-drawer-content
+        class="sidebar-content"
+        [@onMainContentChange]="sidebarState"
+    >
+        <app-spinner [isLoading]="isLoading"></app-spinner>
+        <router-outlet></router-outlet>
+    </mat-drawer-content>
+</mat-drawer-container>

@@ -1,0 +1,33 @@
+<div class="daypicker-content">
+    <button
+        mat-button
+        disableRipple
+        class="daypicker-button daypicker-button--navigate"
+        color="secundary"
+        [disabled]="isCurrentWeek"
+        (click)="onWeekChange(false)"
+    >
+        <mat-icon>navigate_before</mat-icon>
+    </button>
+    <div *ngFor="let dayOnWeek of daysOnWeek">
+        <button
+            mat-button
+            class="daypicker-button"
+            color="secundary"
+            [disabled]="dayOnWeek.dayBeforeToday"
+            (click)="onDayChange(dayOnWeek)"
+        >
+            {{dayOnWeek.dayName}} <br />
+            {{dayOnWeek.dayAndMonth}}
+        </button>
+    </div>
+    <button
+        mat-button
+        disableRipple
+        class="daypicker-button daypicker-button--navigate"
+        color="secundary"
+        (click)="onWeekChange(true)"
+    >
+        <mat-icon>navigate_next</mat-icon>
+    </button>
+</div>

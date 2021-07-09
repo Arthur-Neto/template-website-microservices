@@ -37,6 +37,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Template.Security", "Templa
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Template.Serilog", "Template.Serilog\Template.Serilog.csproj", "{BEEF3791-4394-4D80-9124-0D0E71BFEAC9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Template.Identity", "Template.Identity\Template.Identity.csproj", "{1DDED9D9-1A8B-4BD7-AA27-EC10C9901865}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -87,6 +89,10 @@ Global
 		{BEEF3791-4394-4D80-9124-0D0E71BFEAC9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BEEF3791-4394-4D80-9124-0D0E71BFEAC9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BEEF3791-4394-4D80-9124-0D0E71BFEAC9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1DDED9D9-1A8B-4BD7-AA27-EC10C9901865}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1DDED9D9-1A8B-4BD7-AA27-EC10C9901865}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1DDED9D9-1A8B-4BD7-AA27-EC10C9901865}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1DDED9D9-1A8B-4BD7-AA27-EC10C9901865}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -104,6 +110,7 @@ Global
 		{086F41F6-B2D3-4540-AF20-FB23E565E88E} = {C8320742-712B-4354-8DE9-B487CC30AA26}
 		{A63D976F-96A4-4E24-8C01-5D74DED02051} = {C8320742-712B-4354-8DE9-B487CC30AA26}
 		{BEEF3791-4394-4D80-9124-0D0E71BFEAC9} = {C8320742-712B-4354-8DE9-B487CC30AA26}
+		{1DDED9D9-1A8B-4BD7-AA27-EC10C9901865} = {C8320742-712B-4354-8DE9-B487CC30AA26}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0DA186E5-D60B-4458-A221-EC3F188DEFB1}

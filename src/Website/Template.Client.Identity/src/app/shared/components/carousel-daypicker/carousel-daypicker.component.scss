@@ -1,0 +1,16 @@
+.daypicker-content {
+    display: flex;
+    margin-left: 1.6%;
+    margin-right: 1.6%;
+    margin-top: 1.6%;
+
+    .daypicker-button {
+        margin-left: 0.5%;
+        margin-right: 0.5%;
+
+        &--navigate {
+            justify-content: center;
+            align-items: center;
+        }
+    }
+}

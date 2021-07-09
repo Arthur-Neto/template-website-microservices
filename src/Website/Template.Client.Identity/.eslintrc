@@ -1,0 +1,46 @@
+{
+    "root": true,
+    "ignorePatterns": ["**/*"],
+    "overrides": [
+        {
+            "files": ["*.ts"],
+            "parser": "@typescript-eslint/parser",
+            "extends": [
+                "plugin:@angular-eslint/recommended",
+                "plugin:@typescript-eslint/recommended",
+                "plugin:prettier/recommended"
+            ],
+            "plugins": ["prettier"],
+            "rules": {
+                "@angular-eslint/directive-selector": [
+                    "error",
+                    {
+                        "type": "attribute",
+                        "prefix": "printwayy",
+                        "style": "camelCase"
+                    }
+                ],
+                "@angular-eslint/component-selector": [
+                    "error",
+                    {
+                        "type": "element",
+                        "prefix": "printwayy",
+                        "style": "kebab-case"
+                    }
+                ],
+                "prettier/prettier": "error"
+            }
+        },
+        {
+            "files": ["*.html"],
+            "extends": [
+                "plugin:@angular-eslint/template/recommended",
+                "prettier"
+            ],
+            "plugins": ["prettier"],
+            "rules": {
+                "prettier/prettier": "error"
+            }
+        }
+    ]
+}
