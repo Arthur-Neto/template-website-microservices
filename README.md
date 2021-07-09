@@ -13,6 +13,7 @@ Backend [![Build Status Backend](https://netoarthur.visualstudio.com/Pipelines%2
 >> * Angular
 >> * Angular Material
 >> * Moment
+>> * Redux
 
 > Backend
 >> * .NET 5
