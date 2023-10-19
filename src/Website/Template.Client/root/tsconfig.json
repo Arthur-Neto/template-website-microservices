@@ -1,0 +1,11 @@
+{
+  "extends": "ts-config-single-spa",
+  "files": ["src/template-root-config.ts"],
+  "compilerOptions": {
+    "declarationDir": "dist",
+    "forceConsistentCasingInFileNames": true,
+    "strict": true
+  },
+  "include": ["src/**/*"],
+  "exclude": ["src/**/*.test*"]
+}
