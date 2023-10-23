@@ -9,7 +9,7 @@ public interface ICreateRepository<TEntity> : IDisposable where TEntity : class
 
 public interface IRetrieveByIDRepository<TEntity> : IDisposable where TEntity : class
 {
-    Task<TEntity> RetrieveByIDAsync(Guid id, CancellationToken cancellationToken);
+    Task<TEntity?> RetrieveByIDAsync(Guid id, CancellationToken cancellationToken);
 }
 
 public interface IRetrieveListByIDsRepository<TEntity> : IDisposable where TEntity : class
@@ -29,7 +29,7 @@ public interface IDeleteRepository<in TEntity> : IDisposable where TEntity : cla
 
 public interface ISingleOrDefaultRepository<TEntity> : IDisposable where TEntity : class
 {
-    Task<TEntity> SingleOrDefaultAsync(
+    Task<TEntity?> SingleOrDefaultAsync(
         Expression<Func<TEntity, bool>> expression,
         bool tracking,
         CancellationToken cancellationToken,
@@ -39,7 +39,7 @@ public interface ISingleOrDefaultRepository<TEntity> : IDisposable where TEntity
 
 public interface IFirstOrDefaultRepository<TEntity> : IDisposable where TEntity : class
 {
-    Task<TEntity> FirstOrDefaultAsync(
+    Task<TEntity?> FirstOrDefaultAsync(
         Expression<Func<TEntity, bool>> expression,
         bool tracking,
         CancellationToken cancellationToken,

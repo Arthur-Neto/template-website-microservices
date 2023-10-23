@@ -15,7 +15,8 @@ public class GenericRepository<TEntity>
       IFirstOrDefaultRepository<TEntity>,
       ICountRepository<TEntity>,
       IAnyRepository<TEntity>,
-      IRetrieveByExpressionRepository<TEntity>
+      IRetrieveByExpressionRepository<TEntity>,
+      IRetrieveAllRepository<TEntity>
     where TEntity : class
 {
     public IDatabaseContext Context { get; }
@@ -42,7 +43,7 @@ public class GenericRepository<TEntity>
         return Task.Run(() => Context.Set<TEntity>().Remove(entity), cancellationToken);
     }
 
-    public Task<TEntity> SingleOrDefaultAsync(
+    public Task<TEntity?> SingleOrDefaultAsync(
         Expression<Func<TEntity, bool>> expression,
         bool tracking,
         CancellationToken cancellationToken,
@@ -68,7 +69,7 @@ public class GenericRepository<TEntity>
             .SingleOrDefaultAsync(expression, cancellationToken);
     }
 
-    public Task<TEntity> FirstOrDefaultAsync(Expression<Func<TEntity, bool>> expression, bool tracking, CancellationToken cancellationToken, params Expression<Func<TEntity, object>>[] includeExpression)
+    public Task<TEntity?> FirstOrDefaultAsync(Expression<Func<TEntity, bool>> expression, bool tracking, CancellationToken cancellationToken, params Expression<Func<TEntity, object>>[] includeExpression)
     {
         IQueryable<TEntity> query = Context.Set<TEntity>().AsQueryable();
 
@@ -144,21 +145,25 @@ public class GenericRepository<TEntity>
             .Where(expression)
             .ToListAsync(cancellationToken);
     }
+
+    public Task<List<TEntity>> RetrieveAllAsync(CancellationToken cancellationToken)
+    {
+        return Context.Set<TEntity>().ToListAsync(cancellationToken);
+    }
 }
 
 public sealed class GenericEntityRepository<TEntity> :
     GenericRepository<TEntity>,
     IRetrieveByIDRepository<TEntity>,
-    IRetrieveListByIDsRepository<TEntity>,
-    IRetrieveAllRepository<TEntity>
-    where TEntity : Entity
+    IRetrieveListByIDsRepository<TEntity>
+  where TEntity : Entity
 {
 
     public GenericEntityRepository(IDatabaseContext context)
         : base(context)
     { }
 
-    public Task<TEntity> RetrieveByIDAsync(Guid id, CancellationToken cancellationToken)
+    public Task<TEntity?> RetrieveByIDAsync(Guid id, CancellationToken cancellationToken)
     {
         return Context.Set<TEntity>().FirstOrDefaultAsync(p => p.Id == id, cancellationToken);
     }
@@ -168,10 +173,5 @@ public sealed class GenericEntityRepository<TEntity> :
         return tracking
             ? Task.Run(() => Context.Set<TEntity>().Where(t => ids.Contains(t.Id)), cancellationToken)
             : Task.Run(() => Context.Set<TEntity>().AsNoTracking().Where(t => ids.Contains(t.Id)), cancellationToken);
-    }
-
-    public Task<List<TEntity>> RetrieveAllAsync(CancellationToken cancellationToken)
-    {
-        return Context.Set<TEntity>().ToListAsync(cancellationToken);
     }
 }
